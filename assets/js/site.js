@@ -616,16 +616,16 @@ void main(){
 
   /* ---------- luz nas caixas e botões ---------- */
   if (fino) {
+    // um cálculo por quadro no máximo, com o retângulo medido só quando o mouse entra
     $$('[data-card]').forEach(c => {
-      c.addEventListener('pointermove', e => {
-        const r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', `${e.clientX - r.left}px`);
-        c.style.setProperty('--my', `${e.clientY - r.top}px`);
-        c.style.setProperty('--px', ((e.clientX - r.left) / r.width - .5).toFixed(3));
-        c.style.setProperty('--py', ((e.clientY - r.top) / r.height - .5).toFixed(3));
-      });
-      c.addEventListener('pointerleave', () => { c.style.setProperty('--px', 0); c.style.setProperty('--py', 0); });
+      let r = null, x = 0, y = 0, pedido = 0;
+      const pinta = () => { pedido = 0; if (!r) return; c.style.setProperty('--mx', `${x - r.left}px`); c.style.setProperty('--my', `${y - r.top}px`); };
+      c.addEventListener('pointerenter', () => { r = c.getBoundingClientRect(); });
+      addEventListener('scroll', () => { r = null; }, { passive: true });
+      c.addEventListener('pointermove', e => { if (!r) r = c.getBoundingClientRect(); x = e.clientX; y = e.clientY; if (!pedido) pedido = requestAnimationFrame(pinta); }, { passive: true });
+      c.addEventListener('pointerleave', () => { r = null; });
     });
+
     // a cor do botão entra pelo lado do cursor
     $$('.botao').forEach(b => {
       const lado = e => { const r = b.getBoundingClientRect(); b.style.setProperty('--origem', e.clientX < r.left + r.width / 2 ? 'left center' : 'right center'); };
@@ -720,6 +720,8 @@ void main(){
       nav.classList.toggle('compacto', scrollY > 60);
       prog.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
       if (flut) flut.classList.toggle('escondido', scrollY < innerHeight * .7 || scrollY > max - 500);
+      const tb = $('[data-topo]');
+      if (tb) { tb.classList.toggle('escondido', scrollY < innerHeight * 1.2); tb.style.setProperty('--p', (max > 0 ? scrollY / max : 0).toFixed(3)); }
     }, { passive: true });
     return;
   }
@@ -774,7 +776,7 @@ void main(){
   });
 
   // topo: compacto, some ao descer, volta ao subir, progresso da página
-  const prog = $('[data-progresso]');
+  const prog = $('[data-progresso]'), topoBt = $('[data-topo]');
   ScrollTrigger.create({
     start: 0, end: 'max',
     onUpdate: s => {
@@ -784,6 +786,7 @@ void main(){
       if (barraMovel) barraMovel.classList.toggle('recolhida', s.direction === 1 && y > 400 && menu.hidden);
       prog.style.transform = `scaleX(${s.progress})`;
       if (flut) flut.classList.toggle('escondido', y < innerHeight * .7 || y > s.end - 600);
+      if (topoBt) { topoBt.classList.toggle('escondido', y < innerHeight * 1.2); topoBt.style.setProperty('--p', s.progress.toFixed(3)); }
     }
   });
   $$('main > section[id]').forEach(sec => ScrollTrigger.create({
@@ -847,8 +850,10 @@ void main(){
     const camadas = $$('[data-prof]', hero).map(el => ({ p: +el.dataset.prof, x: gsap.quickTo(el, 'x', { duration: 1.2, ease: 'power3' }), y: gsap.quickTo(el, 'y', { duration: 1.2, ease: 'power3' }) }));
     const l = $('[data-hero-luz]', hero);
     const lx = gsap.quickTo(l, 'x', { duration: 1.6, ease: 'power3' }), ly = gsap.quickTo(l, 'y', { duration: 1.6, ease: 'power3' });
+    let rh = null;
+    hero.addEventListener('pointerenter', () => { rh = hero.getBoundingClientRect(); });
     hero.addEventListener('pointermove', e => {
-      const r = hero.getBoundingClientRect();
+      const r = rh || (rh = hero.getBoundingClientRect());
       const nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
       camadas.forEach(c => { c.x(nx * c.p); c.y(ny * c.p); });
       lx(nx * 40); ly(ny * 40);
@@ -890,7 +895,7 @@ void main(){
     if (!sp) { $$('.destaque', h).forEach(el => risca(el)); return; }
     // as palavras sobem; quando assentam, a palavra-chave ganha o risco desenhado
     gsap.from(sp.words, {
-      yPercent: 118, rotate: 4, duration: 1.1, stagger: .04, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' },
+      yPercent: 110, rotate: 3, duration: .95, stagger: .035, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' },
       onComplete: () => { sp.revert(); $$('.destaque', h).forEach(el => risca(el, true)); }
     });
   }));
@@ -904,18 +909,18 @@ void main(){
 
   /* ---------- caixas: entrada em cascata ---------- */
   const caixas = $$('[data-card]').filter(c => !c.closest('.hero'));
-  gsap.set(caixas, { opacity: 0, y: 56 });
+  gsap.set(caixas, { opacity: 0, y: 40 });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
     onEnter: lote => {
-      gsap.to(lote, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
+      gsap.to(lote, { opacity: 1, y: 0, duration: .9, stagger: .07, ease: 'power3.out', overwrite: true, clearProps: 'transform,opacity' });
       // os ícones de dentro chegam um pouco depois, com um pulo
       const icos = lote.flatMap(c => $$('.ico, .canais .i, .sobre__fato-ico, .ajuda__ico, .bento__lista .ico', c));
-      if (icos.length) gsap.from(icos, { scale: 0, rotate: -45, duration: .8, stagger: .05, delay: .3, ease: 'back.out(2.2)', clearProps: 'transform' });
+      if (icos.length) gsap.from(icos, { scale: .4, rotate: -30, opacity: 0, duration: .7, stagger: .04, delay: .25, ease: 'back.out(1.8)', clearProps: 'transform,opacity' });
     }
   });
-  $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -24, opacity: 0, duration: .9, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: l, start: 'top 85%' } }));
-  $$('.petala:not([data-hero-foto]) > img, .moldura > img').forEach(img => gsap.from(img, { scale: 1.3, duration: 1.8, ease: 'expo.out', scrollTrigger: { trigger: img.parentElement, start: 'top 88%' } }));
+  $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -16, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: l, start: 'top 88%' } }));
+  $$('.petala:not([data-hero-foto]) > img, .moldura > img').forEach(img => gsap.from(img, { scale: 1.12, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: img.parentElement, start: 'top 90%' } }));
 
   // inclinação 3D nos cartões dos três cuidados
   if (fino) $$('[data-tilt]').forEach(c => {
@@ -995,7 +1000,7 @@ void main(){
   $$('.secao .lead, .declaracao__apoio').filter(p => !p.closest('.exame')).forEach(p => perto(p, () => {
     const sp = quebra(p, 'lines');
     if (!sp) return;
-    gsap.from(sp.lines, { yPercent: 100, opacity: 0, duration: 1, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 90%' }, onComplete: () => sp.revert() });
+    gsap.from(sp.lines, { yPercent: 100, opacity: 0, duration: .85, stagger: .07, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 90%' }, onComplete: () => sp.revert() });
   }));
 
   /* ---------- especialidades: as linhas entram em cascata e os ícones pulam ---------- */
