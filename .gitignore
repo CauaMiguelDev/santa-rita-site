@@ -1,0 +1,17 @@
+# ferramentas de desenvolvimento e capturas
+.claude/
+.impeccable/
+.playwright-mcp/
+
+# arte original da campanha (o site usa as versões em assets/img/novo/)
+rosa.jpg
+
+# sistema
+Thumbs.db
+desktop.ini
+
+# arquivos do site antigo que a página nova não usa (ficam no disco como fonte das fotos tratadas)
+assets/img/*.jpg
+assets/img/about.png
+assets/img/gallery/
+assets/img/slide/

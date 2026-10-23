@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<!--
+  Campanha sazonal: data-campanha="auto" liga o Outubro Rosa sozinho em outubro.
+  Use "rosa" para forçar ligado ou "off" para desligar.
+-->
+<html lang="pt-BR" data-campanha="off">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Clínica Santa Rita | Consultas, Exames de Imagem e Laboratório no DF</title>
+  <!-- CONFIRMAR com a clínica: quantas especialidades (o site antigo dizia 30 e 50). Até confirmar, o site não cita número. -->
+  <meta name="description" content="Consultas em diversas especialidades, laboratório próprio e centro de diagnóstico por imagem: ressonância, tomografia, ultrassom, densitometria e mamografia digital. 5 unidades no DF e entorno.">
+  <link rel="canonical" href="https://clinicasantarita.com.br/">
+  <meta name="theme-color" content="#F5F5F6">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Clínica Santa Rita | Cuidando da sua saúde">
+  <meta property="og:description" content="Consulta, laboratório próprio e exames de imagem no mesmo lugar. 5 unidades no DF e entorno. Agende pelo WhatsApp (61) 3355-1107.">
+  <meta property="og:image" content="https://clinicasantarita.com.br/site/assets/img/novo/ressonancia-1600.jpg">
+
+  <link rel="icon" href="assets/img/novo/simbolo.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
+  <link rel="stylesheet" href="assets/css/site.css?v=26">
+  <script>(function(h){
+    h.classList.add('js','carregando');
+    var m=h.getAttribute('data-campanha');
+    if(m==='rosa'||(m==='auto'&&new Date().getMonth()===9))h.classList.add('rosa');
+    var q=location.search,c=navigator.connection||{},fraco=(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4||!!c.saveData||/2g/.test(c.effectiveType||'');
+    try{if(sessionStorage.getItem('sr-leve'))fraco=true}catch(e){}
+    if(/leve=1/.test(q))fraco=true;if(/leve=0/.test(q))fraco=false;if(fraco)h.classList.add('leve');if(c.saveData)h.classList.add('economia');
+    if('scrollRestoration' in history)history.scrollRestoration='manual';
+    try{if(!sessionStorage.getItem('sr-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!location.hash){h.classList.add('intro');sessionStorage.setItem('sr-intro','1')}}catch(e){}
+    window.srT=[setTimeout(function(){h.classList.remove('carregando')},2800),setTimeout(function(){h.classList.remove('intro')},3600)];
+  })(document.documentElement)</script>
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/SplitText.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/site.js?v=26" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalClinic",
+    "name": "Clínica Santa Rita",
+    "url": "https://clinicasantarita.com.br/",
+    "logo": "https://clinicasantarita.com.br/site/assets/img/logo.png",
+    "image": "https://clinicasantarita.com.br/site/assets/img/novo/fachada-1156.jpg",
+    "telephone": "+55-61-3355-1105",
+    "email": "gerencia@clinicasantarita.com.br",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "QND 47, Lote 10",
+      "addressLocality": "Taguatinga Norte, Brasília",
+      "addressRegion": "DF",
+      "addressCountry": "BR"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:00",
+      "closes": "18:00"
+    }],
+    "sameAs": ["https://www.instagram.com/clinicasantaritadf/"]
+  }
+  </script>
+</head>
+
+<body>
+<!--
+  THESIS: Three hearts meeting at the centre: consulta, laboratório e imagem in one place. The Santa Rita symbol is the living mechanism of the page (it assembles, beats, lights the service you point at). Refuses the white-cards-and-stock-doctor clinic template and the flat signage of v1.
+  OWN-WORLD: The facade palette: white and cool light gray ground (#F5F5F6), graphite ink #1C1F24, the logo's grays (#6E7682, #B9C0C9) and the facade red #D7262B as light and pulse (red text #B51D23). A live WebGL background of the reception's wave panels that ripples with time, the cursor and the scroll. White frosted glass lit by a red cursor light; photos in petal frames (two opposite corners fully round, from the heart lobes); hand-drawn red underlines on key words; one graphite chapter, the imaging centre, plus the footer. Outubro Rosa (off for now) swaps red for pink.
+  STORY: The visitor feels cared for, sees the real rooms, understands the three services, books on WhatsApp in one tap or finds the unit near home.
+  FIRST VIEWPORT: Left, "Cuidando da sua saúde." in heavy display type (the last word cycles família, prevenção, saúde), lead and WhatsApp + call; right, the real MRI room in a petal frame over a red glow, glass chips (open-now status, results link, 25 anos count) and the 3D logo wall in a beating circle.
+  FORM: Pinned by the user (follow the Cemtra method), Santa Rita's own world; replaces seed 950df351's "Sinalização do DF".
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="c-esq" viewBox="0 0 100 78.5"><path style="fill:var(--sym-a)" d="M4.8 32.5 3.7 33.3 2.3 34.7 1.3 36.1 0.8 37.1 0.3 38.5 0.0 40.2 0.0 41.6 0.2 42.8 0.9 45.0 2.1 47.0 3.5 48.5 4.5 49.3 5.8 50.0 7.8 50.8 10.1 51.2 25.5 51.2 25.6 51.4 18.2 63.3 17.6 64.6 17.2 65.7 16.9 67.7 16.9 69.5 17.4 71.5 18.3 73.4 19.6 75.1 21.0 76.3 21.9 76.9 23.3 77.6 25.6 78.3 26.8 78.5 28.7 78.5 29.9 78.3 32.1 77.7 34.0 76.8 35.6 75.5 37.1 73.8 46.9 57.8 30.2 30.8 9.8 30.8 8.7 30.9 6.8 31.5Z"/></symbol>
+  <symbol id="c-topo" viewBox="0 0 100 78.5"><path style="fill:var(--sym-b)" d="M29.4 0.8 27.6 1.7 25.9 3.0 24.7 4.4 24.1 5.3 23.5 6.5 23.1 7.7 22.8 9.3 22.8 11.9 23.4 13.8 24.4 15.8 50.4 57.9 50.6 58.0 77.1 15.2 77.6 14.1 78.0 13.0 78.3 11.5 78.3 10.6 78.4 10.5 78.2 8.5 77.7 6.7 77.2 5.5 76.5 4.4 75.0 2.8 73.3 1.6 71.6 0.8 70.2 0.3 68.9 0.2 68.8 0.0 66.1 0.0 66.0 0.2 64.7 0.3 63.0 0.9 62.0 1.3 60.5 2.3 59.6 3.0 58.7 4.0 57.9 5.1 50.6 16.9 50.3 16.6 42.8 4.5 42.2 3.7 40.8 2.4 39.8 1.7 38.5 1.0 37.0 0.5 35.6 0.2 35.1 0.2 35.0 0.0 32.3 0.0 32.2 0.2 30.9 0.3Z"/></symbol>
+  <symbol id="c-dir" viewBox="0 0 100 78.5"><path style="fill:var(--sym-c)" d="M93.4 31.5 91.4 30.9 89.7 30.7 70.3 30.7 53.4 58.0 53.3 58.4 62.8 73.7 63.6 74.7 64.6 75.8 66.4 77.1 68.6 78.0 70.9 78.5 73.5 78.5 74.8 78.2 76.3 77.8 78.6 76.6 79.5 75.9 80.7 74.7 81.8 73.1 82.3 72.2 82.8 70.9 83.1 69.3 83.1 67.1 82.8 65.6 82.4 64.5 81.1 62.2 74.4 51.5 74.5 51.3 89.0 51.3 91.6 51.0 93.9 50.2 95.5 49.3 97.4 47.6 98.8 45.7 99.4 44.4 99.9 42.2 99.9 41.2 100.0 41.1 99.9 39.8 99.4 37.6 98.7 36.1 97.6 34.6 96.4 33.4 95.4 32.6Z"/></symbol>
+  <symbol id="simbolo" viewBox="0 0 100 78.5"><use href="#c-esq"/><use href="#c-topo"/><use href="#c-dir"/></symbol>
+
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.59-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></g></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 12 0V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/></g></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.53a2 2 0 0 1-.21.9L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.07-10.12A2 2 0 0 1 14 9.53V2"/><path d="M8.5 2h7M7 16h10"/></g></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="4"/><path d="M12 8v8"/></g></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M16 13H8M16 17H8M10 9H8"/></g></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></g></symbol>
+  <symbol id="i-tube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2v17.5a2.5 2.5 0 0 1-5 0V2M8.5 2h7M14.5 16h-5"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></g></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="e-alergo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.4"/><path d="M12 9.6V4.5M12 14.4v5.1M9.6 12H4.5M14.4 12h5.1M10.3 10.3 6.7 6.7M13.7 13.7l3.6 3.6M13.7 10.3l3.6-3.6M10.3 13.7l-3.6 3.6"/><circle cx="12" cy="3.6" r=".9"/><circle cx="20.4" cy="12" r=".9"/><circle cx="12" cy="20.4" r=".9"/><circle cx="3.6" cy="12" r=".9"/></g></symbol>
+  <symbol id="e-angio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3 3.8 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.5-6.2 5.5-10z"/><path d="M9.4 14.2c.3 1.4 1.4 2.4 2.8 2.6"/></g></symbol>
+  <symbol id="e-cardio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/><path d="M3.2 12h6.3l.5-1 2 4.5 2-7 1.5 3.5h5.3"/></g></symbol>
+  <symbol id="e-derma" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c3-2 6 2 9 0s6 2 9 0"/><path d="M3 13c3-2 6 2 9 0s6 2 9 0"/><path d="M3 18c3-2 6 2 9 0s6 2 9 0"/></g></symbol>
+  <symbol id="e-endo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5v11"/><path d="M12 9.2C10.6 6.4 6.3 5.8 5.2 8.6c-1.2 3 .9 7 4 7.5 1.6.3 2.8-.8 2.8-2.4"/><path d="M12 9.2c1.4-2.8 5.7-3.4 6.8-.6 1.2 3-.9 7-4 7.5-1.6.3-2.8-.8-2.8-2.4"/></g></symbol>
+  <symbol id="e-gastro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v4.2c0 1.8-2.5 2.8-2.5 6.3A6.2 6.2 0 0 0 13.2 19.7h.6a5.2 5.2 0 0 0 5.2-5.2c0-2.6-2-3.7-3.6-3.7s-2.5 1-3.6-.4c-.9-1.2-.8-3.6-.8-7.4"/><path d="M7.8 18.6 6 21"/></g></symbol>
+  <symbol id="e-gineco" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></g></symbol>
+  <symbol id="e-infecto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><path d="M12 3v2.8M12 18.2V21M3 12h2.8M18.2 12H21M5.6 5.6l2 2M16.4 16.4l2 2M5.6 18.4l2-2M16.4 7.6l2-2"/><circle cx="10.6" cy="11" r=".7"/><circle cx="13.4" cy="13.2" r=".7"/></g></symbol>
+  <symbol id="e-masto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12.6c-2.3-2.2-3.6-4-3.6-5.8a3.6 3.6 0 0 1 7.2 0c0 1.8-1.3 3.6-3.6 5.8z"/><path d="M12 12.6 8.2 20.6l-2.6-1.3 3.6-6.6"/><path d="M12 12.6l3.8 8 2.6-1.3-3.6-6.6"/></g></symbol>
+  <symbol id="e-neuro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 0 0-5.6 1.4A3 3 0 0 0 4.5 12a3 3 0 0 0 2 4.8A3 3 0 0 0 12 18.6z"/><path d="M12 5a3 3 0 0 1 5.6 1.4A3 3 0 0 1 19.5 12a3 3 0 0 1-2 4.8 3 3 0 0 1-5.5 1.8"/><path d="M12 5v14M8.4 9.4c1 .3 1.8 1 2.1 2.1M15.6 9.4c-1 .3-1.8 1-2.1 2.1"/></g></symbol>
+  <symbol id="e-nutri" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.6c-1.5-1-5-1.3-6.3 1.5-1.4 3 .3 8 2.8 9.8 1.2.9 2.4.6 3.5 0 1.1.6 2.3.9 3.5 0 2.5-1.8 4.2-6.8 2.8-9.8-1.3-2.8-4.8-2.5-6.3-1.5z"/><path d="M12 7.6c0-2 .8-3.6 2.6-4.6"/></g></symbol>
+  <symbol id="e-orto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.7 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .8.7 1.8 0 2.5l-7 7c-.7.7-1.7 0-2.5 0a2.5 2.5 0 0 0 0 5c.3 0 .5.2.5.5a2.5 2.5 0 1 0 5 0c0-.8-.7-1.8 0-2.5z"/></g></symbol>
+  <symbol id="e-otorrino" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></g></symbol>
+  <symbol id="e-pneumo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v6.5c0 1.6-1.6 2.3-2.8 3.2M12 10.5c0 1.6 1.6 2.3 2.8 3.2"/><path d="M9 7.5C6 7.5 4 11.5 4 16c0 2.2 1.3 3.5 3 3.5 2.4 0 3-1.5 3-4.5V8.6"/><path d="M15 7.5c3 0 5 4 5 8.5 0 2.2-1.3 3.5-3 3.5-2.4 0-3-1.5-3-4.5V8.6"/></g></symbol>
+  <symbol id="e-psiq" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 21v-3.2h1.8a1.7 1.7 0 0 0 1.7-1.7v-2.4l1.5-.6-1.5-3A6.6 6.6 0 1 0 8 15.4V21"/><path d="M12.6 7.3v4.2M10.5 9.4h4.2"/></g></symbol>
+  <symbol id="e-reumato" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M9.7 9.7 5.2 5.2M14.3 14.3l4.5 4.5"/><path d="M3.4 7 7 3.4M17 20.6l3.6-3.6"/></g></symbol>
+  <symbol id="e-uro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4C5.5 4 4 7.5 4 11s1.5 8 5 8c2.5 0 3-2 3-3.5 0-1.2-1.2-2-1.2-3.5S12 9.8 12 8.5C12 6 11 4 9 4z"/><path d="M11.6 12.2h3.8c1.5 0 2.6 1 2.6 2.6V21"/></g></symbol>
+  <symbol id="e-onda" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a11 11 0 0 1 16 0"/><path d="M7 14.5a7 7 0 0 1 10 0"/><path d="M10 11a3 3 0 0 1 4 0"/><circle cx="12" cy="7" r="1.2"/></g></symbol>
+  <symbol id="i-cadeira" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6"/><path d="M5 11h14v4H5z"/><path d="M7 15v6M17 15v6"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol>
+  <symbol id="i-mudo" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-som" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-busca" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></g></symbol>
+  <symbol id="i-lista" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></g></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></g></symbol>
+  <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- abertura: os três corações se encontram (primeira visita da sessão) -->
+<div class="cortina" aria-hidden="true">
+  <div class="cortina__luz"></div>
+  <div class="cortina__marca">
+    <svg class="cortina__simbolo" viewBox="0 0 100 78.5"><g class="h h--esq"><use href="#c-esq" width="100" height="78.5"/></g><g class="h h--dir"><use href="#c-dir" width="100" height="78.5"/></g><g class="h h--topo"><use href="#c-topo" width="100" height="78.5"/></g></svg>
+    <span class="wordmark wordmark--lg">Clínica<i>.</i>Santa<i>.</i>Rita</span>
+  </div>
+  <button class="cortina__pular" type="button" tabindex="-1">Pular</button>
+</div>
+
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="nav__progresso" aria-hidden="true"><span data-progresso></span></div>
+
+<header class="nav" data-nav>
+  <div class="nav__casca">
+    <a class="marca" href="#inicio" aria-label="Clínica Santa Rita, início">
+      <svg class="marca__simbolo" viewBox="0 0 100 78.5" aria-hidden="true"><use href="#simbolo"/></svg>
+      <span class="marca__texto"><span class="wordmark">Clínica<i>.</i>Santa<i>.</i>Rita</span><span class="marca__assinatura">Cuidando da sua saúde</span></span>
+    </a>
+    <nav class="nav__menu" aria-label="Seções" data-nav-menu>
+      <span class="nav__luz" data-nav-luz aria-hidden="true"></span>
+      <ul class="nav__lista">
+        <li><a class="nav__link" href="#especialidades">Especialidades</a></li>
+        <li><a class="nav__link" href="#laboratorio">Laboratório</a></li>
+        <li><a class="nav__link" href="#exames">Exames</a></li>
+        <li><a class="nav__link" href="#unidades">Unidades</a></li>
+        <li><a class="nav__link" href="#duvidas">Dúvidas</a></li>
+      </ul>
+    </nav>
+    <div class="nav__acoes">
+      <a class="nav__resultados" href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg> Resultados</a>
+      <a class="botao botao--primario botao--sm nav__agendar" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar</a>
+      <button class="nav__abrir" type="button" aria-expanded="false" aria-controls="menu" data-menu-abrir><span class="nav__abrir-linhas" aria-hidden="true"><i></i><i></i></span><span class="sr">Abrir menu</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" data-menu hidden>
+  <div class="menu__fundo"></div>
+  <div class="menu__corpo">
+    <div class="menu__topo">
+      <span class="wordmark">Clínica<i>.</i>Santa<i>.</i>Rita</span>
+      <button class="menu__fechar" type="button" data-menu-fechar><svg class="i" aria-hidden="true"><use href="#i-x"/></svg><span class="sr">Fechar menu</span></button>
+    </div>
+    <ul class="menu__links">
+      <li><a href="#especialidades">Especialidades <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="#laboratorio">Laboratório <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="#exames">Exames de imagem <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="#unidades">Unidades <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="#agendar">Pré-agendamento <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="#duvidas">Dúvidas <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+    </ul>
+    <ul class="menu__ext">
+      <li><a href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">Resultados de <span class="nw">exames&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      <li><a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do <span class="nw">paciente&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Medicina do <span class="nw">Trabalho&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      <li><a href="https://clinicasantarita.com.br/tcn/trabalhe-conosco.html" target="_blank" rel="noopener">Trabalhe <span class="nw">conosco&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+    </ul>
+    <div class="menu__cta">
+      <p class="status" data-status>Seg a sex, 7h às 18h</p>
+      <a class="botao botao--primario botao--cheio" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar pelo WhatsApp</a>
+      <a class="botao botao--contorno botao--cheio" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
+    </div>
+  </div>
+</div>
+
+<main id="conteudo">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo">
+    <div class="hero__fundo" aria-hidden="true">
+      <div class="ondas"></div>
+      <div class="hero__luz" data-hero-luz></div>
+      <div class="hero__prata"></div>
+      <canvas class="hero__pulso" data-ecg="linha"></canvas>
+    </div>
+    <div class="hero__grade">
+      <div class="hero__texto">
+        <h1 class="hero__titulo" id="hero-titulo" data-hero-titulo>Cuidando da sua <span class="giro" data-hero-giro>saúde.</span></h1>
+        <p class="hero__lead" data-hero-item>Consulta, laboratório próprio e exames de imagem no mesmo lugar. Há mais de 25 anos no DF e entorno, em 5 unidades.</p>
+        <div class="hero__acoes" data-hero-item data-hero-acoes>
+          <a class="botao botao--primario botao--lg hero__agendar" data-ima href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar pelo WhatsApp</a>
+          <a class="botao botao--contorno botao--lg" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
+        </div>
+        <ul class="hero__atalhos" data-hero-item aria-label="Atalhos">
+          <li><a href="#especialidades"><svg class="mini-coracao" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Consultas</a></li>
+          <li><a href="#laboratorio"><svg class="mini-coracao" viewBox="0 30 47.5 49" aria-hidden="true"><use href="#c-esq" width="100" height="78.5"/></svg>Laboratório</a></li>
+          <li><a href="#exames"><svg class="mini-coracao" viewBox="53 30 47.5 49" aria-hidden="true"><use href="#c-dir" width="100" height="78.5"/></svg>Imagem</a></li>
+        </ul>
+      </div>
+
+      <div class="hero__palco" data-hero-palco>
+        <figure class="petala hero__foto" data-hero-foto data-prof="10">
+          <img decoding="async" src="assets/img/novo/ressonancia-1600.jpg" srcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" sizes="(min-width: 1025px) 40vw, 100vw" width="1600" height="1200" fetchpriority="high" alt="Sala de ressonância magnética da Clínica Santa Rita, com o aparelho Siemens e um painel de cachoeira na parede">
+        </figure>
+        <div class="pulsante hero__logo" data-hero-chip data-prof="22">
+          <img decoding="async" src="assets/img/novo/logo-parede-680.jpg" srcset="assets/img/novo/logo-parede-360.jpg 360w, assets/img/novo/logo-parede-680.jpg 680w" sizes="160px" width="680" height="680" alt="O símbolo da Clínica Santa Rita em relevo na parede da recepção">
+        </div>
+        <p class="chip vidro hero__chip hero__chip--status" data-hero-chip data-prof="18"><span class="status" data-status>Seg a sex, 7h às 18h</span><span class="chip__sub">Matriz em Taguatinga</span></p>
+        <a class="chip vidro hero__chip hero__chip--resultados" data-hero-chip data-prof="26" data-card href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span><span><strong>Resultados de exames</strong><span class="chip__sub">Laboratório, pela internet</span></span><svg class="i chip__seta" aria-hidden="true"><use href="#i-ext"/></svg></a>
+        <p class="chip vidro hero__chip hero__chip--anos" data-hero-chip data-prof="14"><strong class="chip__numero num"><span data-hero-conta="25">25</span>+</strong><span>anos cuidando<br>do DF e entorno</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRÊS CUIDADOS ===== -->
+  <section class="secao cuidados" aria-labelledby="cuidados-titulo" data-cuidados>
+    <div class="container cuidados__grade">
+      <div class="cuidados__simbolo" aria-hidden="true">
+        <svg viewBox="-12 -12 124 102.5" data-simbolo-grande>
+          <g class="h h--esq" data-h="laboratorio"><use href="#c-esq" width="100" height="78.5"/></g>
+          <g class="h h--dir" data-h="imagem"><use href="#c-dir" width="100" height="78.5"/></g>
+          <g class="h h--topo" data-h="consultas"><use href="#c-topo" width="100" height="78.5"/></g>
+        </svg>
+      </div>
+      <div class="cuidados__texto">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span><span data-embaralha>Nossos cuidados</span></p>
+        <h2 class="titulo" id="cuidados-titulo" data-palavras>Três cuidados que se encontram no <em class="destaque">mesmo lugar.</em></h2>
+        <p class="lead">Três corações unidos no centro: consulta, laboratório e imagem no mesmo endereço, perto de casa.</p>
+        <ul class="cuidados__lista">
+          <li><a class="porta vidro" data-card data-tilt data-porta="consultas" href="#especialidades">
+            <span class="petala-ico petala-ico--topo"><svg viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg></span>
+            <span class="porta__texto"><strong>Consultas</strong><span>Cardiologia, ginecologia, ortopedia, clínica médica e muitas outras especialidades.</span></span>
+            <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
+          </a></li>
+          <li><a class="porta vidro" data-card data-tilt data-porta="laboratorio" href="#laboratorio">
+            <span class="petala-ico petala-ico--esq"><svg viewBox="0 30 47.5 49" aria-hidden="true"><use href="#c-esq" width="100" height="78.5"/></svg></span>
+            <span class="porta__texto"><strong>Laboratório</strong><span>Laboratório próprio, com o resultado dos seus exames pela internet.</span></span>
+            <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
+          </a></li>
+          <li><a class="porta vidro" data-card data-tilt data-porta="imagem" href="#exames">
+            <span class="petala-ico petala-ico--dir"><svg viewBox="53 30 47.5 49" aria-hidden="true"><use href="#c-dir" width="100" height="78.5"/></svg></span>
+            <span class="porta__texto"><strong>Imagem</strong><span>Ressonância, tomografia, mamografia digital, ultrassom e densitometria.</span></span>
+            <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUTUBRO ROSA (só com a campanha ligada) ===== -->
+  <section class="secao campanha" aria-labelledby="campanha-titulo">
+    <div class="container campanha__grade">
+      <figure class="petala campanha__foto">
+        <img decoding="async" src="assets/img/novo/outubro-rosa-1200.jpg" srcset="assets/img/novo/outubro-rosa-700.jpg 700w, assets/img/novo/outubro-rosa-1200.jpg 1200w" sizes="(min-width: 1025px) 55vw, 100vw" width="1200" height="675" loading="lazy" alt="Campanha Outubro Rosa da Clínica Santa Rita: mulher com o laço rosa no peito">
+      </figure>
+      <div class="campanha__texto vidro" data-card>
+        <svg class="campanha__laco" viewBox="0 0 24 24" aria-hidden="true"><path data-laco d="M6.5 21 12 12.5c2-2.7 3.2-4.5 3.2-6.1C15.2 4.4 13.8 3 12 3S8.8 4.4 8.8 6.4c0 1.6 1.2 3.4 3.2 6.1L17.5 21"/></svg>
+        <h2 class="titulo" id="campanha-titulo" data-palavras>Outubro Rosa. Cuide de você.</h2>
+        <p>A detecção precoce do câncer de mama salva vidas. Agende sua <strong>mamografia digital</strong> ou consulta ginecológica.</p>
+        <a class="botao botao--primario botao--lg" data-ima href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20minha%20mamografia%20do%20Outubro%20Rosa." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar minha mamografia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ESPECIALIDADES ===== -->
+  <section class="secao especialidades" id="especialidades" aria-labelledby="esp-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg></span><span data-embaralha>Corpo clínico</span></p>
+        <h2 class="titulo" id="esp-titulo" data-palavras>Especialidades</h2>
+        <p class="lead">Escolha a especialidade e o WhatsApp abre com o pedido de agendamento já escrito.</p>
+      </div>
+
+      <div class="esp vidro" data-card>
+        <label class="busca">
+          <span class="sr">Buscar especialidade</span>
+          <svg class="i" aria-hidden="true"><use href="#i-busca"/></svg>
+          <input type="search" placeholder="Busque: cardiologia, pele, coração…" autocomplete="off" data-busca>
+        </label>
+        <ul class="esp__lista" data-esp-lista>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Alergologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-alergo"/></svg></span><span class="esp__nome">Alergologia</span><span class="esp__desc">Alergias respiratórias, de pele e alimentares</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Angiologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-angio"/></svg></span><span class="esp__nome">Angiologia</span><span class="esp__desc">Artérias, veias e circulação</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Cardiologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-cardio"/></svg></span><span class="esp__nome">Cardiologia</span><span class="esp__desc">Coração e sistema circulatório</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Cl%C3%ADnica%20M%C3%A9dica." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg></span><span class="esp__nome">Clínica Médica</span><span class="esp__desc">Diagnóstico e tratamento clínico de adultos</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Dermatologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-derma"/></svg></span><span class="esp__nome">Dermatologia</span><span class="esp__desc">Pele, cabelos e unhas</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Endocrinologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-endo"/></svg></span><span class="esp__nome">Endocrinologia</span><span class="esp__desc">Hormônios, diabetes e tireoide</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Gastroenterologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-gastro"/></svg></span><span class="esp__nome">Gastroenterologia</span><span class="esp__desc">Estômago, intestino e fígado</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ginecologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-gineco"/></svg></span><span class="esp__nome">Ginecologia</span><span class="esp__desc">Saúde da mulher e prevenção</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Infectologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-infecto"/></svg></span><span class="esp__nome">Infectologia</span><span class="esp__desc">Diagnóstico e acompanhamento de infecções</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Mastologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-masto"/></svg></span><span class="esp__nome">Mastologia <span class="rosa-tag">Outubro Rosa</span></span><span class="esp__desc">Saúde das mamas</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Neurologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-neuro"/></svg></span><span class="esp__nome">Neurologia</span><span class="esp__desc">Cérebro, medula, nervos e músculos</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Nutri%C3%A7%C3%A3o." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-nutri"/></svg></span><span class="esp__nome">Nutrição</span><span class="esp__desc">Alimentação na prevenção e na recuperação</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ortopedia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-orto"/></svg></span><span class="esp__nome">Ortopedia</span><span class="esp__desc">Ossos, músculos, articulações e ligamentos</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Otorrinolaringologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-otorrino"/></svg></span><span class="esp__nome">Otorrinolaringologia</span><span class="esp__desc">Ouvido, nariz e garganta</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Pneumologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-pneumo"/></svg></span><span class="esp__nome">Pneumologia</span><span class="esp__desc">Pulmões e respiração</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psiquiatria." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-psiq"/></svg></span><span class="esp__nome">Psiquiatria</span><span class="esp__desc">Saúde mental</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Reumatologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-reumato"/></svg></span><span class="esp__nome">Reumatologia</span><span class="esp__desc">Articulações e doenças autoimunes</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Urologia." target="_blank" rel="noopener"><span class="esp__ico"><svg class="i" aria-hidden="true"><use href="#e-uro"/></svg></span><span class="esp__nome">Urologia</span><span class="esp__desc">Trato urinário e saúde masculina</span><svg class="i esp__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+        </ul>
+        <p class="esp__vazio" data-esp-vazio hidden>Não está na lista, mas pode estar na agenda. <a class="link-seta" data-esp-pergunta href="https://wa.me/556133551107" target="_blank" rel="noopener">Pergunte no WhatsApp <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></p>
+        <p class="esp__pe">Atendemos outras especialidades além destas. Não achou a sua? <a class="link-seta" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20outra%20especialidade." target="_blank" rel="noopener">Pergunte no WhatsApp <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LABORATÓRIO ===== -->
+  <section class="secao laboratorio" id="laboratorio" aria-labelledby="lab-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><span data-embaralha>Laboratório</span></p>
+        <h2 class="titulo" id="lab-titulo" data-palavras>Laboratório próprio. Resultado online.</h2>
+        <p class="lead">Seus exames de sangue e análises clínicas feitos aqui mesmo. O resultado fica disponível na internet.</p>
+      </div>
+      <div class="bento">
+        <figure class="petala bento__foto" data-card>
+          <img decoding="async" src="assets/img/novo/laboratorio-848.jpg" srcset="assets/img/novo/laboratorio-600.jpg 600w, assets/img/novo/laboratorio-848.jpg 848w" sizes="(min-width: 1025px) 36vw, 100vw" width="848" height="1060" loading="lazy" data-paralaxe="7" alt="Tubos de coleta de sangue na centrífuga do laboratório da Clínica Santa Rita">
+          <figcaption class="chip vidro"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span>Nosso laboratório</figcaption>
+        </figure>
+        <a class="bento__resultados" data-card href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">
+          <svg class="i bento__grande" aria-hidden="true"><use href="#i-ext"/></svg>
+          <span class="bento__rotulo"><strong>Resultados de exames</strong><span>Exames laboratoriais, direto do celular</span></span>
+          <span class="botao botao--claro botao--sm">Acessar resultados</span>
+        </a>
+        <a class="bento__painel vidro" data-card href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">
+          <span class="monitor" aria-hidden="true"><canvas class="monitor__tela" data-ecg="monitor"></canvas><span class="monitor__sinal">ECG · II</span><span class="monitor__sinal monitor__sinal--pleth">Pleth</span><span class="monitor__num"><span class="monitor__bpm" data-bpm-caixa><small><svg class="monitor__coracao" viewBox="22 0 57 58.5"><use href="#c-topo" width="100" height="78.5"/></svg>FC</small><b class="num" data-bpm>72</b></span><span class="monitor__spo2"><small>SpO₂ %</small><b class="num" data-spo2>98</b></span></span></span>
+          <strong>Painel do paciente</strong>
+          <span>ECG, espirometria, MAPA e Holter</span>
+          <span class="link-seta">Abrir painel <svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span>
+        </a>
+        <ul class="bento__lista vidro" data-card>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20exame%20toxicol%C3%B3gico." target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-tube"/></svg></span><span><strong>Exame toxicológico</strong><span>Informações pelo WhatsApp</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Quais%20conv%C3%AAnios%20voc%C3%AAs%20atendem%3F" target="_blank" rel="noopener"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Convênios</strong><span>Atendemos os principais convênios do Brasil</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CENTRO DE IMAGEM (a noite) ===== -->
+  <section class="secao exames" id="exames" aria-labelledby="ex-titulo" data-exames>
+    <div class="container exames__cabeca">
+      <div>
+        <p class="selo-secao selo-secao--escuro" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span data-embaralha>Centro radiológico</span></p>
+        <h2 class="titulo" id="ex-titulo" data-palavras>Centro de diagnóstico por imagem</h2>
+      </div>
+      <p class="lead">Cinco exames de imagem no mesmo endereço, com aparelhos de última geração, salas confortáveis e laudos feitos por especialistas.</p>
+    </div>
+    <div class="exames__palco" data-exames-palco>
+      <div class="container">
+        <nav class="exames__indice" aria-label="Exames de imagem">
+          <ol data-ex-abas>
+            <li><a href="#ex-rm" data-ex-link="0"><span class="num">01</span>Ressonância</a></li>
+            <li><a href="#ex-tc" data-ex-link="1"><span class="num">02</span>Tomografia</a></li>
+            <li><a href="#ex-mm" data-ex-link="2"><span class="num">03</span>Mamografia<span class="rosa-tag">Outubro Rosa</span></a></li>
+            <li><a href="#ex-us" data-ex-link="3"><span class="num">04</span>Ultrassom</a></li>
+            <li><a href="#ex-do" data-ex-link="4"><span class="num">05</span>Densitometria</a></li>
+          </ol>
+          <span class="exames__luz" aria-hidden="true" data-ex-luz></span>
+        </nav>
+        <div class="exames__lista" data-ex-lista>
+          <span class="exames__numero num" aria-hidden="true" data-ex-numero>01</span>
+          <div class="visor" aria-hidden="true" data-visor><div class="visor__janela"><canvas class="visor__tela" data-visor-tela></canvas></div><span class="visor__brilho"></span><div class="exame__legenda"><span><svg class="i"><use href="#i-pin"/></svg><b data-visor-nome>Sala de ressonância</b></span><span class="num" data-visor-num>01 / 05</span></div></div>
+          <article class="exame" id="ex-rm">
+            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-ressonancia-1440.jpg" srcset="assets/img/novo/ex-ressonancia-960.jpg 960w, assets/img/novo/ex-ressonancia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Aparelho de ressonância magnética Siemens na sala de exames da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ressonância</span><span class="num">01 / 05</span></figcaption></figure>
+            <div class="exame__texto">
+              <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__selo">Sem radiação</span></p>
+              <h3>Ressonância magnética</h3>
+              <p class="exame__lead">Imagens muito detalhadas de cérebro, coluna, articulações e órgãos, feitas com campo magnético, sem nenhuma radiação.</p>
+              <dl class="exame__info">
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Cérebro, coluna, joelho, ombro e abdômen</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Em média de 20 a 45 minutos</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Avise se usa marca-passo, implantes metálicos ou tem claustrofobia</dd></div>
+              </dl>
+              <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Resson%C3%A2ncia%20Magn%C3%A9tica." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar ressonância</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
+            </div>
+          </article>
+          <article class="exame" id="ex-tc">
+            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/tomografia-1440.jpg" srcset="assets/img/novo/tomografia-960.jpg 960w, assets/img/novo/tomografia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Sala de tomografia computadorizada da clínica, com painel de paisagem na parede"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de tomografia</span><span class="num">02 / 05</span></figcaption></figure>
+            <div class="exame__texto">
+              <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__selo">Resultado ágil</span></p>
+              <h3>Tomografia computadorizada</h3>
+              <p class="exame__lead">Cortes em alta definição que mostram o interior do corpo em poucos minutos, para diagnósticos rápidos e precisos.</p>
+              <dl class="exame__info">
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Crânio, seios da face, tórax e abdômen</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Poucos minutos no aparelho</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Com contraste, pode ser pedido jejum; confirmamos no agendamento</dd></div>
+              </dl>
+              <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Tomografia%20Computadorizada." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar tomografia</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
+            </div>
+          </article>
+          <article class="exame" id="ex-mm">
+            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-mamografia-1440.jpg" srcset="assets/img/novo/ex-mamografia-960.jpg 960w, assets/img/novo/ex-mamografia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Mamógrafo digital na sala de mamografia da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de mamografia</span><span class="num">03 / 05</span></figcaption></figure>
+            <div class="exame__texto">
+              <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-masto"/></svg></span><span class="exame__selo">Baixa dose</span></p>
+              <h3>Mamografia digital</h3>
+              <p class="exame__lead">O principal exame para a detecção precoce do câncer de mama, com imagem digital de alta nitidez e menor dose de radiação.</p>
+              <dl class="exame__info">
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Rastreamento anual a partir dos 40 anos ou por pedido médico</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 15 minutos</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>No dia, não use desodorante, talco ou creme nas mamas e axilas</dd></div>
+              </dl>
+              <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Mamografia%20Digital." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar mamografia</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
+            </div>
+          </article>
+          <article class="exame" id="ex-us">
+            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-ultrassom-1440.jpg" srcset="assets/img/novo/ex-ultrassom-960.jpg 960w, assets/img/novo/ex-ultrassom-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Sala de ultrassonografia da clínica, com o aparelho ao lado da maca"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ultrassom</span><span class="num">04 / 05</span></figcaption></figure>
+            <div class="exame__texto">
+              <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-onda"/></svg></span><span class="exame__selo">Sem radiação</span></p>
+              <h3>Ultrassonografia</h3>
+              <p class="exame__lead">Exame indolor feito com ondas de som, que mostra órgãos e estruturas em tempo real, inclusive na gestação.</p>
+              <dl class="exame__info">
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Abdômen, pelve, tireoide, mamas, músculos e obstetrícia</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>De 15 a 30 minutos</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Alguns pedem jejum ou bexiga cheia; enviamos o preparo certo</dd></div>
+              </dl>
+              <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Ultrassonografia." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar ultrassom</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
+            </div>
+          </article>
+          <article class="exame" id="ex-do">
+            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-densitometria-1440.jpg" srcset="assets/img/novo/ex-densitometria-960.jpg 960w, assets/img/novo/ex-densitometria-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Aparelho de densitometria óssea da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de densitometria</span><span class="num">05 / 05</span></figcaption></figure>
+            <div class="exame__texto">
+              <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-orto"/></svg></span><span class="exame__selo">Rápido e indolor</span></p>
+              <h3>Densitometria óssea</h3>
+              <p class="exame__lead">Mede a densidade dos ossos para rastrear a osteoporose e avaliar o risco de fraturas, com dose muito baixa de radiação.</p>
+              <dl class="exame__info">
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Coluna lombar e fêmur, sobretudo após a menopausa</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 10 a 20 minutos</dd></div>
+                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Evite suplemento de cálcio nas 24 horas anteriores</dd></div>
+              </dl>
+              <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Densitometria%20%C3%93ssea." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar densitometria</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
+            </div>
+          </article>
+        </div>
+        <div class="exames__pontos" data-ex-pontos aria-label="Escolha o exame"></div>
+      </div>
+    </div>
+    <div class="container exames__rodape">
+      <p class="exames__tambem"><strong>Também realizamos</strong> eletrocardiograma, espirometria, MAPA, Holter e ecografia gestacional.</p>
+      <p class="exames__nota">O preparo de cada exame é confirmado no agendamento.</p>
+      <a class="link-seta link-seta--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20saber%20o%20preparo%20e%20agendar%20um%20exame." target="_blank" rel="noopener">Tirar dúvidas no WhatsApp <svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE ===== -->
+  <section class="secao sobre" id="sobre" aria-labelledby="sobre-titulo">
+    <div class="container">
+      <h2 class="sr" id="sobre-titulo">Sobre a Clínica Santa Rita</h2>
+      <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span data-embaralha>Quem somos</span></p>
+      <p class="declaracao" data-declaracao>Há mais de 25 anos cuidando do DF e entorno.</p>
+      <p class="declaracao__apoio">Uma das clínicas mais estruturadas da região, com uma missão simples: prestar o melhor serviço em saúde para você e sua família.</p>
+      <div class="sobre__bento">
+        <figure class="moldura sobre__fachada" data-card>
+          <img decoding="async" src="assets/img/novo/fachada-1156.jpg" srcset="assets/img/novo/fachada-640.jpg 640w, assets/img/novo/fachada-1156.jpg 1156w" sizes="(min-width: 1025px) 56vw, 100vw" width="1156" height="814" loading="lazy" alt="Fachada da Clínica Santa Rita em Taguatinga, com o letreiro e a faixa vermelha de Consultas, Laboratório e Imagem">
+          <figcaption class="moldura__legenda"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span><strong>Matriz em Taguatinga</strong>QND 47, Lote 10, Taguatinga Norte</span></figcaption>
+          <span class="moldura__selo" aria-hidden="true"><b class="num"><span data-conta="25">25</span>+</b><span>anos de<br>cuidado</span></span>
+        </figure>
+        <div class="sobre__fatos vidro" data-card>
+          <p class="sobre__fatos-titulo">Tudo num lugar só</p>
+          <ul data-lista>
+            <li><span class="sobre__fato-ico"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><span><strong>Laboratório próprio</strong>Exames de sangue e análises clínicas feitos aqui mesmo</span></li>
+            <li><span class="sobre__fato-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span><strong>Centro radiológico</strong>Ressonância, tomografia, mamografia, ultrassom e densitometria</span></li>
+            <li><span class="sobre__fato-ico"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><span><strong>5 unidades</strong>Taguatinga, Águas Lindas, Riacho Fundo, Santo Antônio e Sobradinho</span></li>
+            <li><span class="sobre__fato-ico"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span><span><strong>Resultado pela internet</strong>Laboratório e exames cardiológicos, direto do celular</span></li>
+          </ul>
+        </div>
+        <div class="moldura sobre__video" data-card>
+          <video class="sobre__clipe" data-video data-src="assets/video/clinica-720.mp4" muted loop playsinline preload="none" poster="assets/img/novo/video-poster-1600.jpg" aria-label="Vídeo da Clínica Santa Rita por dentro: recepção, laboratório e salas de exame"></video>
+          <div class="moldura__legenda moldura__legenda--video"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span><strong>Conheça a clínica por dentro</strong>Recepção, laboratório e salas de exame</span></div>
+          <button class="video-som" type="button" data-video-som aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-mudo"/></svg><span>Ativar som</span></button>
+        </div>
+        <figure class="moldura sobre__espera" data-card>
+          <img decoding="async" src="assets/img/novo/sala-espera-1600.jpg" srcset="assets/img/novo/sala-espera-900.jpg 900w, assets/img/novo/sala-espera-1600.jpg 1600w" sizes="(min-width: 1025px) 34vw, 100vw" width="1600" height="900" loading="lazy" alt="Sala de espera da clínica com cadeiras vermelhas">
+          <figcaption class="moldura__legenda"><svg class="i" aria-hidden="true"><use href="#i-cadeira"/></svg><span><strong>Sala de espera</strong>Recepção ampla e confortável</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRÉ-AGENDAMENTO ===== -->
+  <section class="secao agendar" id="agendar" aria-labelledby="agendar-titulo">
+    <div class="agendar__fundo" aria-hidden="true"><div class="ondas"></div></div>
+    <div class="container agendar__grade">
+      <div class="agendar__intro">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span><span data-embaralha>Pré-agendamento</span></p>
+        <h2 class="titulo" id="agendar-titulo" data-palavras>Prefere que a gente ligue?</h2>
+        <p class="lead">Preencha o pré-agendamento e um consultor entra em contato para finalizar o seu atendimento.</p>
+        <ul class="canais vidro" data-card>
+          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span><span><strong>WhatsApp</strong><span class="num">(61) 3355-1107</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="tel:+556133551105"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li class="canais__status"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span><strong class="status" data-status>Seg a sex, 7h às 18h</strong><span>Taguatinga até 18h; demais unidades até 17h</span></span></li>
+        </ul>
+      </div>
+
+      <form class="formulario vidro" data-card id="form-agendar" action="forms/contato.php" method="post" novalidate>
+        <h3 class="formulario__titulo">Pré-agendamento</h3>
+        <div class="campo campo--flutua">
+          <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><input id="nome" name="nome" type="text" autocomplete="name" placeholder=" " required><label for="nome">Seu nome</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
+        </div>
+        <div class="campo campo--flutua">
+          <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(61) 99999-9999" maxlength="15" required><label for="tel">Telefone com DDD</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
+        </div>
+        <fieldset class="campo">
+          <legend>Você quer agendar</legend>
+          <div class="fichas">
+            <label><input type="radio" name="select" value="div1" required checked><span>Consulta</span></label>
+            <label><input type="radio" name="select" value="div2"><span>Exame</span></label>
+          </div>
+        </fieldset>
+        <div class="campo campo--fixo" id="campo-especialidade">
+          <div class="campo__caixa campo__caixa--select"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg>
+            <select id="especialidade" name="especialidade" required>
+              <option value="">Escolha a especialidade</option>
+              <option value="Arlegista">Alergologia</option>
+              <option value="Anjiologia">Angiologia</option>
+              <option value="Cardiologia">Cardiologia</option>
+              <option value="Clinica Médica">Clínica Médica</option>
+              <option value="Dermatologista">Dermatologia</option>
+              <option value="Endocrionologista">Endocrinologia</option>
+              <option value="Gastro">Gastroenterologia</option>
+              <option value="Ginecologista">Ginecologia</option>
+              <option value="Infectologista">Infectologia</option>
+              <option value="Mastologista">Mastologia</option>
+              <option value="Nutricionista">Nutrição</option>
+              <option value="Ortopedia">Ortopedia</option>
+              <option value="Otorrino">Otorrinolaringologia</option>
+              <option value="Psiquiatria">Psiquiatria</option>
+              <option value="Pneumologista">Pneumologia</option>
+              <option value="Reumatologista">Reumatologia</option>
+              <option value="Urologista">Urologia</option>
+            </select><label for="especialidade">Especialidade</label>
+            <svg class="i campo__caret" aria-hidden="true"><use href="#i-caret"/></svg>
+          </div>
+        </div>
+        <div class="campo campo--fixo" id="campo-exame" hidden>
+          <div class="campo__caixa campo__caixa--select"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg>
+            <select id="exame" name="exame">
+              <option value="">Escolha o exame</option>
+              <option value="Eletrocardiograma">Eletrocardiograma</option>
+              <option value="Ecografia Gestacional">Ecografia gestacional</option>
+            </select><label for="exame">Exame</label>
+            <svg class="i campo__caret" aria-hidden="true"><use href="#i-caret"/></svg>
+          </div>
+        </div>
+        <div class="campos-lado">
+          <fieldset class="campo">
+            <legend>Período</legend>
+            <div class="fichas">
+              <label><input type="radio" name="periodo" value="Manhã" required><span>Manhã</span></label>
+              <label><input type="radio" name="periodo" value="Tarde"><span>Tarde</span></label>
+            </div>
+          </fieldset>
+          <div class="campo campo--fixo">
+            <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg><input id="date" name="date" type="date" placeholder=" " required><label for="date">Data preferida</label></div>
+          </div>
+        </div>
+        <p class="formulario__erro" id="agendar-erro" role="alert" hidden></p>
+        <button class="botao botao--primario botao--lg botao--cheio" type="submit" data-ima><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>Enviar pré-agendamento</button>
+        <p class="formulario__nota">Atendimento de segunda a sexta. A data é uma preferência; o consultor confirma o horário com você.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== UNIDADES ===== -->
+  <section class="secao unidades" id="unidades" aria-labelledby="un-titulo">
+    <div class="container">
+      <div class="cabeca">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><span data-embaralha>Onde estamos</span></p>
+        <h2 class="titulo" id="un-titulo" data-palavras>5 unidades perto de você</h2>
+        <p class="lead">De segunda a sexta. Taguatinga atende das <span class="num">7h às 18h</span>; as demais unidades, até as <span class="num">17h</span>.</p>
+      </div>
+      <div class="abas" role="tablist" aria-label="Unidades" data-abas></div>
+      <div class="unidade vidro" data-card id="unidade-painel" role="tabpanel" data-unidade>
+        <div class="unidade__info">
+          <h3 data-u-nome>Taguatinga Norte</h3>
+          <p class="unidade__end"><span class="codigo num" data-u-codigo>QND 47</span> <span data-u-end>Lote 10, Taguatinga Norte, Brasília-DF</span></p>
+          <p class="unidade__hora"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span data-u-hora>Seg a sex, 7h às 18h</span></p>
+          <div class="unidade__acoes">
+            <a class="botao botao--primario" data-u-contato href="tel:+556133551105"><span class="botao__ico"><svg class="i" aria-hidden="true"><use data-u-contato-ico href="#i-phone"/></svg></span><span class="num" data-u-contato-txt>(61) 3355-1105</span></a>
+            <a class="botao botao--contorno" data-u-rota href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20Santa%20Rita%20QND%2047%20Lote%2010%20Taguatinga%20Norte%20Bras%C3%ADlia" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Como chegar</a>
+          </div>
+        </div>
+        <div class="unidade__mapa">
+          <iframe data-u-mapa title="Mapa da unidade Taguatinga Norte da Clínica Santa Rita"
+            src="https://maps.google.com/maps?q=-15.8044546,-48.0669338&amp;z=16&amp;hl=pt-BR&amp;output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+      <noscript>
+        <ul class="unidades__sem-js">
+          <li><strong>Taguatinga Norte (matriz)</strong>: QND 47, Lote 10. (61) 3355-1105</li>
+          <li><strong>Águas Lindas de Goiás</strong>: Quadra 39, Lote 16, Av. Jardim Brasília. WhatsApp (61) 99258-1800</li>
+          <li><strong>Riacho Fundo</strong>: CLN 07, Bloco F, Lote 01/02. WhatsApp (61) 99288-9508</li>
+          <li><strong>Santo Antônio do Descoberto</strong>: Quadra 56, Lote 16, Centro. WhatsApp (61) 99258-2301</li>
+          <li><strong>Sobradinho 1</strong>: Quadra 10, Área 01, Lojas 03, 04 e 05. WhatsApp (61) 99253-4533</li>
+        </ul>
+      </noscript>
+      <a class="link-seta unidades__todas" href="https://www.google.com/maps/d/viewer?hl=pt-BR&amp;mid=1JZwXv2-KmVawlIuUF7OitLH7f_K6w0ao&amp;ll=-15.834410713168616%2C-48.08508165000001&amp;z=11" target="_blank" rel="noopener">Mapa com todas as unidades <svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== DÚVIDAS ===== -->
+  <section class="secao duvidas" id="duvidas" aria-labelledby="faq-titulo">
+    <div class="container duvidas__grade">
+      <div class="duvidas__lado">
+        <div class="cabeca cabeca--coluna">
+          <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span data-embaralha>Perguntas e respostas</span></p>
+          <h2 class="titulo" id="faq-titulo" data-palavras>Dúvidas frequentes</h2>
+          <p class="lead">Respostas rápidas sobre agendamento, convênios, preparo e resultados de exames.</p>
+        </div>
+        <div class="ajuda vidro" data-card>
+          <span class="ajuda__ico"><svg class="i" aria-hidden="true"><use href="#i-msg"/></svg></span>
+          <p class="ajuda__titulo">Ainda ficou com dúvida?</p>
+          <p class="ajuda__texto">Nossa equipe responde pelo WhatsApp de segunda a sexta, no horário de atendimento.</p>
+          <div class="ajuda__acoes">
+            <a class="botao botao--primario botao--sm" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Chamar no WhatsApp</a>
+            <a class="botao botao--sm botao--contorno" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="faq__grupos">
+        <h3 class="faq__grupo">Agendamento e atendimento</h3>
+        <div class="faq vidro" data-card>
+          <details name="faq">
+            <summary>Como faço para agendar uma consulta ou exame?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>O jeito mais rápido é pelo WhatsApp <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener" class="num">(61) 3355-1107</a>: diga a especialidade ou o exame, a unidade e o melhor período. Também dá para ligar no <a href="tel:+556133551105" class="num">(61) 3355-1105</a> ou preencher o <a href="#agendar">pré-agendamento</a>, e um consultor retorna para confirmar data e horário.</p></div>
+          </details>
+          <details name="faq">
+            <summary>A Clínica Santa Rita atende convênios?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Sim. Atendemos particular e os principais convênios. A cobertura muda de um plano para outro e de um procedimento para outro, então o melhor é confirmar antes pelo <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Quais%20conv%C3%AAnios%20voc%C3%AAs%20atendem%3F" target="_blank" rel="noopener">WhatsApp</a>, informando o nome do convênio e o que você precisa fazer.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Qual o horário de funcionamento?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>De segunda a sexta. A matriz de Taguatinga atende das <span class="num">7h às 18h</span>; Águas Lindas, Riacho Fundo, Santo Antônio e Sobradinho atendem até as <span class="num">17h</span>. Alguns exames têm horários próprios, que a equipe informa no agendamento.</p></div>
+          </details>
+          <details name="faq">
+            <summary>O que devo levar no dia do atendimento?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Documento oficial com foto, a carteirinha do convênio (se for usar) e o pedido médico, quando houver. Se tiver exames anteriores da mesma região, traga também: ajudam o médico a comparar. Chegue com uns 15 minutos de antecedência para o cadastro.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Onde ficam as unidades?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>A matriz fica na <span class="num">QND 47, Lote 10</span>, Taguatinga Norte, Brasília-DF. Também atendemos em Águas Lindas de Goiás, Riacho Fundo, Santo Antônio do Descoberto e Sobradinho. Veja <a href="#unidades">endereços, mapas e rotas de todas as unidades</a>.</p></div>
+          </details>
+        </div>
+        <h3 class="faq__grupo">Exames e resultados</h3>
+        <div class="faq vidro" data-card>
+          <details name="faq">
+            <summary>Preciso de pedido médico para fazer exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Pelo convênio, sim: o plano exige o pedido médico. No particular, depende do exame. Se você ainda não tem o pedido, pode <a href="#especialidades">agendar uma consulta</a> com um dos nossos especialistas e já sair com tudo encaminhado.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Como me preparo para os exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Cada exame tem seu preparo: jejum, bexiga cheia, evitar algum suplemento ou cosmético no dia. Ao agendar, enviamos as orientações certas para o seu caso. Os principais cuidados de cada exame de imagem estão no <a href="#exames">Centro de diagnóstico por imagem</a>.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Como vejo o resultado dos meus exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Os exames de laboratório saem pela internet, em <a href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">Resultados de exames</a>. Eletrocardiograma, espirometria, MAPA e Holter ficam no <a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do paciente</a>. Se tiver dificuldade para acessar, chame a gente no WhatsApp.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Quais especialidades vocês atendem?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Cardiologia, ginecologia, ortopedia, dermatologia, endocrinologia, neurologia, pneumologia, psiquiatria e várias outras. A lista completa está em <a href="#especialidades">Especialidades</a>: toque em uma delas e o WhatsApp abre com o pedido de agendamento já escrito.</p></div>
+          </details>
+          <details name="faq">
+            <summary>Vocês fazem exame toxicológico e medicina do trabalho?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
+            <div class="faq__resp"><p>Sim. As informações e o agendamento do exame toxicológico são feitos pelo <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20exame%20toxicol%C3%B3gico." target="_blank" rel="noopener">WhatsApp</a>. Exames admissionais, periódicos e demissionais ficam com a nossa parceira <a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Clínica Cemtra</a>, especializada em medicina do trabalho.</p></div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
+    <div class="container contato__grade">
+      <div class="contato__info">
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span data-embaralha>Ouvidoria</span></p>
+        <h2 class="titulo" id="contato-titulo" data-palavras>Fale com a gente</h2>
+        <p class="lead">Sugestões, elogios ou reclamações vão direto para a gerência e a ouvidoria.</p>
+        <ul class="canais vidro" data-card>
+          <li><a href="tel:+556133551105"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="mailto:gerencia@clinicasantarita.com.br"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Gerência</strong><span>gerencia@<wbr>clinicasantarita.com.br</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a href="mailto:ouvidoria@clinicasantarita.com.br"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Ouvidoria</strong><span>ouvidoria@<wbr>clinicasantarita.com.br</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+        </ul>
+      </div>
+      <form class="formulario vidro" data-card id="form-contato" action="forms/contact.php" method="post">
+        <h3 class="formulario__titulo">Envie uma mensagem</h3>
+        <div class="campos-lado">
+          <div class="campo campo--flutua">
+            <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><input id="c-name" name="name" type="text" autocomplete="name" placeholder=" " required><label for="c-name">Seu nome</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
+          </div>
+          <div class="campo campo--flutua">
+            <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><input id="c-email" name="email" type="email" autocomplete="email" placeholder=" " required><label for="c-email">Seu e-mail</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
+          </div>
+        </div>
+        <div class="campo campo--flutua">
+          <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg><input id="c-subject" name="subject" type="text" placeholder=" " required><label for="c-subject">Assunto</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
+        </div>
+        <div class="campo campo--flutua">
+          <div class="campo__caixa campo__caixa--texto"><svg class="i" aria-hidden="true"><use href="#i-msg"/></svg><textarea id="c-message" name="message" rows="5" placeholder=" " required></textarea><label for="c-message">Mensagem</label></div>
+        </div>
+        <p class="formulario__status" role="status" aria-live="polite" hidden></p>
+        <button class="botao botao--primario botao--lg botao--cheio" type="submit"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span><span class="botao__txt">Enviar mensagem</span></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape" data-rodape>
+  <canvas class="rodape__pulso" data-ecg="linha-clara" aria-hidden="true"></canvas>
+  <div class="container rodape__grade">
+    <div class="rodape__marca">
+      <svg class="rodape__simbolo" viewBox="0 0 100 78.5" aria-hidden="true"><use href="#simbolo"/></svg>
+      <p class="wordmark wordmark--claro">Clínica<i>.</i>Santa<i>.</i>Rita</p>
+      <p class="marca__assinatura marca__assinatura--claro">Cuidando da sua saúde</p>
+      <a class="rodape__social" href="https://www.instagram.com/clinicasantaritadf/" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-insta"/></svg>@clinicasantaritadf</a>
+    </div>
+    <nav class="rodape__col" aria-label="Rodapé: seções">
+      <h2>Navegue</h2>
+      <ul>
+        <li><a href="#especialidades">Especialidades</a></li>
+        <li><a href="#laboratorio">Laboratório</a></li>
+        <li><a href="#exames">Exames de imagem</a></li>
+        <li><a href="#agendar">Pré-agendamento</a></li>
+        <li><a href="#unidades">Unidades</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <nav class="rodape__col" aria-label="Rodapé: serviços">
+      <h2>Para você</h2>
+      <ul>
+        <li><a href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">Resultados de <span class="nw">exames&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do <span class="nw">paciente&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Medicina do <span class="nw">Trabalho&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="https://clinicasantarita.com.br/tcn/trabalhe-conosco.html" target="_blank" rel="noopener">Trabalhe <span class="nw">conosco&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      </ul>
+    </nav>
+    <nav class="rodape__col" aria-label="Rodapé: parceiros">
+      <h2>Parceiros</h2>
+      <ul>
+        <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Clínica <span class="nw">Cemtra&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="http://grupoconsaude.com.br/" target="_blank" rel="noopener">Grupo <span class="nw">ConSaúde&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container rodape__base">
+    <p>© <span data-ano>2026</span> Clínica Santa Rita. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- contato rápido: botão no desktop, barra no celular -->
+<a class="flutuante escondido" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg><span class="flutuante__rotulo" aria-hidden="true">Agendar</span></a>
+<div class="barra-movel no-hero" aria-label="Contato rápido">
+  <a class="barra-movel__wa" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+  <a class="barra-movel__tel" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Ligar</a>
+</div>
+
+</body>
+</html>
