@@ -317,7 +317,7 @@ uniform vec2 u_res;uniform float u_t;uniform vec2 u_m;uniform float u_s;uniform 
 float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
   return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}
-float fbm(vec2 p){float v=0.,k=.5;for(int i=0;i<4;i++){v+=k*n(p);p=p*2.03+vec2(1.7,9.2);k*=.5;}return v;}
+float fbm(vec2 p){float v=0.,k=.5;for(int i=0;i<3;i++){v+=k*n(p);p=p*2.03+vec2(1.7,9.2);k*=.5;}return v;}
 void main(){
   vec2 uv=gl_FragCoord.xy/u_res;
   float a=u_res.x/u_res.y;
@@ -326,7 +326,7 @@ void main(){
   float perto=exp(-d*d*11.);
   /* luz e sombra macias que derivam devagar, como luz de janela na parede */
   vec2 q=p*1.1+vec2(u_t*.018,-u_t*.012-u_s*.01);
-  float w=fbm(q+fbm(q*1.3+u_t*.025)*1.2);
+  float w=fbm(q+vec2(sin(u_t*.05),cos(u_t*.04))*.6);
   /* camada de trás: linhas finas e densas que andam mais devagar com a rolagem (profundidade) */
   float yb=uv.y*27.+u_s*.45;
   float fb=fract(yb+sin(p.x*2.1-u_t*.3+floor(yb)*.7)*.2+(n(vec2(p.x*1.1-u_t*.07,floor(yb)*.41))-.5)*.38);
@@ -356,6 +356,7 @@ void main(){
   col=mix(col,u_cor,traco*pulso*.42*u_forca);
   col-=(1.-f)*.006;
   col*=1.-.035*pow(length(uv-.5)*1.4,2.);
+  col+=(h(floor(gl_FragCoord.xy))-.5)*.022;
   gl_FragColor=vec4(col,1.);
 }`;
     const shader = (tipo, src) => { const s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
@@ -379,7 +380,7 @@ void main(){
     addEventListener('resize', forca, { passive: true });
     const hex = getComputedStyle(html).getPropertyValue('--vermelho').trim().replace('#', '');
     gl.uniform3f(uCor, ...[0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16) / 255));
-    let escala = Math.min(devicePixelRatio || 1, 1) * .85;
+    let escala = Math.min(devicePixelRatio || 1, 1) * (innerWidth > 1600 ? .7 : .85);
     const mede = () => {
       cv.width = Math.round(innerWidth * escala); cv.height = Math.round(innerHeight * escala);
       gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height);
@@ -400,6 +401,7 @@ void main(){
     };
     desenha(0);
     cv.classList.add('pronto');
+    html.classList.add('fundo-ok'); // o grão passa a vir do próprio shader
     if (reduz) { addEventListener('scroll', () => desenha(0), { passive: true }); return; }
     // quando o centro de imagem ou o rodapé (opacos) cobrem a tela inteira, o fundo não precisa ser desenhado
     const opacos = $$('.exames, .rodape');
@@ -879,8 +881,11 @@ void main(){
     comecaHero();
   }
 
+  // prepara o texto um pouco antes de ele entrar na tela, em vez de fatiar tudo na abertura
+  const perto = (el, fn) => ScrollTrigger.create({ trigger: el, start: () => `top bottom+=${Math.round(innerHeight * .35)}`, once: true, onEnter: fn });
+
   /* ---------- títulos: palavras sobem de uma máscara ---------- */
-  $$('[data-palavras]').forEach(h => {
+  $$('[data-palavras]').forEach(h => perto(h, () => {
     const sp = quebra(h);
     if (!sp) { $$('.destaque', h).forEach(el => risca(el)); return; }
     // as palavras sobem; quando assentam, a palavra-chave ganha o risco desenhado
@@ -888,22 +893,22 @@ void main(){
       yPercent: 118, rotate: 4, duration: 1.1, stagger: .04, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' },
       onComplete: () => { sp.revert(); $$('.destaque', h).forEach(el => risca(el, true)); }
     });
-  });
+  }));
 
   /* ---------- declaração: acende palavra por palavra ---------- */
   const decl = $('[data-declaracao]');
-  if (decl && window.SplitText && !leve) {
+  if (decl && window.SplitText && !leve) perto(decl, () => {
     const sp = SplitText.create(decl, { type: 'words' });
     gsap.fromTo(sp.words, { opacity: .14 }, { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: decl, start: 'top 80%', end: 'bottom 45%', scrub: true } });
-  }
+  });
 
   /* ---------- caixas: entrada em cascata ---------- */
   const caixas = $$('[data-card]').filter(c => !c.closest('.hero'));
-  gsap.set(caixas, { opacity: 0, y: 70, rotationX: -12, transformPerspective: 1100, transformOrigin: '50% 100%' });
+  gsap.set(caixas, { opacity: 0, y: 56 });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
     onEnter: lote => {
-      gsap.to(lote, { opacity: 1, y: 0, rotationX: 0, duration: 1.2, stagger: .09, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
+      gsap.to(lote, { opacity: 1, y: 0, duration: 1.1, stagger: .08, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
       // os ícones de dentro chegam um pouco depois, com um pulo
       const icos = lote.flatMap(c => $$('.ico, .canais .i, .sobre__fato-ico, .ajuda__ico, .bento__lista .ico', c));
       if (icos.length) gsap.from(icos, { scale: 0, rotate: -45, duration: .8, stagger: .05, delay: .3, ease: 'back.out(2.2)', clearProps: 'transform' });
@@ -987,11 +992,11 @@ void main(){
   });
 
   /* ---------- textos de apoio: as linhas sobem da máscara, uma depois da outra ---------- */
-  $$('.secao .lead, .declaracao__apoio').filter(p => !p.closest('.exame')).forEach(p => {
+  $$('.secao .lead, .declaracao__apoio').filter(p => !p.closest('.exame')).forEach(p => perto(p, () => {
     const sp = quebra(p, 'lines');
     if (!sp) return;
     gsap.from(sp.lines, { yPercent: 100, opacity: 0, duration: 1, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 90%' }, onComplete: () => sp.revert() });
-  });
+  }));
 
   /* ---------- especialidades: as linhas entram em cascata e os ícones pulam ---------- */
   const espLista = $('[data-esp-lista]');
@@ -1019,7 +1024,7 @@ void main(){
   const exNumero = $('[data-ex-numero]', palco), exSecao = $('[data-exames]');
   const marcaExame = i => {
     exAtivo = i;
-    exLinks.forEach((a, k) => a.classList.toggle('ativo', k === i));
+    exLinks.forEach((a, k) => { a.classList.toggle('ativo', k === i); a.classList.toggle('feito', k < i); });
     const a = exLinks[i];
     const leg = exames[i] && $('.exame__legenda', exames[i]);
     if (leg && visorNome && visorNome.textContent !== $('span', leg).textContent) {
@@ -1080,7 +1085,15 @@ void main(){
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     let estado = { a: 0, b: 1, p: 0, dir: 1 }, mouse = [0, 0];
     const escala = e => { const r = tela.width / tela.height; return e > r ? [r / e, 1] : [1, e / r]; };
-    // uma textura por sala; até a foto chegar, um pixel grafite
+    // uma textura por sala; até a foto chegar, um pixel grafite. Os envios para a placa vão numa fila, um por quadro
+    const fila = [];
+    let andando = false;
+    const anda = () => {
+      if (andando) return;
+      andando = true;
+      const passo = async () => { const job = fila.shift(); if (!job) { andando = false; return; } await job(); requestAnimationFrame(passo); };
+      requestAnimationFrame(passo);
+    };
     const salas = exames.map(ex => {
       const img = $('img', ex), t = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, t);
@@ -1090,21 +1103,25 @@ void main(){
       const sala = { t, ar: 1 };
       const carrega = new Image();
       carrega.decoding = 'async';
-      carrega.onload = () => {
-        let fonte = carrega;
-        if (!gl2) {
+      carrega.onload = () => fila.push(async () => {
+        let fonte = carrega, invertida = false;
+        if (gl2 && window.createImageBitmap) {
+          // ImageBitmap decodifica fora da thread principal; a inversão vertical vem da própria criação
+          try { fonte = await createImageBitmap(carrega, { imageOrientation: 'flipY' }); invertida = true; } catch (er) { fonte = carrega; }
+        } else if (!gl2) {
           // WebGL1 só gera mipmap em potência de 2: a foto é redesenhada em 2048×1024 (a proporção real fica em sala.ar)
           fonte = document.createElement('canvas'); fonte.width = 2048; fonte.height = 1024;
           fonte.getContext('2d').drawImage(carrega, 0, 0, 2048, 1024);
         }
         gl.bindTexture(gl.TEXTURE_2D, t);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, !invertida);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fonte);
         gl.generateMipmap(gl.TEXTURE_2D);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         sala.ar = carrega.naturalWidth / carrega.naturalHeight;
         desenha();
-      };
+      }) && anda();
       carrega.src = img.getAttribute('src');
       return sala;
     });
@@ -1117,7 +1134,7 @@ void main(){
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     const mede = () => {
-      const dpr = Math.min(devicePixelRatio || 1, 2);
+      const dpr = Math.min(devicePixelRatio || 1, 1.5);
       tela.width = Math.max(1, Math.round(tela.clientWidth * dpr)); tela.height = Math.max(1, Math.round(tela.clientHeight * dpr));
       gl.viewport(0, 0, tela.width, tela.height); gl.uniform2f(U.res, tela.width, tela.height);
       desenha();
@@ -1130,10 +1147,18 @@ void main(){
     const n = exames.length;
     const fotos = exames.map(e => $('.exame__foto', e));
     const textos = exames.map(e => $('.exame__texto', e));
-    const visor = visorEl ? criaVisor() : null;
+    let visor = null;
     const mede = () => { if (visor) visor.mede(); marcaExame(exAtivo); };
-    if (visor) html.classList.add('visor-ok');
+    // o WebGL do visor só nasce quando a seção chega perto: na abertura do site ele não pesa nada
+    if (visorEl && window.WebGLRenderingContext) html.classList.add('visor-ok');
     else gsap.set(fotos.slice(1), { autoAlpha: 0 });
+    const ligaVisor = () => {
+      if (visor || !html.classList.contains('visor-ok')) return;
+      visor = criaVisor();
+      if (!visor) { html.classList.remove('visor-ok'); fotos.forEach((f, k) => gsap.set(f, { autoAlpha: k === exAtivo ? 1 : 0 })); return; }
+      Object.assign(est, { a: exAtivo, b: exAtivo, p: 1 });
+      visor.mede(); visor.mostra(exAtivo, exAtivo, 1);
+    };
     requestAnimationFrame(mede);
     addEventListener('resize', mede);
     gsap.set(textos.slice(1), { autoAlpha: 0 });
@@ -1154,9 +1179,10 @@ void main(){
        com duração fixa, então a imagem nunca fica parada no meio da passagem. Sem snap, para não brigar
        com a rolagem suave; a aba ativa mostra quanto falta para a próxima sala. */
     const est = { a: 0, b: 0, p: 1 };
+    const abas = $('.exames__indice', palco);
     const janela = visorEl && $('.visor__janela', visorEl);
     let troca = null, olha = null, solta = null, pendente = null;
-    if (visor) visor.mostra(0, 0, 1);
+    ScrollTrigger.create({ trigger: palco, start: () => `top bottom+=${innerHeight * 1.2}`, once: true, onEnter: ligaVisor });
     const passa = i => {
       const de = est.b;
       if (i === de) return;
@@ -1171,24 +1197,23 @@ void main(){
       if (visor) {
         if (troca && troca.isActive()) { pendente = i; troca.timeScale(2.4); return; }
         passa(i);
+      } else if (html.classList.contains('visor-ok')) {
+        // o visor ainda não nasceu (chegada direta pelo link): ele já abre na sala certa
+        Object.assign(est, { a: i, b: i, p: 1 });
       } else {
         gsap.to(fotos[de], { autoAlpha: 0, duration: .8, ease: 'power1.out', overwrite: true });
         gsap.fromTo(fotos[i], { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: 1.1, ease: 'power2.out', overwrite: true });
       }
     };
-    const palcoFoto = visor ? visorEl : null;
-    // a moldura inclina para o mouse, um brilho segue o cursor e a foto anda dentro dela
-    if (visor && fino) {
-      const brilho = $('.visor__brilho', visorEl), m = { x: 0, y: 0 };
-      const rx = gsap.quickTo(visorEl, 'rotationX', { duration: .9, ease: 'power3' }), ry = gsap.quickTo(visorEl, 'rotationY', { duration: .9, ease: 'power3' });
-      gsap.set(visorEl, { transformPerspective: 1400 });
+    // o mouse move a foto um pouco por dentro do quadro (paralaxe)
+    if (visorEl && fino) {
+      const m = { x: 0, y: 0 };
+      const aplica = () => visor && visor.olha(m.x, m.y);
       olha = e => {
-        const r = visorEl.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-        rx(-y * 5); ry(x * 6);
-        brilho.style.setProperty('--gx', `${(x + .5) * 100}%`); brilho.style.setProperty('--gy', `${(y + .5) * 100}%`);
-        gsap.to(m, { x, y: -y, duration: 1, ease: 'power3', overwrite: true, onUpdate: () => visor.olha(m.x, m.y) });
+        const r = visorEl.getBoundingClientRect();
+        gsap.to(m, { x: (e.clientX - r.left) / r.width - .5, y: .5 - (e.clientY - r.top) / r.height, duration: 1.1, ease: 'power3', overwrite: true, onUpdate: aplica });
       };
-      solta = () => { rx(0); ry(0); gsap.to(m, { x: 0, y: 0, duration: 1.2, ease: 'power3', overwrite: true, onUpdate: () => visor.olha(m.x, m.y) }); };
+      solta = () => gsap.to(m, { x: 0, y: 0, duration: 1.4, ease: 'power3', overwrite: true, onUpdate: aplica });
       visorEl.addEventListener('pointermove', olha);
       visorEl.addEventListener('pointerleave', solta);
     }
@@ -1199,15 +1224,11 @@ void main(){
         const i = Math.floor(total), local = total - i;
         if (i !== exAtivo) { const de = exAtivo; marcaExame(i); vaiPara(i, de); }
         mostraTexto(i);
-        if (exLuz) exLuz.style.setProperty('--carga', local.toFixed(3));
-        // profundidade: a ficha e a foto deslizam em sentidos opostos dentro de cada sala
-        gsap.set(textos[i], { y: (local - .5) * -26 });
-        gsap.set(palcoFoto || fotos[i], { y: (local - .5) * 14 });
+        if (abas) abas.style.setProperty('--carga', local.toFixed(3));
       }
     });
     // entrada: o palco sobe e cresce um pouco enquanto a seção chega
-    const lista = $('.exames__lista', palco), abas = $('.exames__indice', palco);
-    gsap.fromTo(lista, { scale: .94, y: 70 }, { scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: palco, start: 'top bottom', end: 'top top', scrub: true } });
+    gsap.fromTo(html.classList.contains('visor-ok') ? visorEl : fotos[0], { clipPath: 'inset(10% 16% 10% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: palco, start: 'top 85%', end: 'top top', scrub: true } });
     gsap.fromTo(abas, { y: 40, opacity: 0 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: palco, start: 'top 90%', end: 'top 30%', scrub: true } });
     marcaExame(0);
     const clique = e => {
@@ -1222,12 +1243,12 @@ void main(){
       palco.removeEventListener('click', clique); removeEventListener('resize', mede);
       if (troca) troca.kill();
       if (olha) { visorEl.removeEventListener('pointermove', olha); visorEl.removeEventListener('pointerleave', solta); }
-      gsap.set([...fotos, ...textos, ...textos.flatMap(t => [...t.children]), $('.exames__lista', palco), $('.exames__indice', palco), visorEl, janela, exNumero].filter(Boolean), { clearProps: 'all' });
+      gsap.set([...fotos, ...textos, ...textos.flatMap(t => [...t.children]), abas, visorEl, janela, exNumero].filter(Boolean), { clearProps: 'all' });
     };
   });
 
   // recalcula depois das imagens e fontes
-  addEventListener('load', () => ScrollTrigger.refresh());
+  addEventListener('load', () => (window.requestIdleCallback || (f => setTimeout(f, 300)))(() => ScrollTrigger.refresh(), { timeout: 2000 }));
 
   // endereço com #seção: a página abre parada na seção
   const idInicial = (() => { try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return ''; } })();

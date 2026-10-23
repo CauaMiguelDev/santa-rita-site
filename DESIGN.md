@@ -278,7 +278,7 @@ Branco, cinza-claro e grafite carregam tudo; o vermelho da faixa é o único ace
 
 Contêiner de 1320px com respiro lateral fluido (`pad`). Toda seção usa o mesmo ritmo (`secao`, clamp(84px, 9vw, 132px)); o rodapé abre com clamp(96px, 10vw, 140px). Cabeçalhos de seção são uma grade de duas colunas (título à esquerda, lead alinhado embaixo à direita), virando uma coluna em 1024px. As composições são assimétricas em pares 5/7 ou 7/5 (Três cuidados, agendamento, unidades, FAQ, contato, campanha); o hero é 1.08/0.92; o laboratório é um bento 5/4/3 com a foto em duas linhas; o "sobre" é um bento de 12 colunas (7+5); especialidades em 3 colunas de texto (2 em 1024px, 1 em 640px).
 
-Centro de Imagem: no desktop com movimento (≥1025px, sem `.leve`) o palco é fixado por 100svh; abas em pílula no topo e, abaixo, a caixa da foto e a ficha do exame em 1.15/0.85, com encaixe por sala. Abaixo de 1025px as salas viram um carrossel horizontal com scroll-snap (cartão de min(86%, 440px)) e pontos embaixo.
+Centro de Imagem: no desktop com movimento (≥1025px, sem `.leve`) o palco é fixado por 100svh e vira um palco editorial: a foto ocupa a metade esquerda da tela de ponta a ponta (54fr) e se dissolve no grafite por máscara; a ficha fica à direita (46fr) sem caixa, só tipografia, com uma régua de cinco segmentos embaixo. Abaixo de 1025px as salas viram um carrossel horizontal com scroll-snap e pontos embaixo.
 
 Pontos de quebra: 1180px (navegação vira botão de menu), 1024px (grades em uma coluna), 760px (`nav-h` 62px, botão flutuante vira barra inferior em pílula com WhatsApp e Ligar, ondas do fundo mais fracas), 640px e 560px (ajustes de lista e formulário).
 
@@ -361,6 +361,9 @@ Capítulo grafite calmo: uma luz vermelha distante no canto e um brilho prata no
 
 ### Pulso e riscos
 O painel do paciente é um monitor multiparâmetro em canvas: tela grafite com papel milimetrado vermelho, ECG PQRST (soma de cinco gaussianas, ritmo levemente variável a cada batida), curva de oximetria (Pleth) com entalhe dicrótico, feixe que varre, apaga à frente e deixa rastro que esmaece, e coluna de números com FC (o coração bate no pico R) e SpO₂. O mesmo traço corre como faixa fina no pé do hero (só ≥1025px) e no topo do rodapé. O risco vermelho feito à mão sublinha só duas expressões: a palavra que gira no hero e "mesmo lugar." em Três cuidados.
+
+### Fluidez na abertura
+Nada pesado nasce na abertura: os títulos e textos só são fatiados para animar quando chegam perto da tela; o WebGL do centro de imagem só é criado quando a seção se aproxima e as fotos vão para a placa uma por quadro (ImageBitmap); os cartões de vidro não usam desfoque ao vivo (era refeito a cada quadro sobre o fundo animado); o grão da página vem do próprio shader do fundo; o recálculo do ScrollTrigger depois do load roda em tempo ocioso.
 
 ### Moldura de foto (Sobre)
 Passe-partout branco de 8px, foto num recorte de 20px, grão fino e degradê escuro embaixo; legenda numa pílula de vidro escuro com ícone num círculo vermelho; na fachada, um selo branco "25+ anos de cuidado". Vídeo (8 colunas) e sala de espera (4) têm a mesma altura.
