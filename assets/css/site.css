@@ -964,63 +964,67 @@ input, textarea { caret-color: var(--vermelho); }
 .leve .moldura__legenda, .leve .exame__legenda > span:first-child, .leve .exame__legenda .num, .leve .video-som, .leve .moldura__selo { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .leve .moldura__legenda { background: rgba(15,16,20,.72); }
 
-/* ---------- centro de imagem no desktop: palco editorial ----------
-   A foto ocupa a metade esquerda da tela de ponta a ponta e se dissolve no grafite; à direita, a ficha
-   sem caixa, só tipografia, e embaixo uma régua de cinco segmentos que marca a sala e o progresso. */
+/* ---------- centro de imagem no desktop: foto de ponta a ponta + navegador de salas ----------
+   A foto ocupa a metade esquerda da tela inteira e se apaga no grafite. Por cima dela, embaixo, um
+   navegador de vidro escuro com a miniatura de cada sala: a ativa se abre mostrando número e nome e
+   enche uma linha vermelha com a rolagem. À direita fica a ficha do exame, em caixa, como antes. */
+.exames__mini { display: none; }
+.exames__rotulo .num { margin-right: 8px; }
+.pan-ex .exames__rotulo .num { margin-right: 0; }
 .visor-ok .visor { display: block; }
 .pan-ex .exames__palco { height: 100svh; padding: 0; }
-.pan-ex .exames__palco > .container { width: 100%; max-width: none; height: 100%; margin: 0; display: grid; grid-template-columns: minmax(0, 54fr) minmax(0, 46fr); grid-template-rows: minmax(0, 1fr) auto; --borda: max(var(--pad), calc((100vw - var(--max)) / 2)); }
+.pan-ex .exames__palco > .container { width: 100%; max-width: none; height: 100%; margin: 0; display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); grid-template-rows: minmax(0, 1fr) auto; --borda: max(var(--pad), calc((100vw - var(--max)) / 2)); }
 .pan-ex .exames__lista, .pan-ex .exame { display: contents; }
 .pan-ex .exames__pontos { display: none; }
 
-/* a foto: duas linhas da coluna da esquerda, sem moldura, apagando em direção à ficha */
+/* a foto: coluna da esquerda inteira, sem moldura, apagando em direção à ficha */
 .pan-ex .exame__foto, .pan-ex .visor { grid-column: 1; grid-row: 1 / 3; height: 100%; aspect-ratio: auto; padding: 0; border-radius: 0; background: #0E0F12; box-shadow: none;
-  -webkit-mask-image: linear-gradient(90deg, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%); mask-image: linear-gradient(90deg, #000 62%, rgba(0,0,0,.55) 84%, transparent 100%); }
+  -webkit-mask-image: linear-gradient(90deg, #000 66%, rgba(0,0,0,.5) 86%, transparent 100%); mask-image: linear-gradient(90deg, #000 66%, rgba(0,0,0,.5) 86%, transparent 100%); }
 .pan-ex .exame__foto img, .pan-ex .visor__janela { inset: 0; width: 100%; height: 100%; border-radius: 0; }
-.pan-ex .exame__foto::after, .pan-ex .visor::after { inset: 0; border-radius: 0; box-shadow: none; }
+.pan-ex .exame__foto::after, .pan-ex .visor::after { inset: 0; border-radius: 0; box-shadow: none; background: linear-gradient(to top, rgba(10,11,14,.72), transparent 34%), linear-gradient(to bottom, rgba(10,11,14,.45), transparent 22%); mix-blend-mode: normal; }
 .pan-ex .visor__brilho { display: none; }
-.pan-ex .exame__legenda { left: var(--borda); right: auto; bottom: clamp(28px, 5vh, 52px); gap: 10px; }
+/* a legenda da sala sobe para o alto da foto */
+.pan-ex .exame__legenda { left: var(--borda); right: auto; top: calc(var(--nav-h) + 22px); bottom: auto; gap: 10px; }
 
-/* a ficha: tipografia direto no grafite */
-.pan-ex .exame__texto { grid-column: 2; grid-row: 1; align-self: center; z-index: 1; max-width: 560px; margin: 0 var(--borda) 0 clamp(8px, 2.2vw, 36px); padding: calc(var(--nav-h) + 20px) 0 0; background: none; box-shadow: none; border-radius: 0; }
-.pan-ex .exame__texto::before { display: none; }
-.pan-ex .exame__texto h3 { margin-top: 22px; font-size: clamp(2.3rem, 3.4vw, 3.5rem); line-height: 1; letter-spacing: -.04em; }
-.pan-ex .exame__lead { margin-top: 16px; max-width: 46ch; font-size: 1.1rem; }
-.pan-ex .exame__info { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; margin-top: 30px; }
-.pan-ex .exame__info div { grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; padding: 14px 0; border-radius: 0; background: none; box-shadow: none; border-top: 1px solid rgba(255,255,255,.1); }
-.pan-ex .exame__info div:last-child { grid-column: 1 / -1; }
-.pan-ex .exame__info div:hover { background: none; }
-.pan-ex .exame__info-ico { width: 30px; height: 30px; border-radius: 9px; }
-.pan-ex .exame__info-ico .i { width: 16px; height: 16px; }
-.pan-ex .exame__acoes { margin-top: 30px; }
-
-/* a régua: cinco segmentos; os já vistos ficam cheios e o atual enche com a rolagem */
-.pan-ex .exames__indice { grid-column: 2; grid-row: 2; display: block; width: auto; max-width: 560px; margin: 0 max(calc(var(--borda) + 40px), 104px) clamp(28px, 5vh, 52px) clamp(8px, 2.2vw, 36px); padding: 0; border-radius: 0; background: none; box-shadow: none; }
-.pan-ex .exames__indice ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+/* o navegador de salas, de vidro escuro, no pé da foto */
+.pan-ex .exames__indice { grid-column: 1; grid-row: 2; z-index: 2; justify-self: start; align-self: end; display: flex; width: auto; max-width: calc(100% - var(--borda) - 24px); margin: 0 0 clamp(24px, 4.5vh, 44px) var(--borda); padding: 8px; border-radius: 24px;
+  background: rgba(12,13,16,.58); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), 0 24px 50px -24px rgba(0,0,0,.8); }
+.pan-ex .exames__indice ol { display: flex; gap: 4px; }
 .pan-ex .exames__luz { display: none; }
-.pan-ex .exames__indice a { display: grid; gap: 4px; height: auto; padding: 16px 0 0; border-radius: 0; color: rgba(255,255,255,.45); font-size: .82rem; line-height: 1.2; white-space: normal; transition: color .4s ease; }
-.pan-ex .exames__indice a .num { font-size: .72rem; opacity: .75; }
-.pan-ex .exames__indice a::before, .pan-ex .exames__indice a::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; border-radius: 2px; }
-.pan-ex .exames__indice a::before { background: rgba(255,255,255,.14); }
-.pan-ex .exames__indice a::after { background: var(--vermelho-claro); transform-origin: 0 50%; transform: scaleX(0); transition: transform .6s var(--ease); }
-.pan-ex .exames__indice a.feito::after { transform: scaleX(1); }
-.pan-ex .exames__indice a.ativo::after { transform: scaleX(var(--carga, 0)); transition: none; }
-.pan-ex .exames__indice a.ativo, .pan-ex .exames__indice a:hover { color: #fff; }
+.pan-ex .exames__indice a { display: flex; align-items: center; gap: 0; height: auto; padding: 6px; border-radius: 18px; color: #fff; transition: background-color .4s ease, gap .55s var(--ease); }
+.pan-ex .exames__mini { display: block; width: 52px; height: 52px; flex: none; border-radius: 13px; object-fit: cover; filter: grayscale(.85) brightness(.62); transition: filter .5s ease, box-shadow .4s ease, transform .55s var(--ease); }
+.pan-ex .exames__rotulo { display: grid; gap: 2px; max-width: 0; overflow: hidden; opacity: 0; font-size: .92rem; font-weight: 750; line-height: 1.15; white-space: nowrap; transition: max-width .6s var(--ease), opacity .4s ease, padding .6s var(--ease); }
+.pan-ex .exames__rotulo .num { font-size: .7rem; letter-spacing: .08em; opacity: .55; }
+.pan-ex .exames__indice a:hover .exames__mini { filter: grayscale(.2) brightness(.92); transform: translateY(-2px); }
+.pan-ex .exames__indice a.ativo { background: rgba(255,255,255,.1); gap: 12px; }
+.pan-ex .exames__indice a.ativo .exames__mini { filter: none; box-shadow: 0 0 0 2px var(--vermelho-claro); }
+.pan-ex .exames__indice a.ativo .exames__rotulo { max-width: 170px; opacity: 1; padding-right: 10px; }
+.pan-ex .exames__indice a.feito .exames__mini { filter: grayscale(.4) brightness(.8); }
+/* a linha que enche: cheia nas salas vistas, enchendo com a rolagem na atual */
+.pan-ex .exames__indice a::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 1px; height: 2px; border-radius: 2px; background: var(--vermelho-claro); transform-origin: 0 50%; transform: scaleX(0); opacity: 0; transition: transform .6s var(--ease), opacity .3s ease; }
+.pan-ex .exames__indice a.feito::after { transform: scaleX(1); opacity: .45; }
+.pan-ex .exames__indice a.ativo::after { transform: scaleX(var(--carga, 0)); opacity: 1; transition: opacity .3s ease; }
+
+/* a ficha: a mesma caixa de sempre, à direita e centralizada na altura */
+.pan-ex .exame__texto { grid-column: 2; grid-row: 1 / 3; align-self: center; z-index: 1; max-width: 560px; margin: var(--nav-h) var(--borda) 0 clamp(8px, 2vw, 32px); }
 
 /* numeral vazado no alto da coluna da direita */
 .pan-ex .exames__numero { display: block; grid-column: 2; grid-row: 1; align-self: start; justify-self: end; z-index: 0; margin: calc(var(--nav-h) + 4px) var(--borda) 0 0; font-size: clamp(8rem, 12vw, 13rem); font-weight: 800; line-height: .8; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.07); pointer-events: none; }
 
-/* notebooks de tela baixa (1280×720, 1366×768) */
+/* notebooks de tela baixa (1280×720, 1366×768): a caixa fica compacta para caber inteira */
 @media (min-width: 1025px) and (max-height: 860px) {
-  .pan-ex .exame__texto { padding-top: calc(var(--nav-h) + 4px); }
+  .pan-ex .exame__texto { padding: 22px 26px 20px; }
   .pan-ex .exame__ico { width: 40px; height: 40px; border-radius: 13px; }
   .pan-ex .exame__ico .i { width: 20px; height: 20px; }
-  .pan-ex .exame__texto h3 { margin-top: 14px; font-size: clamp(2rem, 2.8vw, 2.7rem); }
-  .pan-ex .exame__lead { margin-top: 10px; font-size: 1rem; }
-  .pan-ex .exame__info { margin-top: 18px; }
-  .pan-ex .exame__info div { padding: 10px 0; }
-  .pan-ex .exame__acoes { margin-top: 20px; }
+  .pan-ex .exame__texto h3 { margin-top: 12px; font-size: clamp(1.55rem, 2vw, 1.9rem); }
+  .pan-ex .exame__lead { margin-top: 8px; font-size: .97rem; line-height: 1.5; }
+  .pan-ex .exame__info { margin-top: 14px; gap: 6px; }
+  .pan-ex .exame__info div { padding: 7px 10px; column-gap: 12px; }
+  .pan-ex .exame__info-ico { width: 34px; height: 34px; border-radius: 10px; }
+  .pan-ex .exame__info dd { font-size: .92rem; }
+  .pan-ex .exame__acoes { margin-top: 16px; gap: 10px 18px; }
   .pan-ex .exames__numero { font-size: clamp(6.5rem, 9vw, 9rem); }
+  .pan-ex .exames__mini { width: 46px; height: 46px; }
 }
 @media (min-width: 1025px) and (max-height: 740px) {
   .pan-ex .exame__lead { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
