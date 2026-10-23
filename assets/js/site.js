@@ -587,31 +587,56 @@ void main(){
     }
   }
 
-  /* ---------- centro de imagem no celular: carrossel de salas ---------- */
-  const listaEx = $('[data-ex-lista]'), pontosEx = $('[data-ex-pontos]');
-  const cartoesEx = $$('.exame', listaEx || undefined);
-  if (listaEx && pontosEx && cartoesEx.length) {
-    cartoesEx.forEach(c => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('aria-label', `Ver ${$('h3', c).textContent}`);
-      b.addEventListener('click', () => listaEx.scrollTo({ left: c.offsetLeft - (listaEx.clientWidth - c.offsetWidth) / 2, behavior: reduz ? 'auto' : 'smooth' }));
-      pontosEx.appendChild(b);
-    });
-    const marcaPonto = i => [...pontosEx.children].forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
-    let listaVisivel = false;
-    const atualiza = () => {
-      const centro = listaEx.scrollLeft + listaEx.clientWidth / 2;
-      let i = 0, menor = Infinity;
-      cartoesEx.forEach((c, k) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - centro); if (d < menor) { menor = d; i = k; } });
-      marcaPonto(i);
-      if (listaVisivel) cartoesEx[i].classList.add('visto');
+  /* ---------- centro de imagem: vitrine de salas ----------
+     As cinco salas ficam lado a lado; a escolhida se abre larga e as outras ficam estreitas, com o nome na
+     vertical. A ficha embaixo troca junto. No computador, as salas passam sozinhas a cada 7 s enquanto a
+     seção está na tela (a barra no pé da sala mostra o tempo); qualquer clique entrega o controle à pessoa.
+     No celular vira um acordeão: a ficha aparece logo abaixo da sala aberta. */
+  const vitrine = $('[data-vitrine]');
+  if (vitrine) {
+    const paineis = $$('.painel', vitrine), detalhes = $$('.detalhe', vitrine), n = paineis.length;
+    let atual = 0;
+    const estreito = matchMedia('(max-width: 700px)');
+    const escolhe = (i, foco) => {
+      if (i === atual) return;
+      paineis.forEach((p, k) => { const sim = k === i; p.classList.toggle('ativo', sim); p.setAttribute('aria-selected', String(sim)); p.tabIndex = sim ? 0 : -1; });
+      detalhes.forEach((d, k) => d.classList.toggle('ativo', k === i));
+      if (temGsap && !reduz) {
+        const d = detalhes[i];
+        gsap.fromTo([...$$('.detalhe__texto > *', d), ...$$('.exame__info > div', d)], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .045, ease: 'power3.out', overwrite: true });
+      }
+      if (foco) paineis[i].focus();
+      // no celular a sala aberta vira um acordeão: a página acompanha a sala escolhida
+      if (estreito.matches) requestAnimationFrame(() => {
+        const r = paineis[i].getBoundingClientRect();
+        if (r.top > 70 && r.top < innerHeight * .55) return;
+        const y = r.top + scrollY - ($('[data-nav]').offsetHeight + 12);
+        // com a rolagem suave ligada, quem rola é ela (senão as duas brigam)
+        if (lenis) lenis.scrollTo(y, { duration: reduz ? 0 : .8 }); else scrollTo({ top: y, behavior: reduz ? 'auto' : 'smooth' });
+      });
+      atual = i;
     };
-    if (!reduz) html.classList.add('revela-ex');
-    new IntersectionObserver(([en]) => { listaVisivel = en.isIntersecting; if (listaVisivel) atualiza(); }, { threshold: .3 }).observe(listaEx);
-    let pedido = 0;
-    listaEx.addEventListener('scroll', () => { cancelAnimationFrame(pedido); pedido = requestAnimationFrame(atualiza); }, { passive: true });
-    marcaPonto(0);
+    paineis.forEach((p, k) => {
+      p.addEventListener('click', () => { vitrine.classList.add('manual'); escolhe(k); });
+      // a barra de tempo terminou: próxima sala
+      $('.painel__tempo', p).addEventListener('animationend', () => { if (!vitrine.classList.contains('manual')) escolhe((atual + 1) % n); });
+    });
+    // teclado: setas, Home e End andam entre as salas
+    vitrine.addEventListener('keydown', e => {
+      const k = paineis.indexOf(document.activeElement);
+      if (k < 0) return;
+      const vai = { ArrowRight: k + 1, ArrowDown: k + 1, ArrowLeft: k - 1, ArrowUp: k - 1, Home: 0, End: n - 1 }[e.key];
+      if (vai === undefined) return;
+      e.preventDefault();
+      vitrine.classList.add('manual');
+      escolhe((vai + n) % n, true);
+    });
+    // a troca automática só roda no computador, com a seção na tela e sem "reduzir movimento"
+    const largo = matchMedia('(min-width: 1025px)');
+    if (!reduz) new IntersectionObserver(([e]) => vitrine.classList.toggle('auto', e.isIntersecting && largo.matches), { threshold: .4 }).observe(vitrine);
+    // o fundo animado da seção dorme quando ela sai da tela
+    const secaoEx = $('[data-exames]');
+    if (secaoEx) new IntersectionObserver(([e]) => secaoEx.classList.toggle('parado', !e.isIntersecting)).observe(secaoEx);
   }
 
   /* ---------- luz nas caixas e botões ---------- */
@@ -763,7 +788,7 @@ void main(){
   };
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
-    if (!a || a.getAttribute('href') === '#' || a.closest('.exames__indice') && exST) return;
+    if (!a || a.getAttribute('href') === '#') return;
     const id = a.getAttribute('href');
     const alvo = id === '#inicio' ? 0 : $(id);
     if (alvo === null) return;
@@ -1013,100 +1038,6 @@ void main(){
 
   const laco = $('[data-laco]');
   if (laco && html.classList.contains('rosa')) gsap.to(desenha(laco), { strokeDashoffset: 0, duration: 2, ease: 'power2.inOut', scrollTrigger: { trigger: laco, start: 'top 85%' } });
-
-  /* ---------- centro de imagem ----------
-     No desktop a seção fica parada enquanto a rolagem troca de sala. As fotos são um baralho: a sala atual
-     fica na frente, as próximas espiam atrás em leque; ao avançar, a carta da frente sai para a esquerda e a
-     próxima vem para a frente. A ficha do exame troca junto, em camadas. */
-  let exST = null;
-  const palco = $('[data-exames-palco]');
-  const exames = $$('.exame', palco);
-  const exLinks = $$('[data-ex-link]', palco);
-  const exLuz = $('[data-ex-luz]', palco);
-  let exAtivo = 0;
-  const exNumero = $('[data-ex-numero]', palco), exSecao = $('[data-exames]');
-  const marcaExame = i => {
-    exAtivo = i;
-    exLinks.forEach((a, k) => { a.classList.toggle('ativo', k === i); a.classList.toggle('feito', k < i); });
-    const a = exLinks[i];
-    if (exNumero && exNumero.textContent !== String(i + 1).padStart(2, '0')) {
-      exNumero.textContent = String(i + 1).padStart(2, '0');
-      if (temGsap && !reduz) gsap.fromTo(exNumero, { yPercent: 30, opacity: 0, filter: 'blur(10px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1.1, ease: 'expo.out', overwrite: true });
-    }
-    if (exSecao) exSecao.style.setProperty('--bx', (18 + i * 16) + '%');
-    if (exLuz && a) Object.assign(exLuz.style, { left: a.offsetLeft + 'px', top: a.offsetTop + 'px', width: a.offsetWidth + 'px', height: a.offsetHeight + 'px', opacity: 1 });
-  };
-
-  const mm = gsap.matchMedia();
-  if (!leve) mm.add('(min-width: 1025px)', () => {
-    html.classList.add('pan-ex');
-    const n = exames.length;
-    const fotos = exames.map(e => $('.exame__foto', e));
-    const textos = exames.map(e => $('.exame__texto', e));
-    const abas = $('.exames__indice', palco);
-    gsap.set(textos.slice(1), { autoAlpha: 0 });
-
-    // a posição de cada carta conforme a distância até a sala atual
-    const pose = d => {
-      if (d < 0) return { xPercent: -62, yPercent: 6, rotate: -9, scale: .9, autoAlpha: 0, filter: 'brightness(1)' };
-      if (d === 0) return { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, autoAlpha: 1, filter: 'brightness(1)' };
-      const k = Math.min(d, 2);
-      return { xPercent: 10 * k, yPercent: -7 * k, rotate: 3.5 * k, scale: 1 - .08 * k, autoAlpha: d > 2 ? 0 : 1, filter: `brightness(${k === 1 ? .62 : .4})` };
-    };
-    const camada = d => (d < 0 ? 15 + d : 10 - d);
-    const arruma = (i, dur) => fotos.forEach((f, k) => {
-      gsap.set(f, { zIndex: camada(k - i) });
-      gsap.to(f, { ...pose(k - i), duration: dur, ease: 'power3.inOut', overwrite: true });
-    });
-    arruma(0, 0);
-
-    // o texto segue o mesmo índice: nunca fica meio apagado numa parada
-    let atualEx = 0;
-    const mostraTexto = i => {
-      if (i === atualEx) return;
-      const t = textos[i];
-      gsap.to(textos[atualEx], { autoAlpha: 0, duration: .3, ease: 'power1.out', overwrite: 'auto' });
-      gsap.set(t, { autoAlpha: 1 });
-      gsap.fromTo(t.children, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .65, stagger: .05, delay: .15, ease: 'power3.out', overwrite: true });
-      gsap.fromTo($$('.exame__info > div', t), { x: 24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: .75, stagger: .07, delay: .3, ease: 'power3.out', overwrite: true });
-      gsap.fromTo($('.exame__ico', t), { rotate: -60, scale: .5 }, { rotate: 0, scale: 1, duration: .8, delay: .18, ease: 'back.out(1.8)', overwrite: true });
-      atualEx = i;
-    };
-
-    /* cada sala tem a sua faixa de rolagem; a troca roda sozinha com duração fixa, então nada fica
-       parado no meio do caminho. Sem snap, para não brigar com a rolagem suave. */
-    exST = ScrollTrigger.create({
-      trigger: palco, start: 'top top', end: () => `+=${n * innerHeight * .7}`, pin: true, invalidateOnRefresh: true,
-      onUpdate: s => {
-        const total = Math.min(n - .001, s.progress * n);
-        const i = Math.floor(total);
-        if (i !== exAtivo) { marcaExame(i); arruma(i, .95); }
-        mostraTexto(i);
-        if (abas) abas.style.setProperty('--carga', (total - i).toFixed(3));
-      }
-    });
-    // entrada: o palco sobe enquanto a seção chega
-    const caixa = $('.exames__palco > .container', palco);
-    gsap.fromTo(caixa, { y: 70, opacity: .3 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: palco, start: 'top 90%', end: 'top 15%', scrub: true } });
-    marcaExame(0);
-
-    // navegação: segmentos, setas e as próprias cartas de trás levam à sala
-    const irPara = i => { if (exST && i >= 0 && i < n) rolaPara(exST.start + ((i + .5) / n) * (exST.end - exST.start)); };
-    const clique = e => {
-      const seta = e.target.closest('[data-ex-passo]');
-      const a = e.target.closest('[data-ex-link]');
-      const f = e.target.closest('.exame__foto');
-      if (seta) irPara(exAtivo + +seta.dataset.exPasso);
-      else if (a) { e.preventDefault(); irPara(+a.dataset.exLink); }
-      else if (f && fotos.indexOf(f) !== exAtivo) irPara(fotos.indexOf(f));
-    };
-    palco.addEventListener('click', clique);
-    return () => {
-      html.classList.remove('pan-ex'); exST = null;
-      palco.removeEventListener('click', clique);
-      gsap.set([...fotos, ...textos, ...textos.flatMap(t => [...t.children]), abas, caixa, exNumero].filter(Boolean), { clearProps: 'all' });
-    };
-  });
 
   // recalcula depois das imagens e fontes
   addEventListener('load', () => (window.requestIdleCallback || (f => setTimeout(f, 300)))(() => ScrollTrigger.refresh(), { timeout: 2000 }));

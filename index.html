@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=32">
+  <link rel="stylesheet" href="assets/css/site.css?v=34">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -40,7 +40,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=32" defer></script>
+  <script src="assets/js/site.js?v=35" defer></script>
 
   <script type="application/ld+json">
   {
@@ -364,101 +364,121 @@
 
   <!-- ===== CENTRO DE IMAGEM (a noite) ===== -->
   <section class="secao exames" id="exames" aria-labelledby="ex-titulo" data-exames>
+    <div class="exames__fundo" aria-hidden="true"><span class="exames__mancha exames__mancha--a"></span><span class="exames__mancha exames__mancha--b"></span><span class="exames__varredura"></span></div>
     <div class="container exames__cabeca">
       <div>
         <p class="selo-secao selo-secao--escuro" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span data-embaralha>Centro radiológico</span></p>
         <h2 class="titulo" id="ex-titulo" data-palavras>Centro de diagnóstico por imagem</h2>
       </div>
-      <p class="lead">Cinco exames de imagem no mesmo endereço, com aparelhos de última geração, salas confortáveis e laudos feitos por especialistas.</p>
+      <p class="lead">Ressonância, tomografia, mamografia, ultrassom e densitometria no mesmo endereço, com aparelhos modernos e laudo feito por especialistas.</p>
     </div>
-    <div class="exames__palco" data-exames-palco>
-      <div class="container">
-        <nav class="exames__indice" aria-label="Exames de imagem">
-          <button class="exames__seta" type="button" data-ex-passo="-1" aria-label="Sala anterior"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></button>
-          <ol data-ex-abas>
-            <li><a href="#ex-rm" data-ex-link="0"><img class="exames__mini" src="assets/img/novo/ex-ressonancia-240.jpg" width="240" height="180" loading="lazy" decoding="async" alt=""><span class="exames__rotulo"><span class="num">01</span>Ressonância</span></a></li>
-            <li><a href="#ex-tc" data-ex-link="1"><img class="exames__mini" src="assets/img/novo/tomografia-240.jpg" width="240" height="180" loading="lazy" decoding="async" alt=""><span class="exames__rotulo"><span class="num">02</span>Tomografia</span></a></li>
-            <li><a href="#ex-mm" data-ex-link="2"><img class="exames__mini" src="assets/img/novo/ex-mamografia-240.jpg" width="240" height="180" loading="lazy" decoding="async" alt=""><span class="exames__rotulo"><span class="num">03</span>Mamografia<span class="rosa-tag">Outubro Rosa</span></span></a></li>
-            <li><a href="#ex-us" data-ex-link="3"><img class="exames__mini" src="assets/img/novo/ex-ultrassom-240.jpg" width="240" height="180" loading="lazy" decoding="async" alt=""><span class="exames__rotulo"><span class="num">04</span>Ultrassom</span></a></li>
-            <li><a href="#ex-do" data-ex-link="4"><img class="exames__mini" src="assets/img/novo/ex-densitometria-240.jpg" width="240" height="180" loading="lazy" decoding="async" alt=""><span class="exames__rotulo"><span class="num">05</span>Densitometria</span></a></li>
-          </ol>
-          <button class="exames__seta" type="button" data-ex-passo="1" aria-label="Próxima sala"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></button>
-          <span class="exames__luz" aria-hidden="true" data-ex-luz></span>
-        </nav>
-        <div class="exames__lista" data-ex-lista>
-          <span class="exames__numero num" aria-hidden="true" data-ex-numero>01</span>
-          <article class="exame" id="ex-rm">
-            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-ressonancia-1440.jpg" srcset="assets/img/novo/ex-ressonancia-960.jpg 960w, assets/img/novo/ex-ressonancia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Aparelho de ressonância magnética Siemens na sala de exames da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ressonância</span><span class="num">01 / 05</span></figcaption></figure>
-            <div class="exame__texto">
+    <div class="container">
+      <div class="vitrine" data-vitrine>
+        <p class="vitrine__dica"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg>Escolha uma sala para ver indicação, duração e preparo</p>
+        <div class="galeria" role="tablist" aria-label="Salas do centro de imagem">
+          <button class="painel ativo" type="button" role="tab" id="aba-rm" aria-selected="true" aria-controls="ex-rm" tabindex="0" style="--o:0">
+            <img class="painel__foto" src="assets/img/novo/ex-ressonancia-1440.jpg" srcset="assets/img/novo/ex-ressonancia-960.jpg 960w, assets/img/novo/ex-ressonancia-1440.jpg 1440w" sizes="(min-width: 1025px) 60vw, 100vw" width="1440" height="1080" loading="lazy" decoding="async" alt="Aparelho de ressonância magnética Siemens na sala de exames da clínica" style="--pos:60% 50%">
+            <span class="painel__vertical" aria-hidden="true"><span class="num">01</span>Ressonância</span>
+            <span class="painel__topo" aria-hidden="true"><span class="painel__sala"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ressonância</span><span class="painel__num num">01 / 05</span></span>
+            <span class="painel__nome"><span class="painel__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span><span class="painel__mini num">01</span>Ressonância</span></span>
+            <span class="painel__tempo" aria-hidden="true"></span>
+          </button>
+          <button class="painel" type="button" role="tab" id="aba-tc" aria-selected="false" aria-controls="ex-tc" tabindex="-1" style="--o:1">
+            <img class="painel__foto" src="assets/img/novo/tomografia-1440.jpg" srcset="assets/img/novo/tomografia-960.jpg 960w, assets/img/novo/tomografia-1440.jpg 1440w" sizes="(min-width: 1025px) 60vw, 100vw" width="1440" height="1080" loading="lazy" decoding="async" alt="Sala de tomografia computadorizada da clínica, com painel de paisagem na parede" style="--pos:74% 50%">
+            <span class="painel__vertical" aria-hidden="true"><span class="num">02</span>Tomografia</span>
+            <span class="painel__topo" aria-hidden="true"><span class="painel__sala"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de tomografia</span><span class="painel__num num">02 / 05</span></span>
+            <span class="painel__nome"><span class="painel__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span><span class="painel__mini num">02</span>Tomografia</span></span>
+            <span class="painel__tempo" aria-hidden="true"></span>
+          </button>
+          <button class="painel" type="button" role="tab" id="aba-mm" aria-selected="false" aria-controls="ex-mm" tabindex="-1" style="--o:2">
+            <img class="painel__foto" src="assets/img/novo/ex-mamografia-1440.jpg" srcset="assets/img/novo/ex-mamografia-960.jpg 960w, assets/img/novo/ex-mamografia-1440.jpg 1440w" sizes="(min-width: 1025px) 60vw, 100vw" width="1440" height="1080" loading="lazy" decoding="async" alt="Mamógrafo digital na sala de mamografia da clínica" style="--pos:50% 50%">
+            <span class="painel__vertical" aria-hidden="true"><span class="num">03</span>Mamografia</span>
+            <span class="painel__topo" aria-hidden="true"><span class="painel__sala"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de mamografia</span><span class="painel__num num">03 / 05</span></span>
+            <span class="painel__nome"><span class="painel__ico"><svg class="i" aria-hidden="true"><use href="#e-masto"/></svg></span><span><span class="painel__mini num">03</span>Mamografia<span class="rosa-tag">Outubro Rosa</span></span></span>
+            <span class="painel__tempo" aria-hidden="true"></span>
+          </button>
+          <button class="painel" type="button" role="tab" id="aba-us" aria-selected="false" aria-controls="ex-us" tabindex="-1" style="--o:3">
+            <img class="painel__foto" src="assets/img/novo/ex-ultrassom-1440.jpg" srcset="assets/img/novo/ex-ultrassom-960.jpg 960w, assets/img/novo/ex-ultrassom-1440.jpg 1440w" sizes="(min-width: 1025px) 60vw, 100vw" width="1440" height="1080" loading="lazy" decoding="async" alt="Sala de ultrassonografia da clínica, com o aparelho ao lado da maca" style="--pos:34% 50%">
+            <span class="painel__vertical" aria-hidden="true"><span class="num">04</span>Ultrassom</span>
+            <span class="painel__topo" aria-hidden="true"><span class="painel__sala"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ultrassom</span><span class="painel__num num">04 / 05</span></span>
+            <span class="painel__nome"><span class="painel__ico"><svg class="i" aria-hidden="true"><use href="#e-onda"/></svg></span><span><span class="painel__mini num">04</span>Ultrassom</span></span>
+            <span class="painel__tempo" aria-hidden="true"></span>
+          </button>
+          <button class="painel" type="button" role="tab" id="aba-do" aria-selected="false" aria-controls="ex-do" tabindex="-1" style="--o:4">
+            <img class="painel__foto" src="assets/img/novo/ex-densitometria-1440.jpg" srcset="assets/img/novo/ex-densitometria-960.jpg 960w, assets/img/novo/ex-densitometria-1440.jpg 1440w" sizes="(min-width: 1025px) 60vw, 100vw" width="1440" height="1080" loading="lazy" decoding="async" alt="Aparelho de densitometria óssea da clínica" style="--pos:50% 62%">
+            <span class="painel__vertical" aria-hidden="true"><span class="num">05</span>Densitometria</span>
+            <span class="painel__topo" aria-hidden="true"><span class="painel__sala"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de densitometria</span><span class="painel__num num">05 / 05</span></span>
+            <span class="painel__nome"><span class="painel__ico"><svg class="i" aria-hidden="true"><use href="#e-orto"/></svg></span><span><span class="painel__mini num">05</span>Densitometria</span></span>
+            <span class="painel__tempo" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="detalhes">
+          <article class="detalhe ativo" id="ex-rm" role="tabpanel" aria-labelledby="aba-rm" style="--o:0">
+            <div class="detalhe__texto">
               <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__selo">Sem radiação</span></p>
               <h3>Ressonância magnética</h3>
               <p class="exame__lead">Imagens muito detalhadas de cérebro, coluna, articulações e órgãos, feitas com campo magnético, sem nenhuma radiação.</p>
-              <dl class="exame__info">
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Cérebro, coluna, joelho, ombro e abdômen</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Em média de 20 a 45 minutos</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Avise se usa marca-passo, implantes metálicos ou tem claustrofobia</dd></div>
-              </dl>
               <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Resson%C3%A2ncia%20Magn%C3%A9tica." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar ressonância</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
             </div>
+            <dl class="exame__info">
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Cérebro, coluna, joelho, ombro e abdômen</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Em média de 20 a 45 minutos</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Avise se usa marca-passo, implantes metálicos ou tem claustrofobia</dd></div>
+            </dl>
           </article>
-          <article class="exame" id="ex-tc">
-            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/tomografia-1440.jpg" srcset="assets/img/novo/tomografia-960.jpg 960w, assets/img/novo/tomografia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Sala de tomografia computadorizada da clínica, com painel de paisagem na parede"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de tomografia</span><span class="num">02 / 05</span></figcaption></figure>
-            <div class="exame__texto">
+          <article class="detalhe" id="ex-tc" role="tabpanel" aria-labelledby="aba-tc" style="--o:1">
+            <div class="detalhe__texto">
               <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__selo">Resultado ágil</span></p>
               <h3>Tomografia computadorizada</h3>
               <p class="exame__lead">Cortes em alta definição que mostram o interior do corpo em poucos minutos, para diagnósticos rápidos e precisos.</p>
-              <dl class="exame__info">
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Crânio, seios da face, tórax e abdômen</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Poucos minutos no aparelho</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Com contraste, pode ser pedido jejum; confirmamos no agendamento</dd></div>
-              </dl>
               <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Tomografia%20Computadorizada." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar tomografia</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
             </div>
+            <dl class="exame__info">
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Crânio, seios da face, tórax e abdômen</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Poucos minutos no aparelho</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Com contraste, pode ser pedido jejum; confirmamos no agendamento</dd></div>
+            </dl>
           </article>
-          <article class="exame" id="ex-mm">
-            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-mamografia-1440.jpg" srcset="assets/img/novo/ex-mamografia-960.jpg 960w, assets/img/novo/ex-mamografia-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Mamógrafo digital na sala de mamografia da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de mamografia</span><span class="num">03 / 05</span></figcaption></figure>
-            <div class="exame__texto">
+          <article class="detalhe" id="ex-mm" role="tabpanel" aria-labelledby="aba-mm" style="--o:2">
+            <div class="detalhe__texto">
               <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-masto"/></svg></span><span class="exame__selo">Baixa dose</span></p>
               <h3>Mamografia digital</h3>
               <p class="exame__lead">O principal exame para a detecção precoce do câncer de mama, com imagem digital de alta nitidez e menor dose de radiação.</p>
-              <dl class="exame__info">
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Rastreamento anual a partir dos 40 anos ou por pedido médico</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 15 minutos</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>No dia, não use desodorante, talco ou creme nas mamas e axilas</dd></div>
-              </dl>
               <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Mamografia%20Digital." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar mamografia</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
             </div>
+            <dl class="exame__info">
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Rastreamento anual a partir dos 40 anos ou por pedido médico</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 15 minutos</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>No dia, não use desodorante, talco ou creme nas mamas e axilas</dd></div>
+            </dl>
           </article>
-          <article class="exame" id="ex-us">
-            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-ultrassom-1440.jpg" srcset="assets/img/novo/ex-ultrassom-960.jpg 960w, assets/img/novo/ex-ultrassom-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Sala de ultrassonografia da clínica, com o aparelho ao lado da maca"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de ultrassom</span><span class="num">04 / 05</span></figcaption></figure>
-            <div class="exame__texto">
+          <article class="detalhe" id="ex-us" role="tabpanel" aria-labelledby="aba-us" style="--o:3">
+            <div class="detalhe__texto">
               <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-onda"/></svg></span><span class="exame__selo">Sem radiação</span></p>
               <h3>Ultrassonografia</h3>
               <p class="exame__lead">Exame indolor feito com ondas de som, que mostra órgãos e estruturas em tempo real, inclusive na gestação.</p>
-              <dl class="exame__info">
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Abdômen, pelve, tireoide, mamas, músculos e obstetrícia</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>De 15 a 30 minutos</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Alguns pedem jejum ou bexiga cheia; enviamos o preparo certo</dd></div>
-              </dl>
               <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Ultrassonografia." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar ultrassom</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
             </div>
+            <dl class="exame__info">
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Abdômen, pelve, tireoide, mamas, músculos e obstetrícia</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>De 15 a 30 minutos</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Alguns pedem jejum ou bexiga cheia; enviamos o preparo certo</dd></div>
+            </dl>
           </article>
-          <article class="exame" id="ex-do">
-            <figure class="exame__foto"><img decoding="async" src="assets/img/novo/ex-densitometria-1440.jpg" srcset="assets/img/novo/ex-densitometria-960.jpg 960w, assets/img/novo/ex-densitometria-1440.jpg 1440w" sizes="(min-width: 1025px) 55vw, 86vw" width="1440" height="1080" loading="lazy" alt="Aparelho de densitometria óssea da clínica"><figcaption class="exame__legenda"><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Sala de densitometria</span><span class="num">05 / 05</span></figcaption></figure>
-            <div class="exame__texto">
+          <article class="detalhe" id="ex-do" role="tabpanel" aria-labelledby="aba-do" style="--o:4">
+            <div class="detalhe__texto">
               <p class="exame__topo"><span class="exame__ico"><svg class="i" aria-hidden="true"><use href="#e-orto"/></svg></span><span class="exame__selo">Rápido e indolor</span></p>
               <h3>Densitometria óssea</h3>
               <p class="exame__lead">Mede a densidade dos ossos para rastrear a osteoporose e avaliar o risco de fraturas, com dose muito baixa de radiação.</p>
-              <dl class="exame__info">
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Coluna lombar e fêmur, sobretudo após a menopausa</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 10 a 20 minutos</dd></div>
-                <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Evite suplemento de cálcio nas 24 horas anteriores</dd></div>
-              </dl>
               <div class="exame__acoes"><a class="botao botao--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Densitometria%20%C3%93ssea." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar densitometria</a><a class="exame__duvida" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20preparo%20de%20um%20exame." target="_blank" rel="noopener">Dúvidas sobre o preparo?</a></div>
             </div>
+            <dl class="exame__info">
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span class="exame__info-rot">Indicado para</span></dt><dd>Coluna lombar e fêmur, sobretudo após a menopausa</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="exame__info-rot">Duração</span></dt><dd>Cerca de 10 a 20 minutos</dd></div>
+              <div><dt><span class="exame__info-ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span class="exame__info-rot">Antes do exame</span></dt><dd>Evite suplemento de cálcio nas 24 horas anteriores</dd></div>
+            </dl>
           </article>
         </div>
-        <div class="exames__pontos" data-ex-pontos aria-label="Escolha o exame"></div>
       </div>
     </div>
     <div class="container exames__rodape">
