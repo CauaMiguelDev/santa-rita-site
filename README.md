@@ -10,11 +10,11 @@ Site institucional da Clínica Santa Rita, policlínica com laboratório própri
 
 ## O que tem na página
 
-- **Início:** chamada para agendar pelo WhatsApp, status de aberto/fechado em tempo real e traçado de ECG animado.
-- **Três cuidados:** consulta, laboratório e imagem, com o símbolo dos três corações acendendo o serviço escolhido.
+- **Início:** chamada para agendar pelo WhatsApp e status de aberto/fechado em tempo real.
+- **Consulta, laboratório e imagem:** os três serviços no mesmo endereço, com o símbolo dos três corações acendendo o serviço escolhido.
 - **Especialidades:** 18 especialidades com ícones próprios e busca; cada uma abre o WhatsApp com o pedido já escrito.
 - **Laboratório:** resultados online, painel do paciente com monitor de ECG e oximetria, exame toxicológico e convênios.
-- **Centro de diagnóstico por imagem:** ressonância, tomografia, mamografia, ultrassom e densitometria, cada um com indicação, duração e preparo. No computador, a seção fica parada enquanto a rolagem troca as salas num visor WebGL; no celular, vira um carrossel.
+- **Centro de diagnóstico por imagem:** vitrine com as cinco salas lado a lado (ressonância, tomografia, mamografia, ultrassom e densitometria); a sala escolhida se abre e a ficha mostra indicação, duração e preparo. No celular vira acordeão.
 - **Quem somos:** fachada, fatos da clínica, vídeo em loop (com botão de som) e sala de espera.
 - **Pré-agendamento:** formulário com rótulos flutuantes e validação.
 - **Unidades:** abas com endereço, horário, telefone e mapa de cada unidade.
@@ -23,7 +23,7 @@ Site institucional da Clínica Santa Rita, policlínica com laboratório própri
 
 ## Como é feito
 
-HTML, CSS e JavaScript estáticos, sem build. Animações com GSAP (ScrollTrigger e SplitText) e rolagem suave com Lenis, todos em `assets/vendor/`. O fundo animado e o visor do centro de imagem são WebGL puro; os monitores de ECG são canvas. Fontes próprias (Atkinson Hyperlegible Next e Noto Serif no logotipo) em `assets/fonts/`.
+HTML, CSS e JavaScript estáticos, sem build. Visual limpo e sóbrio, com animações discretas em GSAP (ScrollTrigger e SplitText) e rolagem suave com Lenis, todos em `assets/vendor/`. O monitor de ECG do painel do paciente é canvas. Fontes próprias (Atkinson Hyperlegible Next e Noto Serif no logotipo) em `assets/fonts/`.
 
 - **Responsivo:** conferido de 320 a 1920 px de largura, incluindo notebooks de tela baixa (1280×720 e 1366×768).
 - **Modo leve:** aparelhos fracos, economia de dados ou rede 2G recebem uma versão mais leve. O site também mede os quadros reais depois de abrir e se alivia sozinho se estiver lento. Para testar: `?leve=1` força o modo leve, `?leve=0` desliga.

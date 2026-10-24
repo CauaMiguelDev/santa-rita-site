@@ -999,3 +999,101 @@ main > section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 }
 .topo:active { scale: .94; }
 @media (max-width: 760px) { .topo { right: 16px; bottom: 96px; width: 44px; height: 44px; } }
+
+/* =========================================================
+   DIREÇÃO LIMPA
+   Uma clínica séria: fundo sólido, seções alternando branco e cinza bem claro, cartões brancos com borda
+   fina, fotos em retângulos arredondados, vermelho só no que importa (ação, destaque, estado ativo) e
+   movimento discreto. Estas regras vêm por último e assentam o visual por cima das antigas.
+   ========================================================= */
+:root { --fundo: #F6F7F9; --fundo-2: #EEF0F3; --fundo-3: #E3E6EA; --borda-fina: #E4E7EC; --sombra-cartao: 0 1px 2px rgba(16,24,40,.04), 0 12px 32px -20px rgba(16,24,40,.22); --sombra-cartao-alta: 0 2px 4px rgba(16,24,40,.05), 0 22px 44px -22px rgba(16,24,40,.3); --r-foto: 22px; }
+html { background: var(--fundo); }
+body::after { display: none; }
+
+/* seções: ritmo branco / cinza claro, o centro de imagem segue grafite */
+.hero { background: linear-gradient(180deg, #fff 0%, var(--fundo) 100%); }
+.cuidados, .laboratorio, .sobre, .unidades, .contato { background: #fff; }
+.especialidades, .agendar, .duvidas { background: var(--fundo); }
+
+/* tipografia mais sóbria */
+.titulo, .hero__titulo, .declaracao { font-weight: 700; letter-spacing: -.028em; }
+.hero__titulo { font-size: clamp(2.7rem, 5.6vw, 4.9rem); line-height: 1; }
+.titulo { font-size: clamp(2.1rem, 3.8vw, 3.3rem); line-height: 1.06; }
+.destaque, .giro, .giro.brilha { color: var(--vermelho-texto); background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.risco { display: none; }
+
+/* selo de seção: só o rótulo e um traço curto, sem círculo pulsando */
+.selo-secao { gap: 12px; color: var(--vermelho-texto); }
+.selo-secao__ico { display: none; }
+.selo-secao::after { width: 32px; opacity: .55; }
+.selo-secao--escuro { color: var(--vermelho-claro); }
+
+/* cartões: brancos, borda fina, sombra baixa; sem a luz que seguia o mouse */
+.vidro { background: #fff; border: 1px solid var(--borda-fina); box-shadow: var(--sombra-cartao); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.vidro::before, .vidro::after { display: none; }
+[data-card] { transition: translate .35s var(--ease), box-shadow .35s ease; }
+@media (hover: hover) and (pointer: fine) {
+  [data-card]:not(figure):hover { translate: 0 -3px; }
+  .vidro[data-card]:hover { box-shadow: var(--sombra-cartao-alta); }
+}
+.leve .vidro { background: #fff; }
+
+/* ícones: neutros em cinza claro; ficam vermelhos no hover, sem girar */
+.ico { color: var(--tinta-2); background: var(--fundo-2); box-shadow: none; transition: background-color .3s ease, color .3s ease; }
+[data-card] a:hover .ico, a[data-card]:hover .ico { transform: none; background: color-mix(in srgb, var(--vermelho) 10%, #fff); color: var(--vermelho-texto); }
+.esp__ico { background: var(--fundo-2); color: var(--tinta-2); box-shadow: none; }
+.esp__lista a:hover .esp__ico, .esp__lista a:focus-visible .esp__ico { transform: none; background: color-mix(in srgb, var(--vermelho) 10%, #fff); color: var(--vermelho-texto); box-shadow: none; }
+.sobre__fato-ico { background: var(--fundo-2); color: var(--tinta-2); box-shadow: none; }
+.sobre__fatos li:hover .sobre__fato-ico { transform: none; background: color-mix(in srgb, var(--vermelho) 10%, #fff); color: var(--vermelho-texto); }
+.exame__info div:hover .exame__info-ico { transform: none; }
+.mini-coracao, .hero__atalhos a:hover .mini-coracao { transition: none; rotate: 0deg; scale: 1; }
+.petala-ico { box-shadow: inset 0 0 0 1px var(--borda-fina); }
+.porta:hover .petala-ico svg, .porta:focus-visible .petala-ico svg { rotate: 0deg; scale: 1.06; }
+
+/* botões: sólidos e sóbrios; sem varredura, sem brilho passando, sem onda de clique */
+.botao::before, .botao--primario::after, .onda-clique { display: none; }
+.botao { transition: background-color .25s ease, color .25s ease, box-shadow .25s ease, translate .25s var(--ease); }
+.botao--primario { box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--vermelho) 80%, transparent); }
+.botao--contorno { background: #fff; color: var(--tinta); box-shadow: inset 0 0 0 1.5px #D3D8DF; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.botao--claro { box-shadow: 0 10px 22px -16px rgba(0,0,0,.5); }
+.botao.chama .botao__ico { animation: none; }
+@media (hover: hover) and (pointer: fine) {
+  .botao--primario:hover { background: var(--vermelho-texto); }
+  .botao--contorno:hover { color: var(--tinta); box-shadow: inset 0 0 0 1.5px var(--tinta); }
+  .botao--claro:hover { color: var(--tinta); background: #EEF0F3; }
+  .botao--primario:hover .botao__ico, .botao--claro:hover .botao__ico { transform: none; background: rgba(255,255,255,.22); color: #fff; }
+  .botao--claro:hover .botao__ico { background: var(--vermelho); }
+  .botao--contorno:hover .i { color: var(--tinta); }
+  .botao:hover { translate: 0 -1px; }
+}
+
+/* navegação: barra branca com borda fina ao rolar */
+.nav.compacto .nav__casca { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px var(--borda-fina), 0 12px 30px -22px rgba(16,24,40,.35); }
+
+/* hero: foto em retângulo arredondado, chips brancos, logo sem anéis */
+.petala { border-radius: var(--r-foto); box-shadow: 0 30px 60px -36px rgba(16,24,40,.45); }
+.pulsante::before, .pulsante::after { display: none; }
+.pulsante img { box-shadow: 0 0 0 6px #fff, 0 18px 36px -20px rgba(16,24,40,.45); }
+.hero__chip { box-shadow: var(--sombra-cartao); }
+.hero__atalhos a { background: #fff; box-shadow: inset 0 0 0 1px var(--borda-fina); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hero__atalhos a:hover { translate: 0 -1px; }
+
+/* fotos do "sobre": sem passe-partout nem grão, só a foto arredondada e uma legenda legível */
+.moldura { padding: 0; background: var(--fundo-2); border-radius: var(--r-foto); box-shadow: 0 24px 50px -34px rgba(16,24,40,.45); }
+.moldura > img, .moldura > video { inset: 0; width: 100%; height: 100%; border-radius: inherit; }
+.moldura::after { inset: 0; border-radius: inherit; mix-blend-mode: normal; box-shadow: none; background: linear-gradient(to top, rgba(15,16,20,.6), transparent 46%); }
+.moldura__selo { box-shadow: 0 10px 24px -16px rgba(16,24,40,.5); }
+
+/* laboratório: o cartão vermelho sem as ondas deslizando */
+.bento__resultados::after { display: none; }
+.bento__resultados { box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--vermelho) 70%, transparent); }
+
+/* centro de imagem: o fundo fica só com a grade de pontos e uma luz lenta; sai a linha de varredura */
+.exames__varredura { display: none; }
+.exames__mancha--a { opacity: .7; }
+
+/* contato rápido: sem anel pulsando no WhatsApp */
+.flutuante::before { display: none; }
+
+/* no celular a barra de baixo já leva ao topo; o botão flutuante cobria o conteúdo */
+@media (max-width: 760px) { .topo { display: none; } }

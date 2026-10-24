@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=34">
+  <link rel="stylesheet" href="assets/css/site.css?v=37">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -33,14 +33,13 @@
     try{if(sessionStorage.getItem('sr-leve'))fraco=true}catch(e){}
     if(/leve=1/.test(q))fraco=true;if(/leve=0/.test(q))fraco=false;if(fraco)h.classList.add('leve');if(c.saveData)h.classList.add('economia');
     if('scrollRestoration' in history)history.scrollRestoration='manual';
-    try{if(!sessionStorage.getItem('sr-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!location.hash){h.classList.add('intro');sessionStorage.setItem('sr-intro','1')}}catch(e){}
-    window.srT=[setTimeout(function(){h.classList.remove('carregando')},2800),setTimeout(function(){h.classList.remove('intro')},3600)];
+    window.srT=[setTimeout(function(){h.classList.remove('carregando')},2800)];
   })(document.documentElement)</script>
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=35" defer></script>
+  <script src="assets/js/site.js?v=36" defer></script>
 
   <script type="application/ld+json">
   {
@@ -134,16 +133,6 @@
   <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
-<!-- abertura: os três corações se encontram (primeira visita da sessão) -->
-<div class="cortina" aria-hidden="true">
-  <div class="cortina__luz"></div>
-  <div class="cortina__marca">
-    <svg class="cortina__simbolo" viewBox="0 0 100 78.5"><g class="h h--esq"><use href="#c-esq" width="100" height="78.5"/></g><g class="h h--dir"><use href="#c-dir" width="100" height="78.5"/></g><g class="h h--topo"><use href="#c-topo" width="100" height="78.5"/></g></svg>
-    <span class="wordmark wordmark--lg">Clínica<i>.</i>Santa<i>.</i>Rita</span>
-  </div>
-  <button class="cortina__pular" type="button" tabindex="-1">Pular</button>
-</div>
-
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <div class="nav__progresso" aria-hidden="true"><span data-progresso></span></div>
 
@@ -204,18 +193,12 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo">
-    <div class="hero__fundo" aria-hidden="true">
-      <div class="ondas"></div>
-      <div class="hero__luz" data-hero-luz></div>
-      <div class="hero__prata"></div>
-      <canvas class="hero__pulso" data-ecg="linha"></canvas>
-    </div>
     <div class="hero__grade">
       <div class="hero__texto">
         <h1 class="hero__titulo" id="hero-titulo" data-hero-titulo>Cuidando da sua <span class="giro" data-hero-giro>saúde.</span></h1>
         <p class="hero__lead" data-hero-item>Consulta, laboratório próprio e exames de imagem no mesmo lugar. Há mais de 25 anos no DF e entorno, em 5 unidades.</p>
         <div class="hero__acoes" data-hero-item data-hero-acoes>
-          <a class="botao botao--primario botao--lg hero__agendar" data-ima href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar pelo WhatsApp</a>
+          <a class="botao botao--primario botao--lg hero__agendar" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar pelo WhatsApp</a>
           <a class="botao botao--contorno botao--lg" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
         </div>
         <ul class="hero__atalhos" data-hero-item aria-label="Atalhos">
@@ -226,15 +209,15 @@
       </div>
 
       <div class="hero__palco" data-hero-palco>
-        <figure class="petala hero__foto" data-hero-foto data-prof="10">
+        <figure class="petala hero__foto" data-hero-foto>
           <img decoding="async" src="assets/img/novo/ressonancia-1600.jpg" srcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" sizes="(min-width: 1025px) 40vw, 100vw" width="1600" height="1200" fetchpriority="high" alt="Sala de ressonância magnética da Clínica Santa Rita, com o aparelho Siemens e um painel de cachoeira na parede">
         </figure>
-        <div class="pulsante hero__logo" data-hero-chip data-prof="22">
+        <div class="pulsante hero__logo" data-hero-chip>
           <img decoding="async" src="assets/img/novo/logo-parede-680.jpg" srcset="assets/img/novo/logo-parede-360.jpg 360w, assets/img/novo/logo-parede-680.jpg 680w" sizes="160px" width="680" height="680" alt="O símbolo da Clínica Santa Rita em relevo na parede da recepção">
         </div>
-        <p class="chip vidro hero__chip hero__chip--status" data-hero-chip data-prof="18"><span class="status" data-status>Seg a sex, 7h às 18h</span><span class="chip__sub">Matriz em Taguatinga</span></p>
-        <a class="chip vidro hero__chip hero__chip--resultados" data-hero-chip data-prof="26" data-card href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span><span><strong>Resultados de exames</strong><span class="chip__sub">Laboratório, pela internet</span></span><svg class="i chip__seta" aria-hidden="true"><use href="#i-ext"/></svg></a>
-        <p class="chip vidro hero__chip hero__chip--anos" data-hero-chip data-prof="14"><strong class="chip__numero num"><span data-hero-conta="25">25</span>+</strong><span>anos cuidando<br>do DF e entorno</span></p>
+        <p class="chip vidro hero__chip hero__chip--status" data-hero-chip><span class="status" data-status>Seg a sex, 7h às 18h</span><span class="chip__sub">Matriz em Taguatinga</span></p>
+        <a class="chip vidro hero__chip hero__chip--resultados" data-hero-chip data-card href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span><span><strong>Resultados de exames</strong><span class="chip__sub">Laboratório, pela internet</span></span><svg class="i chip__seta" aria-hidden="true"><use href="#i-ext"/></svg></a>
+        <p class="chip vidro hero__chip hero__chip--anos" data-hero-chip><strong class="chip__numero num"><span data-hero-conta="25">25</span>+</strong><span>anos cuidando<br>do DF e entorno</span></p>
       </div>
     </div>
   </section>
@@ -250,21 +233,21 @@
         </svg>
       </div>
       <div class="cuidados__texto">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span><span data-embaralha>Nossos cuidados</span></p>
-        <h2 class="titulo" id="cuidados-titulo" data-palavras>Três cuidados que se encontram no <em class="destaque">mesmo lugar.</em></h2>
-        <p class="lead">Consulta, laboratório e exames de imagem no mesmo endereço: você resolve tudo numa visita só, perto de casa.</p>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span><span>Atendimento completo</span></p>
+        <h2 class="titulo" id="cuidados-titulo" data-palavras>Consulta, laboratório e imagem no <em class="destaque">mesmo lugar.</em></h2>
+        <p class="lead">Você passa pela consulta, faz os exames e acompanha os resultados sem precisar ir a outro endereço.</p>
         <ul class="cuidados__lista">
-          <li><a class="porta vidro" data-card data-tilt data-porta="consultas" href="#especialidades">
+          <li><a class="porta vidro" data-card data-porta="consultas" href="#especialidades">
             <span class="petala-ico petala-ico--topo"><svg viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg></span>
             <span class="porta__texto"><strong>Consultas</strong><span>Cardiologia, ginecologia, ortopedia, clínica médica e muitas outras especialidades.</span></span>
             <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
           </a></li>
-          <li><a class="porta vidro" data-card data-tilt data-porta="laboratorio" href="#laboratorio">
+          <li><a class="porta vidro" data-card data-porta="laboratorio" href="#laboratorio">
             <span class="petala-ico petala-ico--esq"><svg viewBox="0 30 47.5 49" aria-hidden="true"><use href="#c-esq" width="100" height="78.5"/></svg></span>
             <span class="porta__texto"><strong>Laboratório</strong><span>Laboratório próprio, com o resultado dos seus exames pela internet.</span></span>
             <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
           </a></li>
-          <li><a class="porta vidro" data-card data-tilt data-porta="imagem" href="#exames">
+          <li><a class="porta vidro" data-card data-porta="imagem" href="#exames">
             <span class="petala-ico petala-ico--dir"><svg viewBox="53 30 47.5 49" aria-hidden="true"><use href="#c-dir" width="100" height="78.5"/></svg></span>
             <span class="porta__texto"><strong>Imagem</strong><span>Ressonância, tomografia, mamografia digital, ultrassom e densitometria.</span></span>
             <svg class="i porta__seta" aria-hidden="true"><use href="#i-seta"/></svg>
@@ -284,7 +267,7 @@
         <svg class="campanha__laco" viewBox="0 0 24 24" aria-hidden="true"><path data-laco d="M6.5 21 12 12.5c2-2.7 3.2-4.5 3.2-6.1C15.2 4.4 13.8 3 12 3S8.8 4.4 8.8 6.4c0 1.6 1.2 3.4 3.2 6.1L17.5 21"/></svg>
         <h2 class="titulo" id="campanha-titulo" data-palavras>Outubro Rosa. Cuide de você.</h2>
         <p>A detecção precoce do câncer de mama salva vidas. Agende sua <strong>mamografia digital</strong> ou consulta ginecológica.</p>
-        <a class="botao botao--primario botao--lg" data-ima href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20minha%20mamografia%20do%20Outubro%20Rosa." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar minha mamografia</a>
+        <a class="botao botao--primario botao--lg" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20minha%20mamografia%20do%20Outubro%20Rosa." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar minha mamografia</a>
       </div>
     </div>
   </section>
@@ -293,7 +276,7 @@
   <section class="secao especialidades" id="especialidades" aria-labelledby="esp-titulo">
     <div class="container">
       <div class="cabeca">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg></span><span data-embaralha>Corpo clínico</span></p>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg></span><span>Corpo clínico</span></p>
         <h2 class="titulo" id="esp-titulo" data-palavras>Especialidades</h2>
         <p class="lead">Escolha a especialidade e o WhatsApp abre com o pedido de agendamento já escrito.</p>
       </div>
@@ -334,13 +317,13 @@
   <section class="secao laboratorio" id="laboratorio" aria-labelledby="lab-titulo">
     <div class="container">
       <div class="cabeca">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><span data-embaralha>Laboratório</span></p>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span><span>Laboratório</span></p>
         <h2 class="titulo" id="lab-titulo" data-palavras>Laboratório próprio. Resultado online.</h2>
         <p class="lead">Coleta e análise feitas aqui mesmo, no nosso laboratório. O resultado sai pela internet e você confere pelo celular.</p>
       </div>
       <div class="bento">
         <figure class="petala bento__foto" data-card>
-          <img decoding="async" src="assets/img/novo/laboratorio-848.jpg" srcset="assets/img/novo/laboratorio-600.jpg 600w, assets/img/novo/laboratorio-848.jpg 848w" sizes="(min-width: 1025px) 36vw, 100vw" width="848" height="1060" loading="lazy" data-paralaxe="7" alt="Tubos de coleta de sangue na centrífuga do laboratório da Clínica Santa Rita">
+          <img decoding="async" src="assets/img/novo/laboratorio-848.jpg" srcset="assets/img/novo/laboratorio-600.jpg 600w, assets/img/novo/laboratorio-848.jpg 848w" sizes="(min-width: 1025px) 36vw, 100vw" width="848" height="1060" loading="lazy" alt="Tubos de coleta de sangue na centrífuga do laboratório da Clínica Santa Rita">
           <figcaption class="chip vidro"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg></span>Nosso laboratório</figcaption>
         </figure>
         <a class="bento__resultados" data-card href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">
@@ -367,7 +350,7 @@
     <div class="exames__fundo" aria-hidden="true"><span class="exames__mancha exames__mancha--a"></span><span class="exames__mancha exames__mancha--b"></span><span class="exames__varredura"></span></div>
     <div class="container exames__cabeca">
       <div>
-        <p class="selo-secao selo-secao--escuro" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span data-embaralha>Centro radiológico</span></p>
+        <p class="selo-secao selo-secao--escuro" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span><span>Centro radiológico</span></p>
         <h2 class="titulo" id="ex-titulo" data-palavras>Centro de diagnóstico por imagem</h2>
       </div>
       <p class="lead">Ressonância, tomografia, mamografia, ultrassom e densitometria no mesmo endereço, com aparelhos modernos e laudo feito por especialistas.</p>
@@ -492,7 +475,7 @@
   <section class="secao sobre" id="sobre" aria-labelledby="sobre-titulo">
     <div class="container">
       <h2 class="sr" id="sobre-titulo">Sobre a Clínica Santa Rita</h2>
-      <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span data-embaralha>Quem somos</span></p>
+      <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span>Quem somos</span></p>
       <p class="declaracao" data-declaracao>Há mais de 25 anos cuidando do DF e entorno.</p>
       <p class="declaracao__apoio">Uma das clínicas mais estruturadas da região, com uma missão simples: prestar o melhor serviço em saúde para você e sua família.</p>
       <div class="sobre__bento">
@@ -528,8 +511,8 @@
     <div class="agendar__fundo" aria-hidden="true"><div class="ondas"></div></div>
     <div class="container agendar__grade">
       <div class="agendar__intro">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span><span data-embaralha>Pré-agendamento</span></p>
-        <h2 class="titulo" id="agendar-titulo" data-palavras>Prefere que a gente ligue?</h2>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span><span>Pré-agendamento</span></p>
+        <h2 class="titulo" id="agendar-titulo" data-palavras>Solicite seu agendamento</h2>
         <p class="lead">Deixe seu nome e telefone: um consultor liga para combinar o melhor dia e horário com você.</p>
         <ul class="canais vidro" data-card>
           <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span><span><strong>WhatsApp</strong><span class="num">(61) 3355-1107</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
@@ -601,7 +584,7 @@
           </div>
         </div>
         <p class="formulario__erro" id="agendar-erro" role="alert" hidden></p>
-        <button class="botao botao--primario botao--lg botao--cheio" type="submit" data-ima><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>Enviar pré-agendamento</button>
+        <button class="botao botao--primario botao--lg botao--cheio" type="submit"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>Enviar pré-agendamento</button>
         <p class="formulario__nota">Atendimento de segunda a sexta. A data é uma preferência; o consultor confirma o horário com você.</p>
       </form>
     </div>
@@ -611,7 +594,7 @@
   <section class="secao unidades" id="unidades" aria-labelledby="un-titulo">
     <div class="container">
       <div class="cabeca">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><span data-embaralha>Onde estamos</span></p>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><span>Onde estamos</span></p>
         <h2 class="titulo" id="un-titulo" data-palavras>5 unidades perto de você</h2>
         <p class="lead">De segunda a sexta. Taguatinga atende das <span class="num">7h às 18h</span>; as demais unidades, até as <span class="num">17h</span>.</p>
       </div>
@@ -650,7 +633,7 @@
     <div class="container duvidas__grade">
       <div class="duvidas__lado">
         <div class="cabeca cabeca--coluna">
-          <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span data-embaralha>Perguntas e respostas</span></p>
+          <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg></span><span>Perguntas e respostas</span></p>
           <h2 class="titulo" id="faq-titulo" data-palavras>Dúvidas frequentes</h2>
           <p class="lead">Respostas rápidas sobre agendamento, convênios, preparo e resultados de exames.</p>
         </div>
@@ -719,8 +702,8 @@
   <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
     <div class="container contato__grade">
       <div class="contato__info">
-        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span data-embaralha>Ouvidoria</span></p>
-        <h2 class="titulo" id="contato-titulo" data-palavras>Fale com a gente</h2>
+        <p class="selo-secao" data-selo><span class="selo-secao__ico"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span>Ouvidoria</span></p>
+        <h2 class="titulo" id="contato-titulo" data-palavras>Fale conosco</h2>
         <p class="lead">Sugestões, elogios ou reclamações vão direto para a gerência e a ouvidoria.</p>
         <ul class="canais vidro" data-card>
           <li><a href="tel:+556133551105"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
@@ -752,7 +735,6 @@
 </main>
 
 <footer class="rodape" data-rodape>
-  <canvas class="rodape__pulso" data-ecg="linha-clara" aria-hidden="true"></canvas>
   <div class="container rodape__grade">
     <div class="rodape__marca">
       <svg class="rodape__simbolo" viewBox="0 0 100 78.5" aria-hidden="true"><use href="#simbolo"/></svg>

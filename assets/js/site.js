@@ -137,16 +137,6 @@
   /* ---------- unidades: abas, painel e mapa ---------- */
   const abas = $('[data-abas]');
   const painelU = $('[data-unidade]');
-  const embaralha = (el, final) => {
-    if (reduz || !final) { el.textContent = final; return; }
-    const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let q = 0;
-    (function passo() {
-      q++;
-      el.textContent = [...final].map((ch, k) => (ch === ' ' || q > 4 + k * 2) ? ch : abc[Math.random() * abc.length | 0]).join('');
-      if (q < 5 + final.length * 2) setTimeout(passo, 38); else el.textContent = final;
-    })();
-  };
   if (abas && painelU) {
     UNIDADES.forEach((u, i) => {
       const b = document.createElement('button');
@@ -184,7 +174,7 @@
         $('[data-u-nome]', painelU).textContent = u.nome;
         const cod = $('[data-u-codigo]', painelU);
         cod.hidden = !u.codigo;
-        embaralha(cod, u.codigo);
+        cod.textContent = u.codigo || '';
         $('[data-u-end]', painelU).textContent = u.end;
         $('[data-u-hora]', painelU).textContent = u.hora;
         const c = $('[data-u-contato]', painelU);
@@ -301,175 +291,7 @@
     });
   }
 
-  /* ---------- fundo vivo: as ondas da parede da recepção em WebGL ----------
-     Um shader de tela cheia, sem biblioteca: as linhas ondulam com o tempo, se curvam e ficam
-     vermelhas perto do cursor e deslizam com a rolagem. Sem WebGL, fica o desenho parado do CSS. */
-  const fundoVivo = () => {
-    if (leve) return;
-    const cv = document.createElement('canvas');
-    cv.className = 'fundo-vivo';
-    cv.setAttribute('aria-hidden', 'true');
-    const gl = cv.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
-    if (!gl) return;
-    const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-    const fs = `precision mediump float;
-uniform vec2 u_res;uniform float u_t;uniform vec2 u_m;uniform float u_s;uniform vec3 u_cor;uniform float u_calor;uniform float u_forca;
-float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
-float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
-  return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}
-float fbm(vec2 p){float v=0.,k=.5;for(int i=0;i<3;i++){v+=k*n(p);p=p*2.03+vec2(1.7,9.2);k*=.5;}return v;}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_res;
-  float a=u_res.x/u_res.y;
-  vec2 p=vec2(uv.x*a,uv.y);
-  float d=distance(p,vec2(u_m.x*a,u_m.y));
-  float perto=exp(-d*d*11.);
-  /* luz e sombra macias que derivam devagar, como luz de janela na parede */
-  vec2 q=p*1.1+vec2(u_t*.018,-u_t*.012-u_s*.01);
-  float w=fbm(q+vec2(sin(u_t*.05),cos(u_t*.04))*.6);
-  /* camada de trás: linhas finas e densas que andam mais devagar com a rolagem (profundidade) */
-  float yb=uv.y*27.+u_s*.45;
-  float fb=fract(yb+sin(p.x*2.1-u_t*.3+floor(yb)*.7)*.2+(n(vec2(p.x*1.1-u_t*.07,floor(yb)*.41))-.5)*.38);
-  float tb=1.-smoothstep(0.,27.*1.1/u_res.y,min(fb,1.-fb));
-  /* camada da frente: as ondas da recepção */
-  float linhas=16.;
-  float y=uv.y*linhas+u_s;
-  float faixa=floor(y);
-  float onda=sin(p.x*2.6+u_t*.55+faixa*.9)*.28
-            +(n(vec2(p.x*1.4+u_t*.12,faixa*.37))-.5)*.5
-            +perto*sin(p.x*14.-u_t*2.2)*.24;
-  float f=fract(y+onda);
-  float traco=1.-smoothstep(0.,linhas*1.7/u_res.y,min(f,1.-f));
-  /* de vez em quando um pulso vermelho corre por uma das linhas, como um batimento */
-  float ciclo=u_t*.09+h(vec2(faixa,3.))*7.;
-  float cx=fract(ciclo)*(a+.8)-.4;
-  float pulso=exp(-pow((p.x-cx)/.11,2.))*step(.62,h(vec2(faixa,floor(ciclo))));
-  vec2 c2=vec2(a*(.72+.2*sin(u_t*.13)),.62+.22*cos(u_t*.11));
-  float claro=exp(-pow(distance(p,c2),2.)*2.4);
-  float quente=exp(-pow(distance(p,vec2(a*(.88+.06*sin(u_t*.07)),.9)),2.)*2.6);
-  vec3 col=vec3(.961,.961,.965);
-  col=mix(col,vec3(1.),claro*.55+smoothstep(.5,.85,w)*.5);
-  col=mix(col,vec3(.9,.905,.92),smoothstep(.48,.18,w)*.4);
-  col=mix(col,u_cor,perto*.07*u_calor+quente*.03);
-  col=mix(col,vec3(.5,.53,.58),tb*.032*u_forca);
-  col=mix(col,mix(vec3(.43,.46,.51),u_cor,perto*.85*u_calor),traco*(.055+perto*.24*u_calor)*u_forca);
-  col=mix(col,u_cor,traco*pulso*.42*u_forca);
-  col-=(1.-f)*.006;
-  col*=1.-.035*pow(length(uv-.5)*1.4,2.);
-  col+=(h(floor(gl_FragCoord.xy))-.5)*.022;
-  gl_FragColor=vec4(col,1.);
-}`;
-    const shader = (tipo, src) => { const s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
-    const v = shader(gl.VERTEX_SHADER, vs), f = shader(gl.FRAGMENT_SHADER, fs);
-    if (!v || !f) return;
-    const prog = gl.createProgram();
-    gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
-    gl.useProgram(prog);
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    const loc = gl.getAttribLocation(prog, 'p');
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    const u = nome => gl.getUniformLocation(prog, nome);
-    const uRes = u('u_res'), uT = u('u_t'), uM = u('u_m'), uS = u('u_s'), uCor = u('u_cor');
-    // o vermelho só acompanha um cursor de verdade; no toque, as ondas ficam cinzas e mais leves atrás do texto
-    gl.uniform1f(u('u_calor'), fino ? 1 : 0);
-    const forca = () => gl.uniform1f(u('u_forca'), innerWidth < 760 ? .55 : 1);
-    forca();
-    addEventListener('resize', forca, { passive: true });
-    const hex = getComputedStyle(html).getPropertyValue('--vermelho').trim().replace('#', '');
-    gl.uniform3f(uCor, ...[0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16) / 255));
-    let escala = Math.min(devicePixelRatio || 1, 1) * (innerWidth > 1600 ? .7 : .85);
-    const mede = () => {
-      cv.width = Math.round(innerWidth * escala); cv.height = Math.round(innerHeight * escala);
-      gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height);
-    };
-    mede();
-    addEventListener('resize', mede, { passive: true });
-    document.body.prepend(cv);
-    // o cursor puxa a luz devagar; no toque, ela passeia sozinha
-    let mx = .7, my = .6, alvoX = .7, alvoY = .6, tocou = false;
-    addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { tocou = true; alvoX = e.clientX / innerWidth; alvoY = 1 - e.clientY / innerHeight; } }, { passive: true });
-    const desenha = t => {
-      if (!tocou) { alvoX = .55 + .3 * Math.sin(t * .00021); alvoY = .55 + .25 * Math.cos(t * .00017); }
-      mx += (alvoX - mx) * .05; my += (alvoY - my) * .05;
-      gl.uniform1f(uT, t / 1000);
-      gl.uniform2f(uM, mx, my);
-      gl.uniform1f(uS, scrollY / innerHeight * 16 * .35);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    };
-    desenha(0);
-    cv.classList.add('pronto');
-    html.classList.add('fundo-ok'); // o grão passa a vir do próprio shader
-    if (reduz) { addEventListener('scroll', () => desenha(0), { passive: true }); return; }
-    // quando o centro de imagem ou o rodapé (opacos) cobrem a tela inteira, o fundo não precisa ser desenhado
-    const opacos = $$('.exames, .rodape');
-    let coberto = false, passo = 1, quadro = 0, parado = false;
-    const confere = () => { coberto = opacos.some(el => { const r = el.getBoundingClientRect(); return r.top <= 0 && r.bottom >= innerHeight; }); };
-    addEventListener('scroll', confere, { passive: true }); confere();
-    const loop = t => {
-      if (parado) return;
-      if (!document.hidden && !coberto && ++quadro % passo === 0) desenha(t);
-      requestAnimationFrame(loop);
-    };
-    requestAnimationFrame(loop);
-    return {
-      // aparelho lento: metade da resolução e metade dos quadros; muito lento: fica parado no último quadro
-      alivia: muito => { if (muito) { parado = true; return; } passo = 2; escala = Math.min(escala, .5); mede(); }
-    };
-  };
-  const fundo = fundoVivo();
-
-  /* ---------- aparelho fraco de verdade: mede os quadros e alivia ----------
-     A detecção pelo hardware (no <head>) erra para os dois lados. Aqui o site mede 3 s de quadros reais,
-     depois da abertura; abaixo de 40 por segundo ele corta o desfoque de vidro, o grão, os brilhos dos
-     traçados e reduz o fundo animado, e guarda a decisão para as próximas páginas da visita. */
-  const alivia = fps => {
-    html.classList.add('leve');
-    try { sessionStorage.setItem('sr-leve', '1'); } catch (er) {}
-    if (fundo) fundo.alivia(fps < 24);
-    ecgPasso = 2;
-    monitores.forEach(m => { m.e.brilho = 0; });
-  };
-  if (!leve && !reduz && !/leve=0/.test(location.search)) setTimeout(() => {
-    let n = 0, inicio = 0;
-    // aba escondida: recomeça a medida para não confundir pausa com lentidão
-    document.addEventListener('visibilitychange', () => { n = 0; inicio = 0; });
-    const conta = t => {
-      if (!inicio) inicio = t;
-      n++;
-      if (t - inicio < 3000) { requestAnimationFrame(conta); return; }
-      const fps = n * 1000 / (t - inicio);
-      if (fps < 40) alivia(fps);
-    };
-    requestAnimationFrame(conta);
-  }, 2500);
-
-  /* ---------- onda do clique nos botões ---------- */
-  if (!reduz) document.addEventListener('pointerdown', e => {
-    const b = e.target.closest('.botao');
-    if (!b) return;
-    const r = b.getBoundingClientRect();
-    const o = document.createElement('span');
-    o.className = 'onda-clique';
-    o.style.left = `${e.clientX - r.left}px`;
-    o.style.top = `${e.clientY - r.top}px`;
-    b.appendChild(o);
-    setTimeout(() => o.remove(), 700);
-  });
-
-  /* ---------- risco vermelho desenhado à mão sob as palavras-chave ---------- */
-  const RISCO = '<svg class="risco" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8.5C45 3.5 110 2.5 197 6.5"/></svg>';
-  const risca = (el, anima) => {
-    if (!el || $('.risco', el)) return;
-    el.insertAdjacentHTML('beforeend', RISCO);
-    if (!anima || !temGsap || reduz) return;
-    const p = $('.risco path', el);
-    p.setAttribute('pathLength', '1');
-    gsap.fromTo(p, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' });
-  };
-  if (!temGsap || reduz) { $$('.destaque').forEach(el => risca(el)); risca($('[data-hero-giro]')); }
+  const fundo = null; // fundo sólido: sem WebGL atrás da página
 
   /* ---------- monitor cardíaco: traçado PQRST de verdade ----------
      A onda é a soma de cinco gaussianas (P, Q, R, S, T), cada batimento com um ritmo levemente diferente.
@@ -639,26 +461,6 @@ void main(){
     if (secaoEx) new IntersectionObserver(([e]) => secaoEx.classList.toggle('parado', !e.isIntersecting)).observe(secaoEx);
   }
 
-  /* ---------- luz nas caixas e botões ---------- */
-  if (fino) {
-    // um cálculo por quadro no máximo, com o retângulo medido só quando o mouse entra
-    $$('[data-card]').forEach(c => {
-      let r = null, x = 0, y = 0, pedido = 0;
-      const pinta = () => { pedido = 0; if (!r) return; c.style.setProperty('--mx', `${x - r.left}px`); c.style.setProperty('--my', `${y - r.top}px`); };
-      c.addEventListener('pointerenter', () => { r = c.getBoundingClientRect(); });
-      addEventListener('scroll', () => { r = null; }, { passive: true });
-      c.addEventListener('pointermove', e => { if (!r) r = c.getBoundingClientRect(); x = e.clientX; y = e.clientY; if (!pedido) pedido = requestAnimationFrame(pinta); }, { passive: true });
-      c.addEventListener('pointerleave', () => { r = null; });
-    });
-
-    // a cor do botão entra pelo lado do cursor
-    $$('.botao').forEach(b => {
-      const lado = e => { const r = b.getBoundingClientRect(); b.style.setProperty('--origem', e.clientX < r.left + r.width / 2 ? 'left center' : 'right center'); };
-      b.addEventListener('pointerenter', lado);
-      b.addEventListener('pointerleave', lado);
-    });
-  }
-
   /* ---------- navegação ---------- */
   const nav = $('[data-nav]');
   const navMenu = $('[data-nav-menu]');
@@ -820,110 +622,33 @@ void main(){
     onToggle: s => { if (s.isActive) defineAtual(sec.id); else if (atual && atual.getAttribute('href') === '#' + sec.id) defineAtual(null); }
   }));
 
-  const quebra = (alvo, tipo = 'lines,words') => window.SplitText ? SplitText.create(alvo, { type: tipo, mask: 'lines', linesClass: 'linha' }) : null;
   const desenha = path => { path.setAttribute('pathLength', '1'); gsap.set(path, { strokeDasharray: 1, strokeDashoffset: 1 }); return path; };
 
-  /* ---------- hero: entrada ---------- */
+  /* ---------- hero: entrada calma ---------- */
   const hero = $('[data-hero]');
   const entradaHero = (() => {
-    const titulo = $('[data-hero-titulo]', hero);
-    const giro = $('[data-hero-giro]', titulo), final = giro.textContent, rotulo = titulo.textContent;
-    const passos = ['família.', 'prevenção.'];
-    if (window.SplitText) giro.textContent = passos[0];
-    const sp = quebra(titulo);
-    if (sp) titulo.setAttribute('aria-label', rotulo);
-    const palavras = sp ? sp.words.slice(0, -1) : [titulo];
-    const ultima = sp ? sp.words[sp.words.length - 1] : null;
-    const tl = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' }, onComplete: vivaHero });
-    tl.fromTo('[data-hero-luz]', { opacity: 0, scale: .55 }, { opacity: 1, scale: 1, duration: 2.2 }, 0)
-      .fromTo('[data-hero-foto]', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.2 }, .1)
-      .fromTo('[data-hero-foto] img', { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.3 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.7, ease: 'expo.inOut' }, .15)
-      .fromTo(titulo, { opacity: 0 }, { opacity: 1, duration: .01 }, .25)
-      .fromTo(palavras, { yPercent: 118, rotate: 5 }, { yPercent: 0, rotate: 0, duration: 1.25, stagger: .08 }, .25);
-    if (ultima) {
-      let t = .25 + palavras.length * .08;
-      tl.fromTo(ultima, { yPercent: 118, rotate: 5 }, { yPercent: 0, rotate: 0, duration: .8 }, t);
-      passos.slice(1).concat(final).forEach(txt => {
-        t += .7;
-        tl.to(ultima, { yPercent: -118, duration: .26, ease: 'power2.in' }, t)
-          .call(() => { ultima.textContent = txt; }, null, t + .27)
-          .fromTo(ultima, { yPercent: 118 }, { yPercent: 0, duration: .6, immediateRender: false }, t + .27);
-      });
-      // a palavra final pousa e ganha o risco vermelho
-      // (o revert devolve o texto do momento da divisão: a palavra final volta a ser "saúde.")
-      tl.call(() => { sp.revert(); const g = $('[data-hero-giro]', hero); g.textContent = final; g.classList.add('brilha'); risca(g, true); }, null, t + 1);
-    }
-    tl.fromTo('[data-hero-item]', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1.1, stagger: .12 }, .8)
-      .fromTo('[data-hero-chip]', { opacity: 0, scale: .6, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, stagger: .14, ease: 'back.out(1.6)' }, 1.05);
+    const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+    tl.fromTo('[data-hero-titulo]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .9 }, .05)
+      .fromTo('[data-hero-item]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .8, stagger: .1 }, .2)
+      .fromTo('[data-hero-foto]', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, .1)
+      .fromTo('[data-hero-foto] img', { scale: 1.05 }, { scale: 1, duration: 1.6, ease: 'power2.out' }, .1)
+      .fromTo('[data-hero-chip]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .7, stagger: .1 }, .5);
     $$('[data-hero-conta]', hero).forEach(n => {
       const obj = { v: 0 };
       n.textContent = '0';
-      tl.to(obj, { v: +n.dataset.heroConta, duration: 1.9, onUpdate: () => { n.textContent = Math.round(obj.v); } }, 1.2);
+      tl.to(obj, { v: +n.dataset.heroConta, duration: 1.6, onUpdate: () => { n.textContent = Math.round(obj.v); } }, .6);
     });
-    if (!leve) gsap.to('[data-hero-palco]', { yPercent: -7, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
     return tl;
   })();
-  // depois da entrada: o botão bate, os chips flutuam, a luz respira e o palco segue o cursor
-  function vivaHero() {
-    $('.hero__agendar', hero).classList.add('chama');
-    const lacos = leve ? [] : [
-      ...$$('[data-hero-chip]', hero).map((c, i) => gsap.to(c, { yPercent: i % 2 ? 7 : -7, duration: 3.2 + i * .6, ease: 'sine.inOut', yoyo: true, repeat: -1 })),
-      gsap.to('[data-hero-luz]', { scale: 1.05, duration: 4.5, ease: 'sine.inOut', yoyo: true, repeat: -1 })
-    ];
-    ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom top', onToggle: s => { lacos.forEach(t => s.isActive ? t.resume() : t.pause()); hero.classList.toggle('parado', !s.isActive); } });
-    if (!fino) return;
-    const camadas = $$('[data-prof]', hero).map(el => ({ p: +el.dataset.prof, x: gsap.quickTo(el, 'x', { duration: 1.2, ease: 'power3' }), y: gsap.quickTo(el, 'y', { duration: 1.2, ease: 'power3' }) }));
-    const l = $('[data-hero-luz]', hero);
-    const lx = gsap.quickTo(l, 'x', { duration: 1.6, ease: 'power3' }), ly = gsap.quickTo(l, 'y', { duration: 1.6, ease: 'power3' });
-    let rh = null;
-    hero.addEventListener('pointerenter', () => { rh = hero.getBoundingClientRect(); });
-    hero.addEventListener('pointermove', e => {
-      const r = rh || (rh = hero.getBoundingClientRect());
-      const nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
-      camadas.forEach(c => { c.x(nx * c.p); c.y(ny * c.p); });
-      lx(nx * 40); ly(ny * 40);
-    });
-    hero.addEventListener('pointerleave', () => { camadas.forEach(c => { c.x(0); c.y(0); }); lx(0); ly(0); });
-  }
-  const comecaHero = () => { html.classList.remove('carregando'); entradaHero.play(); };
-
-  /* ---------- abertura: os três corações se encontram e batem ---------- */
-  const cortina = $('.cortina');
-  if (html.classList.contains('intro') && cortina && scrollY < 40) {
-    (window.srT || []).forEach(clearTimeout);
-    if (lenis) lenis.stop();
-    const letras = window.SplitText ? SplitText.create('.cortina__marca .wordmark', { type: 'chars', mask: 'chars' }) : null;
-    const tc = gsap.timeline({ defaults: { ease: 'expo.out' }, onComplete: () => { html.classList.remove('intro'); if (lenis) lenis.start(); ScrollTrigger.refresh(); } });
-    tc.from('.cortina .h--topo', { y: -46, rotation: -14, opacity: 0, duration: 1.2 }, .1)
-      .from('.cortina .h--esq', { x: -46, y: 30, rotation: -24, opacity: 0, duration: 1.2 }, .22)
-      .from('.cortina .h--dir', { x: 46, y: 30, rotation: 24, opacity: 0, duration: 1.2 }, .34)
-      .fromTo('.cortina__luz', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6, ease: 'power2.out' }, .7)
-      .to('.cortina__simbolo', { keyframes: { scale: [1, 1.14, .97, 1.08, 1] }, duration: .9, ease: 'power1.inOut' }, 1.05)
-      .from(letras ? letras.chars : '.cortina__marca .wordmark', { yPercent: 110, opacity: 0, duration: 1, stagger: .03 }, .9)
-      .to('.cortina__pular', { opacity: 0, duration: .3 }, 2.1)
-      .to('.cortina__marca', { y: -16, opacity: 0, filter: 'blur(6px)', duration: .7, ease: 'power2.in' }, 2.25)
-      .add(comecaHero, 2.45)
-      .to(cortina, { yPercent: -100, duration: 1.1, ease: 'expo.inOut' }, 2.5);
-    cortina.addEventListener('click', () => tc.timeScale(4));
-  } else {
-    html.classList.remove('intro');
-    (window.srT || []).forEach(clearTimeout);
-    comecaHero();
-  }
+  html.classList.remove('carregando', 'intro');
+  (window.srT || []).forEach(clearTimeout);
+  entradaHero.play();
 
   // prepara o texto um pouco antes de ele entrar na tela, em vez de fatiar tudo na abertura
   const perto = (el, fn) => ScrollTrigger.create({ trigger: el, start: () => `top bottom+=${Math.round(innerHeight * .35)}`, once: true, onEnter: fn });
 
-  /* ---------- títulos: palavras sobem de uma máscara ---------- */
-  $$('[data-palavras]').forEach(h => perto(h, () => {
-    const sp = quebra(h);
-    if (!sp) { $$('.destaque', h).forEach(el => risca(el)); return; }
-    // as palavras sobem; quando assentam, a palavra-chave ganha o risco desenhado
-    gsap.from(sp.words, {
-      yPercent: 110, rotate: 3, duration: .95, stagger: .035, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' },
-      onComplete: () => { sp.revert(); $$('.destaque', h).forEach(el => risca(el, true)); }
-    });
-  }));
+  /* ---------- títulos: sobem e aparecem ---------- */
+  $$('[data-palavras]').forEach(h => gsap.from(h, { y: 18, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 90%' } }));
 
   /* ---------- declaração: acende palavra por palavra ---------- */
   const decl = $('[data-declaracao]');
@@ -934,51 +659,15 @@ void main(){
 
   /* ---------- caixas: entrada em cascata ---------- */
   const caixas = $$('[data-card]').filter(c => !c.closest('.hero'));
-  gsap.set(caixas, { opacity: 0, y: 40 });
+  gsap.set(caixas, { opacity: 0, y: 24 });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
     onEnter: lote => {
-      gsap.to(lote, { opacity: 1, y: 0, duration: .9, stagger: .07, ease: 'power3.out', overwrite: true, clearProps: 'transform,opacity' });
-      // os ícones de dentro chegam um pouco depois, com um pulo
-      const icos = lote.flatMap(c => $$('.ico, .canais .i, .sobre__fato-ico, .ajuda__ico, .bento__lista .ico', c));
-      if (icos.length) gsap.from(icos, { scale: .4, rotate: -30, opacity: 0, duration: .7, stagger: .04, delay: .25, ease: 'back.out(1.8)', clearProps: 'transform,opacity' });
+      gsap.to(lote, { opacity: 1, y: 0, duration: .8, stagger: .06, ease: 'power3.out', overwrite: true, clearProps: 'transform,opacity' });
     }
   });
   $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -16, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: l, start: 'top 88%' } }));
-  $$('.petala:not([data-hero-foto]) > img, .moldura > img').forEach(img => gsap.from(img, { scale: 1.12, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: img.parentElement, start: 'top 90%' } }));
-
-  // inclinação 3D nos cartões dos três cuidados
-  if (fino) $$('[data-tilt]').forEach(c => {
-    const rx = gsap.quickTo(c, 'rotationX', { duration: .8, ease: 'power3' });
-    const ry = gsap.quickTo(c, 'rotationY', { duration: .8, ease: 'power3' });
-    const ty = gsap.quickTo(c, 'y', { duration: .8, ease: 'power3' });
-    c.addEventListener('pointerenter', () => gsap.set(c, { transformPerspective: 1100 }));
-    c.addEventListener('pointermove', e => {
-      const r = c.getBoundingClientRect();
-      rx(-((e.clientY - r.top) / r.height - .5) * 7);
-      ry(((e.clientX - r.left) / r.width - .5) * 9);
-      ty(-6);
-    });
-    c.addEventListener('pointerleave', () => { rx(0); ry(0); ty(0); });
-  });
-
-  // botões magnéticos
-  if (fino) $$('[data-ima]').forEach(b => {
-    const mx = gsap.quickTo(b, 'x', { duration: .6, ease: 'power3' });
-    const my = gsap.quickTo(b, 'y', { duration: .6, ease: 'power3' });
-    b.addEventListener('pointermove', e => {
-      const r = b.getBoundingClientRect();
-      mx(((e.clientX - r.left) / r.width - .5) * 14);
-      my(((e.clientY - r.top) / r.height - .5) * 12);
-    });
-    b.addEventListener('pointerleave', () => { mx(0); my(0); });
-  });
-
-  // paralaxe das fotos
-  if (!leve) $$('[data-paralaxe]').forEach(img => {
-    const v = +img.dataset.paralaxe || 7;
-    gsap.fromTo(img, { yPercent: -v }, { yPercent: v, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
+  $$('.petala:not([data-hero-foto]) > img, .moldura > img').forEach(img => gsap.from(img, { scale: 1.05, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: img.parentElement, start: 'top 92%' } }));
 
   /* ---------- três cuidados: os corações se juntam com a rolagem ---------- */
   if (cuidados && !leve) {
@@ -999,41 +688,17 @@ void main(){
     gsap.to(obj, { v: alvo, duration: 2, ease: 'expo.out', onUpdate: () => { n.textContent = Math.round(obj.v); }, scrollTrigger: { trigger: n, start: 'top 90%' } });
   });
 
-  /* ---------- selos de seção: o ícone gira para dentro e o rótulo se decifra letra a letra ---------- */
-  const SINAIS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+';
-  const embaralha = el => {
-    const final = el.textContent, inicio = performance.now(), dur = 750;
-    el.style.minWidth = el.offsetWidth + 'px';
-    const passo = t => {
-      const k = Math.min(1, (t - inicio) / dur), prontos = Math.floor(k * final.length);
-      el.textContent = final.slice(0, prontos) + [...final.slice(prontos)].map(c => c === ' ' ? ' ' : SINAIS[Math.random() * SINAIS.length | 0]).join('');
-      if (k < 1) requestAnimationFrame(passo); else { el.textContent = final; el.style.minWidth = ''; }
-    };
-    requestAnimationFrame(passo);
-  };
-  $$('[data-selo]').forEach(selo => {
-    const ico = $('.selo-secao__ico', selo), txt = $('[data-embaralha]', selo);
-    gsap.set(ico, { scale: 0, rotate: -120 });
-    ScrollTrigger.create({ trigger: selo, start: 'top 90%', once: true, onEnter: () => {
-      selo.classList.add('visto');
-      gsap.to(ico, { scale: 1, rotate: 0, duration: 1, ease: 'back.out(2)' });
-      if (txt) embaralha(txt);
-    } });
-  });
+  /* ---------- selos de seção: o traço cresce quando a seção chega ---------- */
+  $$('[data-selo]').forEach(selo => ScrollTrigger.create({ trigger: selo, start: 'top 92%', once: true, onEnter: () => selo.classList.add('visto') }));
 
-  /* ---------- textos de apoio: as linhas sobem da máscara, uma depois da outra ---------- */
-  $$('.secao .lead, .declaracao__apoio').filter(p => !p.closest('.exame')).forEach(p => perto(p, () => {
-    const sp = quebra(p, 'lines');
-    if (!sp) return;
-    gsap.from(sp.lines, { yPercent: 100, opacity: 0, duration: .85, stagger: .07, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 90%' }, onComplete: () => sp.revert() });
-  }));
+  /* ---------- textos de apoio: sobem e aparecem ---------- */
+  $$('.secao .lead, .declaracao__apoio').forEach(p => gsap.from(p, { y: 14, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 92%' } }));
 
   /* ---------- especialidades: as linhas entram em cascata e os ícones pulam ---------- */
   const espLista = $('[data-esp-lista]');
   if (espLista) {
     const linhas = [...espLista.children];
-    gsap.from(linhas, { opacity: 0, y: 18, duration: .8, stagger: .03, ease: 'expo.out', scrollTrigger: { trigger: espLista, start: 'top 85%' } });
-    gsap.from($$('.esp__ico', espLista), { scale: 0, rotate: -60, duration: .8, stagger: .03, delay: .15, ease: 'back.out(2.2)', clearProps: 'transform', scrollTrigger: { trigger: espLista, start: 'top 85%' } });
+    gsap.from(linhas, { opacity: 0, y: 10, duration: .6, stagger: .02, ease: 'power3.out', scrollTrigger: { trigger: espLista, start: 'top 88%' } });
   }
 
   const laco = $('[data-laco]');

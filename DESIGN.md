@@ -193,6 +193,19 @@ components:
 
 # Design System: Clínica Santa Rita
 
+## Direção atual: limpa (outubro de 2026)
+
+O site passou para uma direção limpa e sóbria, adequada a uma clínica séria. O que vale hoje, por cima do que o restante deste documento descreve:
+
+- **Fundo:** sólido. Saíram o fundo animado em WebGL, o grão e as ondas desenhadas. As seções alternam branco e cinza bem claro (#F6F7F9); o centro de imagem continua grafite, só com grade de pontos e uma luz lenta.
+- **Cartões:** brancos, borda de 1px (#E4E7EC), sombra baixa; no hover sobem 3px. Sem a luz que seguia o mouse.
+- **Fotos:** retângulos arredondados de 22px, sem a forma de pétala, sem passe-partout e sem grão.
+- **Vermelho:** só em ação (botão principal, links), destaque de palavra e estado ativo. Ícones ficam cinza e ganham vermelho no hover, sem girar.
+- **Tipografia:** títulos em 700 com tracking -0,028em; o título do hero menor (até 4,9rem).
+- **Selos de seção:** só o rótulo e um traço curto, sem o círculo pulsando nem as letras embaralhando.
+- **Botões:** sólidos; o principal escurece no hover. Saíram a varredura de cor, o brilho passando, a onda de clique e o efeito magnético.
+- **Movimento:** entradas curtas de opacidade e deslocamento. Saíram a abertura com cortina, a palavra que girava no hero, os rabiscos e reflexos nas palavras, a inclinação 3D, a paralaxe, os chips flutuando e os traçados de ECG do topo e do rodapé (o monitor do painel do paciente fica).
+
 ## Overview
 
 **Creative North Star: "Três Corações, Um Lugar"**
