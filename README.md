@@ -14,7 +14,7 @@ Site institucional da Clínica Santa Rita, policlínica com laboratório própri
 - **Consulta, laboratório e imagem:** os três serviços no mesmo endereço, com o símbolo dos três corações acendendo o serviço escolhido.
 - **Especialidades:** 18 especialidades com ícones próprios e busca; cada uma abre o WhatsApp com o pedido já escrito.
 - **Laboratório:** resultados online, painel do paciente com monitor de ECG e oximetria, exame toxicológico e convênios.
-- **Centro de diagnóstico por imagem:** vitrine com as cinco salas lado a lado (ressonância, tomografia, mamografia, ultrassom e densitometria); a sala escolhida se abre e a ficha mostra indicação, duração e preparo. No celular vira acordeão.
+- **Centro de diagnóstico por imagem:** cinco cartões (ressonância, tomografia, mamografia, ultrassom e densitometria) com foto da sala, indicação, duração, preparo e link para agendar, mais um cartão com os outros exames.
 - **Quem somos:** fachada, fatos da clínica, vídeo em loop (com botão de som) e sala de espera.
 - **Pré-agendamento:** formulário com rótulos flutuantes e validação.
 - **Unidades:** abas com endereço, horário, telefone e mapa de cada unidade.

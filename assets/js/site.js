@@ -409,58 +409,6 @@
     }
   }
 
-  /* ---------- centro de imagem: vitrine de salas ----------
-     As cinco salas ficam lado a lado; a escolhida se abre larga e as outras ficam estreitas, com o nome na
-     vertical. A ficha embaixo troca junto. No computador, as salas passam sozinhas a cada 7 s enquanto a
-     seção está na tela (a barra no pé da sala mostra o tempo); qualquer clique entrega o controle à pessoa.
-     No celular vira um acordeão: a ficha aparece logo abaixo da sala aberta. */
-  const vitrine = $('[data-vitrine]');
-  if (vitrine) {
-    const paineis = $$('.painel', vitrine), detalhes = $$('.detalhe', vitrine), n = paineis.length;
-    let atual = 0;
-    const estreito = matchMedia('(max-width: 700px)');
-    const escolhe = (i, foco) => {
-      if (i === atual) return;
-      paineis.forEach((p, k) => { const sim = k === i; p.classList.toggle('ativo', sim); p.setAttribute('aria-selected', String(sim)); p.tabIndex = sim ? 0 : -1; });
-      detalhes.forEach((d, k) => d.classList.toggle('ativo', k === i));
-      if (temGsap && !reduz) {
-        const d = detalhes[i];
-        gsap.fromTo([...$$('.detalhe__texto > *', d), ...$$('.exame__info > div', d)], { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .045, ease: 'power3.out', overwrite: true });
-      }
-      if (foco) paineis[i].focus();
-      // no celular a sala aberta vira um acordeão: a página acompanha a sala escolhida
-      if (estreito.matches) requestAnimationFrame(() => {
-        const r = paineis[i].getBoundingClientRect();
-        if (r.top > 70 && r.top < innerHeight * .55) return;
-        const y = r.top + scrollY - ($('[data-nav]').offsetHeight + 12);
-        // com a rolagem suave ligada, quem rola é ela (senão as duas brigam)
-        if (lenis) lenis.scrollTo(y, { duration: reduz ? 0 : .8 }); else scrollTo({ top: y, behavior: reduz ? 'auto' : 'smooth' });
-      });
-      atual = i;
-    };
-    paineis.forEach((p, k) => {
-      p.addEventListener('click', () => { vitrine.classList.add('manual'); escolhe(k); });
-      // a barra de tempo terminou: próxima sala
-      $('.painel__tempo', p).addEventListener('animationend', () => { if (!vitrine.classList.contains('manual')) escolhe((atual + 1) % n); });
-    });
-    // teclado: setas, Home e End andam entre as salas
-    vitrine.addEventListener('keydown', e => {
-      const k = paineis.indexOf(document.activeElement);
-      if (k < 0) return;
-      const vai = { ArrowRight: k + 1, ArrowDown: k + 1, ArrowLeft: k - 1, ArrowUp: k - 1, Home: 0, End: n - 1 }[e.key];
-      if (vai === undefined) return;
-      e.preventDefault();
-      vitrine.classList.add('manual');
-      escolhe((vai + n) % n, true);
-    });
-    // a troca automática só roda no computador, com a seção na tela e sem "reduzir movimento"
-    const largo = matchMedia('(min-width: 1025px)');
-    if (!reduz) new IntersectionObserver(([e]) => vitrine.classList.toggle('auto', e.isIntersecting && largo.matches), { threshold: .4 }).observe(vitrine);
-    // o fundo animado da seção dorme quando ela sai da tela
-    const secaoEx = $('[data-exames]');
-    if (secaoEx) new IntersectionObserver(([e]) => secaoEx.classList.toggle('parado', !e.isIntersecting)).observe(secaoEx);
-  }
-
   /* ---------- navegação ---------- */
   const nav = $('[data-nav]');
   const navMenu = $('[data-nav-menu]');

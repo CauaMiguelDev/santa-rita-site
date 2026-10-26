@@ -565,133 +565,61 @@ input, textarea { caret-color: var(--vermelho); }
   .bento__lista { padding: 4px 18px; }
 }
 
-/* ---------- centro de imagem: vitrine de salas ----------
-   Capítulo grafite com fundo vivo (luzes que derivam, grade de pontos e uma linha de varredura, como num
-   aparelho de imagem). As cinco salas ficam lado a lado: a escolhida se abre larga e colorida, as outras
-   ficam estreitas e escuras com o nome na vertical. Embaixo, a ficha da sala escolhida. */
-.exames { position: relative; isolation: isolate; color: #fff; overflow: hidden; background: var(--noite); }
-.exames__fundo { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-/* grade de pontos que some nas bordas */
-.exames__fundo::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.4px); background-size: 26px 26px;
-  -webkit-mask: radial-gradient(70% 60% at 50% 45%, #000, transparent 80%); mask: radial-gradient(70% 60% at 50% 45%, #000, transparent 80%); }
-/* duas luzes largas que derivam devagar */
-.exames__mancha { position: absolute; border-radius: 50%; filter: blur(60px); will-change: transform; }
-.exames__mancha--a { width: 60vw; height: 60vw; max-width: 900px; max-height: 900px; right: -18vw; top: -26vw; background: radial-gradient(closest-side, color-mix(in srgb, var(--vermelho) 34%, transparent), transparent); animation: deriva-a 22s ease-in-out infinite alternate; }
-.exames__mancha--b { width: 52vw; height: 52vw; max-width: 780px; max-height: 780px; left: -20vw; bottom: -24vw; background: radial-gradient(closest-side, rgba(185,192,201,.16), transparent); animation: deriva-b 28s ease-in-out infinite alternate; }
-@keyframes deriva-a { to { transform: translate(-14vw, 16vw) scale(1.15); } }
-@keyframes deriva-b { to { transform: translate(16vw, -12vw) scale(.9); } }
-/* a varredura: uma linha de luz desce pela seção de tempos em tempos */
-.exames__varredura { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent calc(100% - 180px), color-mix(in srgb, var(--vermelho-claro) 9%, transparent) calc(100% - 40px), color-mix(in srgb, var(--vermelho-claro) 42%, transparent) calc(100% - 1px), transparent);
-  transform: translateY(-100%); animation: varredura 10s cubic-bezier(.45, 0, .55, 1) infinite 1.5s; will-change: transform; opacity: .7; }
-@keyframes varredura { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
-.exames.parado .exames__mancha, .exames.parado .exames__varredura { animation-play-state: paused; }
+/* ---------- centro de imagem: grade de exames ----------
+   No mesmo padrão limpo do resto do site: fundo cinza bem claro, cinco cartões brancos (foto da sala, selo,
+   nome, descrição curta, indicação, duração e preparo, e o link para agendar) e um sexto cartão grafite com
+   os outros exames. Nada escondido atrás de clique; o movimento é só o cartão subir de leve no hover. */
+.exames { background: var(--fundo); }
+.exames__cabeca { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 56px; align-items: end; margin-bottom: clamp(32px, 3.5vw, 48px); }
+.exames .lead { max-width: 48ch; }
+.exames__grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.exames__grade > li { display: flex; }
 
-.exames__cabeca { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 56px; align-items: end; margin-bottom: clamp(28px, 3vw, 40px); }
-.exames .lead { max-width: 46ch; color: rgba(255,255,255,.72); }
+.exame-card { position: relative; flex: 1; display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff; border: 1px solid var(--borda-fina); box-shadow: var(--sombra-cartao); }
+.exame-card__foto { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--fundo-2); }
+.exame-card__foto img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transition: scale .8s var(--ease); }
+.exame-card__selo { position: absolute; left: 14px; top: 14px; padding: 6px 11px 5px; border-radius: 999px; background: rgba(255,255,255,.94); color: var(--vermelho-texto); font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 6px 16px -10px rgba(16,24,40,.5); }
+.exame-card__corpo { flex: 1; display: flex; flex-direction: column; padding: 20px 24px 22px; }
+.exame-card__sala { display: flex; align-items: center; gap: 10px; color: var(--tinta-3); font-size: .84rem; font-weight: 700; }
+.exame-card__ico { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 10px; background: color-mix(in srgb, var(--vermelho) 9%, #fff); color: var(--vermelho-texto); }
+.exame-card__ico .i { width: 18px; height: 18px; }
+.exame-card h3 { margin-top: 12px; font-size: 1.38rem; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.exame-card h3 .rosa-tag { vertical-align: .25em; }
+.exame-card__texto { margin-top: 8px; color: var(--tinta-2); font-size: .98rem; line-height: 1.55; }
+.exame-card__fatos { margin: 16px 0 0; }
+.exame-card__fatos div { display: grid; grid-template-columns: 20px minmax(0, 1fr); grid-template-areas: "ico rot" "ico val"; column-gap: 10px; row-gap: 1px; padding: 10px 0; border-top: 1px solid var(--borda-fina); }
+.exame-card__fatos dt { display: contents; }
+.exame-card__fatos dt .i { grid-area: ico; width: 18px; height: 18px; margin-top: 1px; color: var(--tinta-3); }
+.exame-card__fatos dt span { grid-area: rot; color: var(--tinta-3); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.exame-card__fatos dd { grid-area: val; margin: 0; color: var(--tinta); font-size: .93rem; line-height: 1.45; }
+.exame-card__acao { display: inline-flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 18px; color: var(--vermelho-texto); font-weight: 750; text-decoration: none; }
+.exame-card__acao .i { width: 18px; height: 18px; }
+.exame-card__acao .i:last-child { margin-left: auto; transition: translate .35s var(--ease); }
+.exame-card__acao:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .exame-card:hover .exame-card__foto img { scale: 1.04; }
+  .exame-card:hover .exame-card__acao .i:last-child { translate: 4px 0; }
+  .exame-card:hover { box-shadow: var(--sombra-cartao-alta); }
+}
 
-.vitrine { position: relative; }
-.vitrine__dica { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; color: rgba(255,255,255,.55); font-size: .9rem; font-weight: 650; }
-.vitrine__dica .i { width: 16px; height: 16px; color: var(--vermelho-claro); }
+/* o sexto cartão: os outros exames e a dúvida de preparo */
+.exame-card--extra { justify-content: center; gap: 14px; padding: clamp(26px, 2.6vw, 36px); background: var(--noite); border-color: transparent; color: #fff; }
+.exame-card__ico--claro { width: 46px; height: 46px; border-radius: 14px; background: color-mix(in srgb, var(--vermelho) 22%, transparent); color: var(--vermelho-claro); }
+.exame-card__ico--claro .i { width: 22px; height: 22px; }
+.exame-card--extra h3 { margin-top: 4px; color: #fff; font-size: 1.5rem; }
+.exame-card__lista { display: flex; flex-wrap: wrap; gap: 8px; }
+.exame-card__lista li { padding: 8px 13px 7px; border-radius: 999px; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); font-size: .9rem; font-weight: 650; }
+.exame-card__nota { color: rgba(255,255,255,.62); font-size: .95rem; line-height: 1.5; }
+.exame-card--extra .botao { align-self: flex-start; margin-top: 6px; }
 
-/* ----- as salas ----- */
-.galeria { display: flex; gap: 10px; height: clamp(440px, 62vh, 620px); }
-.painel { position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; overflow: hidden; margin: 0; padding: 0; border: 0; border-radius: var(--r-lg); background: #0E0F12; color: #fff; text-align: left; font: inherit; cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 0 40px 70px -40px rgba(0,0,0,.9); transition: flex-grow .8s var(--ease), box-shadow .5s ease; }
-.painel.ativo { flex-grow: 4.2; cursor: default; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 50px 90px -40px rgba(0,0,0,.95), 0 0 0 1px color-mix(in srgb, var(--vermelho-claro) 22%, transparent); }
-@media (hover: hover) and (pointer: fine) { .painel:not(.ativo):hover { flex-grow: 1.35; } }
-.painel__foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transform: scale(1.12); transition: transform 1.6s var(--ease); }
-.painel.ativo .painel__foto { transform: scale(1); }
-/* escurecimento: forte nas salas fechadas, só no pé da sala aberta */
-.painel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(10,11,14,.85), rgba(10,11,14,.35) 45%, rgba(10,11,14,.55)); transition: opacity .6s ease; }
-.painel::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(10,11,14,.75), transparent 38%), linear-gradient(to bottom, rgba(10,11,14,.45), transparent 22%); opacity: 0; transition: opacity .6s ease; }
-.painel.ativo::before { opacity: 0; }
-.painel.ativo::after { opacity: 1; }
-@media (hover: hover) and (pointer: fine) { .painel:not(.ativo):hover::before { opacity: .7; } }
-
-/* nome na vertical das salas fechadas */
-.painel__vertical { position: absolute; left: 50%; bottom: 26px; display: flex; align-items: center; gap: 12px; writing-mode: vertical-rl; transform: translateX(-50%) rotate(180deg); font-size: 1.02rem; font-weight: 800; letter-spacing: .01em; white-space: nowrap; transition: opacity .35s ease .25s; }
-.painel__vertical .num { font-size: .74rem; letter-spacing: .1em; color: var(--vermelho-claro); }
-.painel.ativo .painel__vertical { opacity: 0; transition-delay: 0s; }
-
-/* sala aberta: legenda no alto e nome grande no pé */
-.painel__topo { position: absolute; left: 22px; right: 22px; top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; opacity: 0; transform: translateY(-8px); transition: opacity .4s ease, transform .6s var(--ease); }
-.painel__sala { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 11px; border-radius: 999px; background: rgba(15,16,20,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); font-size: .84rem; font-weight: 750; white-space: nowrap; }
-.painel__sala .i { width: 15px; height: 15px; color: var(--vermelho-claro); }
-.painel__num { padding: 8px 12px 7px; border-radius: 999px; background: rgba(255,255,255,.14); font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
-.painel__nome { position: absolute; left: 22px; right: 22px; bottom: 26px; display: flex; align-items: center; gap: 14px; opacity: 0; transform: translateY(14px); transition: opacity .4s ease, transform .7s var(--ease); }
-.painel__nome > span:last-child { display: grid; gap: 2px; font-size: clamp(1.5rem, 2.2vw, 2.1rem); font-weight: 800; line-height: 1.05; letter-spacing: -.03em; white-space: nowrap; }
-.painel__mini { font-size: .74rem; letter-spacing: .1em; color: rgba(255,255,255,.6); font-weight: 800; }
-.painel__ico { display: grid; place-items: center; width: 52px; height: 52px; flex: none; border-radius: 16px; background: linear-gradient(150deg, var(--vermelho-claro), var(--vermelho)); box-shadow: 0 14px 28px -14px var(--vermelho), inset 0 1px 0 rgba(255,255,255,.3); }
-.painel__ico .i { width: 26px; height: 26px; }
-.painel.ativo .painel__topo, .painel.ativo .painel__nome { opacity: 1; transform: none; transition-delay: .35s; }
-.painel .rosa-tag { justify-self: start; }
-
-/* a barra de tempo da troca automática */
-.painel__tempo { position: absolute; left: 22px; right: 22px; bottom: 12px; height: 3px; border-radius: 3px; background: var(--vermelho-claro); transform-origin: 0 50%; transform: scaleX(0); opacity: 0; }
-.vitrine.auto:not(.manual) .painel.ativo .painel__tempo { opacity: .9; animation: tempo-sala 7s linear forwards; }
-.vitrine:hover .painel__tempo, .vitrine:focus-within .painel__tempo { animation-play-state: paused; }
-@keyframes tempo-sala { to { transform: scaleX(1); } }
-
-/* ----- a ficha da sala aberta ----- */
-.detalhes { display: grid; margin-top: 18px; }
-.detalhe { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(20px, 3vw, 44px); align-items: center; padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-lg);
-  background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.09), inset 0 1px 0 rgba(255,255,255,.1), 0 50px 90px -60px rgba(0,0,0,.9);
-  visibility: hidden; opacity: 0; transition: opacity .45s ease, visibility 0s .45s; }
-.detalhe.ativo { visibility: visible; opacity: 1; transition: opacity .45s ease; }
-.detalhe::before { content: ""; position: absolute; left: 32px; right: 32px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--vermelho-claro) 70%, transparent), transparent); }
-.detalhe { position: relative; }
-.exame__topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.exame__ico { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 16px; background: linear-gradient(150deg, var(--vermelho-claro), var(--vermelho)); color: #fff; box-shadow: 0 14px 28px -14px var(--vermelho), inset 0 1px 0 rgba(255,255,255,.3); }
-.exame__ico .i { width: 24px; height: 24px; }
-.exame__selo { padding: 6px 12px 5px; border-radius: 999px; background: color-mix(in srgb, var(--vermelho) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vermelho-claro) 38%, transparent); color: #FF9A9E; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-.detalhe h3 { margin-top: 18px; font-size: clamp(1.8rem, 2.4vw, 2.45rem); line-height: 1.04; letter-spacing: -.035em; }
-.exame__lead { margin-top: 12px; font-size: 1.06rem; line-height: 1.55; color: rgba(255,255,255,.74); }
-.exame__info { display: grid; gap: 8px; margin: 0; }
-.exame__info div { display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "ico rot" "ico val"; column-gap: 14px; row-gap: 2px; align-items: center; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,.035); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); transition: background-color .35s ease; }
-.exame__info div:hover { background: rgba(255,255,255,.06); }
-.exame__info dt { display: contents; }
-.exame__info-ico { grid-area: ico; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: color-mix(in srgb, var(--vermelho) 16%, transparent); color: var(--vermelho-claro); transition: transform .5s var(--ease); }
-.exame__info-ico .i { width: 19px; height: 19px; }
-.exame__info div:hover .exame__info-ico { transform: rotate(-8deg) scale(1.08); }
-.exame__info-rot { grid-area: rot; align-self: end; color: rgba(255,255,255,.5); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.exame__info dd { grid-area: val; align-self: start; margin: 0; color: #fff; font-size: .97rem; line-height: 1.4; }
-.exame__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 24px; }
-.exame__duvida { color: rgba(255,255,255,.7); font-size: .94rem; font-weight: 700; text-decoration: underline; text-decoration-color: rgba(255,255,255,.3); text-underline-offset: 4px; transition: color .3s ease, text-decoration-color .3s ease; }
-.exame__duvida:hover { color: #fff; text-decoration-color: var(--vermelho-claro); }
-
-.exames__rodape { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: clamp(36px, 4vw, 56px); padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.7); }
-.exames__tambem strong { color: #fff; }
-.exames__nota { color: rgba(255,255,255,.48); font-size: .92rem; }
-.exames__rodape .link-seta { margin-left: auto; }
-
-/* tablet: as salas continuam lado a lado, mais baixas */
 @media (max-width: 1024px) {
   .exames__cabeca { grid-template-columns: 1fr; }
-  .galeria { height: clamp(380px, 52vh, 480px); gap: 8px; }
-  .painel.ativo { flex-grow: 3.4; }
-  .detalhe { grid-template-columns: 1fr; }
-  .exames__rodape .link-seta { margin-left: 0; }
+  .exames__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 }
-/* celular: acordeão. Cada sala é uma faixa; a aberta cresce e a ficha aparece logo abaixo dela */
-@media (max-width: 700px) {
-  .vitrine { display: flex; flex-direction: column; gap: 8px; }
-  .vitrine__dica { order: -1; margin-bottom: 4px; }
-  .galeria, .detalhes { display: contents; }
-  /* a sala que fecha fecha na hora; só a que abre anima: assim a página não pula */
-  .painel { order: calc(var(--o) * 2); flex: 0 0 auto; height: 72px; border-radius: 20px; scroll-margin-top: calc(var(--nav-h) + 12px); transition: none; }
-  .painel.ativo { height: 260px; transition: height .7s var(--ease); }
-  .detalhe { order: calc(var(--o) * 2 + 1); grid-area: auto; display: none; padding: 22px 18px; border-radius: 20px; margin-bottom: 6px; }
-  .detalhe.ativo { display: grid; }
-  .painel__vertical { left: 18px; bottom: 50%; writing-mode: horizontal-tb; transform: translateY(50%); gap: 10px; font-size: 1.05rem; }
-  .painel.ativo .painel__vertical { opacity: 0; }
-  .painel::before { background: linear-gradient(90deg, rgba(10,11,14,.88), rgba(10,11,14,.55)); }
-  .painel__topo { left: 14px; right: 14px; top: 14px; }
-  .painel__num { display: none; }
-  .painel__nome { left: 16px; right: 16px; bottom: 18px; gap: 12px; }
-  .painel__ico { width: 44px; height: 44px; border-radius: 14px; }
-  .painel__nome > span:last-child { font-size: 1.45rem; }
-  .detalhe h3 { font-size: 1.55rem; margin-top: 14px; }
-  .exame__acoes .botao { width: 100%; }
+@media (max-width: 640px) {
+  .exames__grade { grid-template-columns: 1fr; }
+  .exame-card__corpo { padding: 18px 20px 20px; }
+  .exame-card--extra .botao { align-self: stretch; }
 }
 
 /* ---------- sobre ---------- */
@@ -961,8 +889,7 @@ input, textarea { caret-color: var(--vermelho); }
   .esp__seta { width: 18px; height: 18px; }
 }
 /* ---------- modo leve: o que custa caro a cada quadro fica parado ---------- */
-.leve .exames__mancha, .leve .exames__varredura { animation: none; }
-.leve .exames__varredura { display: none; }
+
 .leve .pulsante::before, .leve .pulsante::after, .leve .selo-secao__ico::before, .leve .video-play__botao::before { animation: none; }
 .leve .destaque, .leve .giro.brilha { animation: none; background-position: 100% 0; }
 .leve .bento__resultados::after { animation: none; }
@@ -1013,7 +940,7 @@ body::after { display: none; }
 /* seções: ritmo branco / cinza claro, o centro de imagem segue grafite */
 .hero { background: linear-gradient(180deg, #fff 0%, var(--fundo) 100%); }
 .cuidados, .laboratorio, .sobre, .unidades, .contato { background: #fff; }
-.especialidades, .agendar, .duvidas { background: var(--fundo); }
+.especialidades, .exames, .agendar, .duvidas { background: var(--fundo); }
 
 /* tipografia mais sóbria */
 .titulo, .hero__titulo, .declaracao { font-weight: 700; letter-spacing: -.028em; }
@@ -1088,9 +1015,6 @@ body::after { display: none; }
 .bento__resultados::after { display: none; }
 .bento__resultados { box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--vermelho) 70%, transparent); }
 
-/* centro de imagem: o fundo fica só com a grade de pontos e uma luz lenta; sai a linha de varredura */
-.exames__varredura { display: none; }
-.exames__mancha--a { opacity: .7; }
 
 /* contato rápido: sem anel pulsando no WhatsApp */
 .flutuante::before { display: none; }
