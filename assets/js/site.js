@@ -561,33 +561,6 @@
     artes.forEach(a => ioArte.observe(a));
   }
 
-  /* ---------- rodapé: ladrilhos com o símbolo que giram quando o cursor passa ---------- */
-  const ladrilhos = $('[data-ladrilhos]');
-  if (ladrilhos) {
-    const enche = () => {
-      ladrilhos.textContent = '';
-      for (let k = 0, n = Math.ceil(innerWidth / 48) + 2; k < n; k++) {
-        const s = document.createElement('span');
-        const r = Math.random();
-        s.className = 'ladrilho' + (r < .3 ? ' ladrilho--cinza' : '') + (r > .8 ? ' ladrilho--claro' : '');
-        s.style.rotate = `${Math.floor(Math.random() * 4) * 90}deg`;
-        s.innerHTML = '<svg viewBox="0 0 100 78.5"><use href="#simbolo"/></svg>';
-        ladrilhos.appendChild(s);
-      }
-    };
-    enche();
-    let larguraL = innerWidth;
-    addEventListener('resize', () => { if (Math.abs(innerWidth - larguraL) > 60) { larguraL = innerWidth; enche(); } }, { passive: true });
-    const gira = s => { s.style.rotate = `${(parseFloat(s.style.rotate) || 0) + 90}deg`; };
-    if (fino && !reduz) ladrilhos.addEventListener('pointermove', e => {
-      const agora = performance.now();
-      $$('.ladrilho', ladrilhos).forEach(s => {
-        const r = s.getBoundingClientRect();
-        if (Math.abs(r.left + r.width / 2 - e.clientX) < 52 && agora - (+s.dataset.t || 0) > 650) { s.dataset.t = agora; gira(s); }
-      });
-    });
-  }
-
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
     $$('.sheds').forEach(sd => sd.classList.add('desenhado'));

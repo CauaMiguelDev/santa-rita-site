@@ -267,7 +267,7 @@ Mapa ilustrado (limite do DF tracejado, Lago Paranoá e o avião do Plano Piloto
 Cada pergunta é um cartão; aberto, ganha um véu vermelho a 5% e o título em vermelho-texto. O cartão de ajuda tem um balão vermelho com três pontos digitando. Antes do contato, a chamada final: os três corações se juntam e sobem com a rolagem atrás do convite, com um anel tracejado girando.
 
 ### Rodapé
-Abre com a vista aérea da matriz em Taguatinga escurecendo para a noite, a frase "Cuidando da saúde do DF e entorno há mais de 25 anos." e as cinco cidades em fichas de vidro. Depois, uma faixa de ladrilhos com o símbolo que giram quando o cursor passa, e as colunas: marca com status ao vivo e botões, Navegue, Para você e Parceiros, Unidades com telefone e Contato. Na base, o botão vermelho de voltar ao topo.
+Abre com a vista aérea da matriz em Taguatinga escurecendo para a noite, a frase "Cuidando da saúde do DF e entorno há mais de 25 anos." e as cinco cidades em fichas de vidro. Depois, as colunas: marca com status ao vivo e botões, Navegue, Para você e Parceiros, Unidades com telefone e Contato. Na base, o botão vermelho de voltar ao topo.
 
 ### Fotos
 Além das salas de exame, fotos tiradas do vídeo da clínica: consultório, ecocardiograma e eletrocardiograma numa galeria em Especialidades, a recepção da matriz em Dúvidas, a parede com a marca em Contato e a vista aérea no rodapé. Todas com o mesmo tratamento de luz do dia e paralaxe leve.
