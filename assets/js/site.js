@@ -366,7 +366,7 @@
     });
   }
 
-  /* ---------- fundo: a luz dos sheds atravessa a página ----------
+  /* ---------- fundo: linhas de nível que fluem devagar ----------
      Faixas diagonais de sol, como a luz zenital dos hospitais de Lelé, que derivam devagar sozinhas
      (a rolagem não mexe nelas). Meia resolução e até 30 quadros;
      sem WebGL, no modo leve ou com quadros lentos, fica o mesmo desenho parado do CSS. */
@@ -380,24 +380,20 @@
     gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
     gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float;
 uniform vec2 r,m;uniform float t,d,o;
-float faixa(float s,float l,float m){float f=fract(s);return smoothstep(0.,m,f)*(1.-smoothstep(l-m,l,f));}
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int k=0;k<4;k++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
 void main(){
-  vec2 q=gl_FragCoord.xy/r.y;q.y+=o;
-  float a=mix(1.02,2.12,d);
-  float s=dot(q,vec2(cos(a),sin(a)));
-  float s1=s*1.55+t*.019,s2=s*3.2-t*.029+.37;
-  float luz=faixa(s1,.36,.13)+faixa(s2,.17,.06)*.45;
-  float aleta=faixa(s1+.012,.03,.012)*.6;
-  luz*=mix(.72,1.,gl_FragCoord.y/r.y);
-  vec2 p0=gl_FragCoord.xy/r.y,pm=m/r.y;
-  float foco=exp(-dot(p0-pm,p0-pm)*9.);
-  luz=luz*(1.+.6*foco)+foco*.22;
-  vec3 sombra=vec3(.846,.862,.888),concreto=vec3(.922,.933,.948);
-  vec3 sol=mix(mix(vec3(.975,.987,1.),vec3(1.),smoothstep(0.,.5,d)),vec3(1.,.99,.975),smoothstep(.5,1.,d));
-  vec3 c=mix(mix(sombra,concreto,.55+.45*sin(s*2.1+.6)*.5+.225),sol,clamp(luz,0.,1.));
-  c-=aleta*.035;
-  vec2 b=vec2((.22+.18*sin(t*.06))*r.x/r.y,.72+.16*cos(t*.045));
-  c=mix(c,vec3(.84,.15,.17),exp(-dot(p0-b,p0-b)*2.4)*.07);
+  vec2 q=gl_FragCoord.xy/r.y;
+  vec2 dm=q-m/r.y;float foco=exp(-dot(dm,dm)*7.);
+  vec2 w=vec2(fbm(q*1.2+vec2(t*.035,0.)),fbm(q*1.2+vec2(4.1,t*.03)));
+  float v=fbm(q*1.5+w*1.6+vec2(0.,t*.018))+foco*.08;
+  vec3 c=mix(vec3(.9,.913,.93),vec3(.978,.982,.99),smoothstep(.28,.78,v));
+  float k=v*13.,l=abs(fract(k)-.5);
+  float linha=1.-smoothstep(0.,.075,l);
+  float verm=step(5.5,mod(floor(k+.5),7.))*linha;
+  c-=linha*.026;
+  c=mix(c,vec3(.84,.15,.17),clamp(verm*(.09+foco*.5)+linha*foco*.18,0.,.5));
   c+=(fract(sin(dot(gl_FragCoord.xy+t,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
   gl_FragColor=vec4(c,1.);
 }`));
@@ -642,34 +638,6 @@ void main(){
   const heroEl = $('[data-hero]');
   if (heroEl) new IntersectionObserver(([e]) => heroEl.classList.toggle('parado', !e.isIntersecting)).observe(heroEl);
 
-  /* ---------- centro de imagem: a sala escolhida se abre ---------- */
-  const salasEl = $('[data-salas]');
-  if (salasEl) {
-    const lista = $$('.sala', salasEl);
-    const abre = sala => {
-      if (sala.classList.contains('ativa')) return;
-      lista.forEach(s => {
-        const a = s === sala;
-        s.classList.toggle('ativa', a);
-        $('.sala__aba', s).setAttribute('aria-expanded', a);
-        $('.sala__info', s).inert = !a;
-      });
-    };
-    lista.forEach(s => { $('.sala__info', s).inert = !s.classList.contains('ativa'); });
-    salasEl.addEventListener('click', e => { const b = e.target.closest('.sala__aba'); if (b) abre(b.closest('.sala')); });
-    // no computador, parar o mouse sobre uma sala já abre (lado a lado só a partir de 1101px)
-    const largo = matchMedia('(min-width: 1101px)');
-    if (fino) {
-      let espera = 0;
-      salasEl.addEventListener('pointerover', e => {
-        const s = e.target.closest('.sala');
-        clearTimeout(espera);
-        if (s && largo.matches) espera = setTimeout(() => abre(s), 160);
-      });
-      salasEl.addEventListener('pointerleave', () => clearTimeout(espera));
-    }
-  }
-
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
     $$('.sheds').forEach(sd => sd.classList.add('desenhado'));
@@ -882,7 +850,7 @@ void main(){
   });
 
   /* ---------- caixas: entrada em cascata ---------- */
-  const caixas = $$('[data-card]').filter(c => !c.closest('.hero'));
+  const caixas = $$('[data-card]').filter(c => !c.closest('.hero') && !c.closest('[data-trilho]'));
   gsap.set(caixas, { opacity: 0, y: 44, scale: .97 });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
@@ -905,8 +873,34 @@ void main(){
     ScrollTrigger.create({ trigger: cuidados, start: 'center 55%', once: true, onEnter: () => gsap.to(s, { keyframes: { scale: [1, 1.08, .98, 1.04, 1] }, duration: .9, ease: 'power1.inOut', transformOrigin: '50% 50%' }) });
   }
 
-  /* ---------- centro de imagem: as salas sobem como cortinas, uma depois da outra ---------- */
-  if (salasEl) gsap.from($$('.sala', salasEl), { clipPath: 'inset(100% 0% 0% 0% round 28px)', y: 60, duration: 1.3, stagger: .1, ease: 'expo.out', clearProps: 'clipPath,transform', scrollTrigger: { trigger: salasEl, start: 'top 82%' } });
+  /* ---------- centro de imagem: o palco fica parado e os cartões andam para o lado (método da Cemtra) ---------- */
+  const janela = $('[data-janela]'), trilho = $('[data-trilho]');
+  if (janela && trilho) {
+    const cardsEx = $$('.servico', trilho);
+    const contador = $('[data-servico-atual]'), barraEx = $('[data-servicos-barra]');
+    const mm = gsap.matchMedia();
+    mm.add('(min-height: 500px)', () => {
+      html.classList.add('pan');
+      janela.scrollLeft = 0;
+      const dist = () => Math.max(0, trilho.scrollWidth - janela.clientWidth);
+      gsap.to(trilho, {
+        x: () => -dist(), ease: 'none',
+        scrollTrigger: {
+          trigger: '[data-servicos]', start: 'top top', end: () => `+=${dist()}`, pin: true, scrub: true, invalidateOnRefresh: true, anticipatePin: 1,
+          onToggle: s => { if (barraMovel) barraMovel.classList.toggle('no-palco', s.isActive); },
+          onUpdate: s => {
+            barraEx.style.transform = `scaleX(${s.progress})`;
+            contador.textContent = Math.min(cardsEx.length, Math.round(s.progress * (cardsEx.length - 1)) + 1);
+          }
+        }
+      });
+      // as fotos das salas andam um pouco dentro do arco enquanto o trilho passa
+      return () => { html.classList.remove('pan'); if (barraMovel) barraMovel.classList.remove('no-palco'); };
+    });
+    mm.add('(max-height: 499px)', () => {
+      gsap.from(cardsEx, { opacity: 0, x: 60, duration: 1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: janela, start: 'top 85%' } });
+    });
+  }
 
   /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
   if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));

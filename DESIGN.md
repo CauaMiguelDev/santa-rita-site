@@ -252,7 +252,7 @@ Barra em pílula fixa no topo; ao rolar, compacta para 1180px e vira branca opac
 À direita, a sala de ressonância num arco, com o símbolo dos três corações atrás dele. A entrada, sem nada ligado à rolagem: a foto se revela de baixo para cima (clip-path) enquanto os três corações chegam de três lados e se encontram; o título sobe de uma máscara por linha e a última palavra passa por consulta → coleta → ressonância, cada uma fazendo bater o seu coração, até parar em "mensagem", quando o símbolo bate inteiro. Os selos de vidro (25+ anos com contador, a matriz com status ao vivo) e o laboratório redondo surgem com mola; depois a divisão de texto é desfeita, selos e símbolo flutuam em laços que pausam fora da tela, e o palco segue o ponteiro em camadas (`data-prof`). Abaixo dos botões, uma linha de fatos com ícones vermelhos e links sublinhados em vermelho.
 
 ### Background (signature)
-Faixas de luz em WebGL a meia resolução e até 30 quadros, derivando no tempo; com mouse, a luz vai devagar até o cursor, e uma brasa vermelha a 7% passeia pelo canto. Uma sonda mede o ritmo: abaixo de 20 qps o canvas sai e fica o fundo em CSS (o mesmo desenho, parado). Modo leve e movimento reduzido também ficam com o desenho parado.
+Linhas de nível que fluem devagar (ruído fractal deformado em WebGL, meia resolução, até 30 quadros): cinza claro sobre concreto, e uma a cada sete em vermelho suave. Perto do cursor as linhas se avivam em vermelho. Uma sonda mede o ritmo: abaixo de 20 qps o canvas sai e fica o fundo em CSS (o mesmo desenho, parado). Modo leve e movimento reduzido também ficam com o desenho parado.
 
 ### Cards: a luz segue o cursor
 Painéis (`.vidro`) e cartões de exame ganham um brilho branco e um anel vermelho na borda que acompanham o ponteiro (`--mx`/`--my`). Cartões de exame, passos e canais de contato inclinam em 3D (até 6°/8°) sob o cursor. Na entrada, as caixas sobem 44px de 0.97 a 1 em 1.1s (expo.out), em cascata.
@@ -269,8 +269,8 @@ Cada pergunta é um cartão; aberto, ganha um véu vermelho a 5% e o título em 
 ### Rodapé
 Noite com o alto recortado em sheds, uma luz vermelha que segue o cursor e a coluna Unidades com o telefone de cada uma.
 
-### Centro de imagem: as salas se abrem
-Cinco salas lado a lado (a partir de 1101px); a escolhida se abre como uma porta larga (flex-grow 5.4, 0.9s) e mostra a foto inteira, o texto, os três fatos em vidro escuro (que chegam um depois do outro) e o botão de agendar. As outras ficam como faixas escuras com o ícone e o nome na vertical; parar o mouse 160ms sobre uma já abre. Abaixo de 1100px viram sanfona: faixas de 96px, a aberta cresce até o conteúdo. Na entrada, as salas sobem como cortinas (clip-path) em cascata. Abaixo, a faixa "Também realizamos" com os outros exames.
+### Centro de imagem: rolagem para o lado (método dos serviços da Cemtra)
+O palco fica parado enquanto a página rola e os cartões andam da direita para a esquerda; à esquerda, o título, o texto, o contador "1 de 5" e uma barra de progresso vermelha. Cartões brancos (ícone vermelho, texto, fichas das indicações, duração e preparo, link de agendar) alternam com salas em arco, com a foto real e um vidro escuro por cima. No fim, "Também realizamos" com os outros exames. No celular o título fica em cima e os cartões andam embaixo; sem o palco (movimento reduzido, tela deitada muito baixa) viram grade.
 
 ### Sheds
 A linha do telhado se desenha traço a traço (2.2s) quando chega e, depois, um pulso vermelho de luz corre por ela sem parar (7s por volta).
