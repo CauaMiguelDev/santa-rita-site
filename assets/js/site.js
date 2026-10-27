@@ -61,6 +61,22 @@
   pintaStatus();
   setInterval(pintaStatus, 60000);
 
+  /* ---------- botões: o rótulo ganha uma cópia logo abaixo para rolar no hover ---------- */
+  $$('.botao').forEach(b => {
+    const nos = [...b.childNodes].filter(n => n.nodeType === 1 ? !n.matches('svg, .botao__ico') : n.textContent.trim());
+    if (!nos.length) return;
+    const rotulo = document.createElement('span'), rolo = document.createElement('span');
+    rotulo.className = 'botao__rotulo'; rolo.className = 'botao__rolo';
+    rotulo.append(rolo);
+    b.insertBefore(rotulo, nos[0]);
+    rolo.append(...nos);
+    // a cor entra pelo lado em que o cursor chegou e sai pelo lado em que ele foi embora
+    if (fino) ['pointerenter', 'pointerleave'].forEach(t => b.addEventListener(t, e => {
+      const r = b.getBoundingClientRect();
+      b.style.setProperty('--origem', e.clientX - r.left < r.width / 2 ? 'left center' : 'right center');
+    }));
+  });
+
   /* ---------- especialidades: busca que entende o paciente ---------- */
   const CHAVES = {
     Alergologia: 'alergia rinite asma coceira',
@@ -166,6 +182,7 @@
     const seleciona = (id, foca) => {
       const u = UNIDADES.find(x => x.id === id);
       if (!u) return;
+      try { localStorage.setItem('sr-unidade', id); } catch (e) { /* navegação privada */ }
       $$('.aba', abas).forEach(b => { const s = b.dataset.u === id; b.setAttribute('aria-selected', s); b.tabIndex = s ? 0 : -1; if (s && foca) b.focus(); });
       moveLuz();
       painelU.setAttribute('aria-labelledby', `aba-${id}`);
@@ -197,6 +214,10 @@
       if (e.key === 'End') alvo = lista[lista.length - 1];
       if (alvo) { e.preventDefault(); seleciona(alvo.dataset.u, true); }
     });
+    try {
+      const guardada = localStorage.getItem('sr-unidade');
+      if (guardada && guardada !== 'tag' && UNIDADES.some(u => u.id === guardada)) seleciona(guardada);
+    } catch (e) { /* navegação privada */ }
   }
 
   /* ---------- pré-agendamento: vai para forms/contato.php como no site antigo ---------- */
@@ -291,7 +312,84 @@
     });
   }
 
-  const fundo = null; // fundo sólido: sem WebGL atrás da página
+  /* ---------- fundo: a luz dos sheds atravessa a página ----------
+     Faixas diagonais de sol, como a luz zenital dos hospitais de Lelé, que derivam devagar sozinhas
+     (a rolagem não mexe nelas). Meia resolução e até 30 quadros;
+     sem WebGL, no modo leve ou com quadros lentos, fica o mesmo desenho parado do CSS. */
+  const luzDeBrasilia = () => {
+    if (leve) return;
+    const cv = document.createElement('canvas');
+    const gl = cv.getContext('webgl', { alpha: false, antialias: false, depth: false, powerPreference: 'low-power' });
+    if (!gl) return;
+    const sh = (tipo, src) => { const x = gl.createShader(tipo); gl.shaderSource(x, src); gl.compileShader(x); return x; };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float;
+uniform vec2 r;uniform float t,d,o;
+float faixa(float s,float l,float m){float f=fract(s);return smoothstep(0.,m,f)*(1.-smoothstep(l-m,l,f));}
+void main(){
+  vec2 q=gl_FragCoord.xy/r.y;q.y+=o;
+  float a=mix(1.02,2.12,d);
+  float s=dot(q,vec2(cos(a),sin(a)));
+  float s1=s*1.55+t*.011,s2=s*3.2-t*.017+.37;
+  float luz=faixa(s1,.36,.13)+faixa(s2,.17,.06)*.45;
+  float aleta=faixa(s1+.012,.03,.012)*.6;
+  luz*=mix(.72,1.,gl_FragCoord.y/r.y);
+  vec3 sombra=vec3(.846,.862,.888),concreto=vec3(.922,.933,.948);
+  vec3 sol=mix(mix(vec3(.975,.987,1.),vec3(1.),smoothstep(0.,.5,d)),vec3(1.,.99,.975),smoothstep(.5,1.,d));
+  vec3 c=mix(mix(sombra,concreto,.55+.45*sin(s*2.1+.6)*.5+.225),sol,clamp(luz,0.,1.));
+  c-=aleta*.035;
+  c+=(fract(sin(dot(gl_FragCoord.xy+t,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
+  gl_FragColor=vec4(c,1.);
+}`));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    const u = n => gl.getUniformLocation(pr, n);
+    const uR = u('r'), uT = u('t'), uD = u('d'), uO = u('o');
+    cv.className = 'fundo-luz';
+    cv.setAttribute('aria-hidden', 'true');
+    document.body.prepend(cv);
+    const mede = () => {
+      cv.width = Math.ceil(innerWidth * .5); cv.height = Math.ceil(innerHeight * .5);
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.uniform2f(uR, cv.width, cv.height);
+    };
+    mede();
+    let alturaAntes = innerHeight;
+    // no celular a barra de endereço muda a altura ao rolar: só remede quando a largura ou a altura mudam de verdade
+    addEventListener('resize', () => { if (cv.width !== Math.ceil(innerWidth * .5) || Math.abs(innerHeight - alturaAntes) > 120) { alturaAntes = innerHeight; mede(); } }, { passive: true });
+    let ultimo = 0, rodando = true, sonda = null;
+    const pinta = agora => {
+      gl.uniform1f(uT, reduz ? 0 : agora / 1000);
+      gl.uniform1f(uD, .42);
+      gl.uniform1f(uO, 0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+    const quadro = agora => {
+      if (!rodando) return;
+      requestAnimationFrame(quadro);
+      if (document.hidden || agora - ultimo < 32) return;
+      ultimo = agora;
+      pinta(agora);
+      if (sonda) {
+        if (!sonda.t0) sonda.t0 = agora;
+        sonda.n++;
+        // menos de 20 quadros por segundo de fundo: o aparelho está sofrendo, o fundo para
+        if (agora - sonda.t0 > 3000) { if (sonda.n / ((agora - sonda.t0) / 1000) < 20) { rodando = false; cv.remove(); } sonda = null; }
+      }
+    };
+    requestAnimationFrame(t => { pinta(t); cv.classList.add('pronto'); });
+    if (reduz) return;
+    requestAnimationFrame(quadro);
+    setTimeout(() => { sonda = { t0: 0, n: 0 }; }, 2500);
+    document.addEventListener('visibilitychange', () => { if (sonda) sonda = { t0: 0, n: 0 }; });
+  };
+  luzDeBrasilia();
 
   /* ---------- monitor cardíaco: traçado PQRST de verdade ----------
      A onda é a soma de cinco gaussianas (P, Q, R, S, T), cada batimento com um ritmo levemente diferente.
@@ -477,10 +575,12 @@
   const acoesHero = $('[data-hero-acoes]');
   if (barraMovel && acoesHero) new IntersectionObserver(([e]) => barraMovel.classList.toggle('no-hero', e.isIntersecting)).observe(acoesHero);
 
+  const heroEl = $('[data-hero]');
+  if (heroEl) new IntersectionObserver(([e]) => heroEl.classList.toggle('parado', !e.isIntersecting)).observe(heroEl);
+
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
     html.classList.remove('carregando', 'intro');
-    $$('[data-selo]').forEach(sl => sl.classList.add('visto'));
     (window.srT || []).forEach(clearTimeout);
     const ioNav = new IntersectionObserver(ents => ents.forEach(e => {
       if (e.isIntersecting) defineAtual(e.target.id);
@@ -572,31 +672,114 @@
 
   const desenha = path => { path.setAttribute('pathLength', '1'); gsap.set(path, { strokeDasharray: 1, strokeDashoffset: 1 }); return path; };
 
-  /* ---------- hero: entrada calma ---------- */
+  /* ---------- hero: os três corações se encontram ----------
+     A sala de ressonância sobe dentro do arco, os corações do símbolo chegam de três lados e se juntam atrás dela,
+     o título sobe da máscara e a última palavra passa por consulta, coleta e ressonância, fazendo bater o coração
+     de cada cuidado, até parar em "mensagem": o símbolo bate inteiro e o botão do WhatsApp chama. */
   const hero = $('[data-hero]');
+  const simbolo = $('[data-hero-simbolo]', hero);
+  const coracao = n => $(`[data-hc="${n}"]`, hero);
+  const bate = alvo => gsap.fromTo(alvo, { scale: 1 }, { keyframes: { scale: [1, 1.12, .97, 1.04, 1] }, duration: .8, ease: 'power1.inOut', transformOrigin: '50% 50%', overwrite: 'auto' });
+  let partido = null, giroFinal = '';
   const entradaHero = (() => {
-    const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
-    tl.fromTo('[data-hero-titulo]', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .9 }, .05)
-      .fromTo('[data-hero-item]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .8, stagger: .1 }, .2)
-      .fromTo('[data-hero-foto]', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, .1)
-      .fromTo('[data-hero-foto] img', { scale: 1.05 }, { scale: 1, duration: 1.6, ease: 'power2.out' }, .1)
-      .fromTo('[data-hero-chip]', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .7, stagger: .1 }, .5);
+    const titulo = $('[data-hero-titulo]', hero);
+    const giro = $('[data-hero-giro]', titulo), final = giroFinal = giro.textContent, rotulo = titulo.textContent;
+    const passos = [['consulta.', 'topo'], ['coleta.', 'esq'], ['ressonância.', 'dir']];
+    // a quebra das linhas é medida com a palavra mais longa, para nenhuma troca empurrar a linha
+    if (window.SplitText) {
+      giro.textContent = 'ressonância.';
+      partido = SplitText.create(titulo, { type: 'lines,words', mask: 'lines', linesClass: 'linha' });
+      titulo.setAttribute('aria-label', rotulo);
+    }
+    const palavras = partido ? partido.words.slice(0, -1) : titulo;
+    const ultima = partido ? partido.words[partido.words.length - 1] : null;
+    if (ultima) ultima.textContent = passos[0][0];
+    const tl = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' }, onComplete: vivaHero });
+    tl.fromTo('[data-hero-arco]', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.2 }, .1)
+      .fromTo('[data-hero-arco] img', { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.28 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.7, ease: 'expo.inOut' }, .2)
+      .fromTo(simbolo, { opacity: 0 }, { opacity: 1, duration: .7, ease: 'power1.out' }, .3)
+      .fromTo(coracao('esq'), { x: -46, y: 30, rotation: -20 }, { x: 0, y: 0, rotation: 0, duration: 1.6 }, .35)
+      .fromTo(coracao('dir'), { x: 46, y: 30, rotation: 20 }, { x: 0, y: 0, rotation: 0, duration: 1.6 }, .45)
+      .fromTo(coracao('topo'), { y: -46, rotation: -12 }, { y: 0, rotation: 0, duration: 1.6 }, .55)
+      .fromTo(titulo, { opacity: 0 }, { opacity: 1, duration: .01 }, .25)
+      .fromTo(palavras, { yPercent: 115, rotate: 5 }, { yPercent: 0, rotate: 0, duration: 1.25, stagger: .07 }, .25);
+    if (ultima) {
+      let t = .25 + palavras.length * .07;
+      tl.fromTo(ultima, { yPercent: 115, rotate: 5 }, { yPercent: 0, rotate: 0, duration: .8 }, t)
+        .add(() => bate(coracao('topo')), t + .3);
+      passos.slice(1).concat([[final, null]]).forEach(([txt, h]) => {
+        t += .78;
+        tl.to(ultima, { yPercent: -115, duration: .24, ease: 'power2.in' }, t)
+          .call(() => { ultima.textContent = txt; }, null, t + .25)
+          .fromTo(ultima, { yPercent: 115 }, { yPercent: 0, duration: .55, immediateRender: false }, t + .25)
+          .add(() => bate(h ? coracao(h) : simbolo), t + .4);
+      });
+    }
+    tl.fromTo('[data-hero-item]', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1.1, stagger: .12 }, .75)
+      .fromTo('[data-hero-chip]', { opacity: 0, scale: .6, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, stagger: .15, ease: 'back.out(1.6)' }, 1.05);
     $$('[data-hero-conta]', hero).forEach(n => {
       const obj = { v: 0 };
       n.textContent = '0';
-      tl.to(obj, { v: +n.dataset.heroConta, duration: 1.6, onUpdate: () => { n.textContent = Math.round(obj.v); } }, .6);
+      tl.to(obj, { v: +n.dataset.heroConta, duration: 1.9, onUpdate: () => { n.textContent = Math.round(obj.v); } }, 1.15);
     });
     return tl;
   })();
+  // depois da entrada: o título volta a ser texto normal (quebra de linha nativa), o botão chama,
+  // os selos flutuam, o símbolo respira e o palco segue o cursor; os laços param fora da tela
+  function vivaHero() {
+    if (partido) {
+      partido.revert();
+      $('[data-hero-giro]', hero).textContent = giroFinal;
+      $('[data-hero-titulo]', hero).removeAttribute('aria-label');
+    }
+    $('.hero__agendar', hero).classList.add('chama');
+    const lacos = leve ? [] : [
+      ...$$('[data-hero-chip]', hero).map((c, i) => gsap.to(c, { yPercent: i % 2 ? 7 : -7, duration: 3.2 + i * .7, ease: 'sine.inOut', yoyo: true, repeat: -1 })),
+      gsap.to(simbolo, { scale: 1.025, duration: 4.5, ease: 'sine.inOut', yoyo: true, repeat: -1, transformOrigin: '50% 60%' })
+    ];
+    ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom top', onToggle: s => lacos.forEach(t => (s.isActive ? t.resume() : t.pause())) });
+    if (leve || !fino) return;
+    const camadas = $$('[data-prof]', hero).map(el => ({ p: +el.dataset.prof, x: gsap.quickTo(el, 'x', { duration: 1.2, ease: 'power3' }), y: gsap.quickTo(el, 'y', { duration: 1.2, ease: 'power3' }) }));
+    const sx = gsap.quickTo(simbolo, 'x', { duration: 1.6, ease: 'power3' }), sy = gsap.quickTo(simbolo, 'y', { duration: 1.6, ease: 'power3' });
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+      camadas.forEach(c => { c.x(nx * c.p); c.y(ny * c.p); });
+      sx(-nx * 22); sy(-ny * 22);
+    });
+    hero.addEventListener('pointerleave', () => { camadas.forEach(c => { c.x(0); c.y(0); }); sx(0); sy(0); });
+  }
   html.classList.remove('carregando', 'intro');
   (window.srT || []).forEach(clearTimeout);
   entradaHero.play();
 
+  // botões magnéticos: seguem o cursor alguns pixels
+  if (fino) $$('.botao').forEach(b => {
+    const mx = gsap.quickTo(b, 'x', { duration: .6, ease: 'power3' }), my = gsap.quickTo(b, 'y', { duration: .6, ease: 'power3' });
+    b.addEventListener('pointermove', e => {
+      const r = b.getBoundingClientRect();
+      mx(((e.clientX - r.left) / r.width - .5) * 14);
+      my(((e.clientY - r.top) / r.height - .5) * 12);
+    });
+    b.addEventListener('pointerleave', () => { mx(0); my(0); });
+  });
+
   // prepara o texto um pouco antes de ele entrar na tela, em vez de fatiar tudo na abertura
   const perto = (el, fn) => ScrollTrigger.create({ trigger: el, start: () => `top bottom+=${Math.round(innerHeight * .35)}`, once: true, onEnter: fn });
 
-  /* ---------- títulos: sobem e aparecem ---------- */
-  $$('[data-palavras]').forEach(h => gsap.from(h, { y: 18, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 90%' } }));
+  /* ---------- títulos: as palavras sobem da linha e uma faixa de sol passa por cima ---------- */
+  $$('[data-palavras]').forEach(h => perto(h, () => {
+    const parte = window.SplitText && !leve;
+    const alvo = parte ? SplitText.create(h, { type: 'words', mask: 'words' }).words : h;
+    gsap.from(alvo, {
+      ...(parte ? { yPercent: 105, stagger: .06 } : { y: 18, opacity: 0 }),
+      duration: .9, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 88%' },
+      onComplete: () => h.classList.add('luz-passa')
+    });
+  }));
+
+  /* ---------- sheds: o perfil do telhado se desenha uma vez quando chega ---------- */
+  $$('.sheds').forEach(sd => gsap.fromTo(sd, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.6, ease: 'power2.inOut', scrollTrigger: { trigger: sd, start: 'top 92%' } }));
 
   /* ---------- declaração: acende palavra por palavra ---------- */
   const decl = $('[data-declaracao]');
@@ -615,7 +798,7 @@
     }
   });
   $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -16, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: l, start: 'top 88%' } }));
-  $$('.petala:not([data-hero-foto]) > img, .moldura > img').forEach(img => gsap.from(img, { scale: 1.05, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: img.parentElement, start: 'top 92%' } }));
+  $$('.petala > img, .moldura > img, .exame-card__foto img').forEach(img => gsap.from(img, { scale: 1.14, duration: 1.6, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: img.parentElement, start: 'top 92%' } }));
 
   /* ---------- três cuidados: os corações se juntam com a rolagem ---------- */
   if (cuidados && !leve) {
@@ -635,9 +818,6 @@
     n.textContent = '0';
     gsap.to(obj, { v: alvo, duration: 2, ease: 'expo.out', onUpdate: () => { n.textContent = Math.round(obj.v); }, scrollTrigger: { trigger: n, start: 'top 90%' } });
   });
-
-  /* ---------- selos de seção: o traço cresce quando a seção chega ---------- */
-  $$('[data-selo]').forEach(selo => ScrollTrigger.create({ trigger: selo, start: 'top 92%', once: true, onEnter: () => selo.classList.add('visto') }));
 
   /* ---------- textos de apoio: sobem e aparecem ---------- */
   $$('.secao .lead, .declaracao__apoio').forEach(p => gsap.from(p, { y: 14, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 92%' } }));

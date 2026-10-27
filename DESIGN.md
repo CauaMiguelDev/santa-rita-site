@@ -1,6 +1,6 @@
 ---
 name: Clínica Santa Rita
-description: Policlínica do DF vestida com a fachada, branco e cinza-claro, grafite, os cinzas do símbolo e o vermelho da faixa como luz e pulso.
+description: Policlínica do DF como um prédio de luz, concreto branco, faixas de sol que derivam e o vermelho da fachada como única cor.
 colors:
   vermelho: "#D7262B"
   vermelho-claro: "#F0464B"
@@ -9,15 +9,14 @@ colors:
   tinta-2: "#4B5058"
   tinta-3: "#6E7682"
   prata: "#B9C0C9"
-  fundo: "#F5F5F6"
-  fundo-2: "#ECEDEF"
-  fundo-3: "#DFE1E4"
+  fundo: "#EEF1F4"
+  fundo-2: "#E6E9EE"
+  fundo-3: "#D8DDE3"
+  borda-fina: "#E1E5EA"
   branco: "#FFFFFF"
   noite: "#15171B"
-  noite-2: "#1F2228"
   wordmark: "#23262B"
   linha: "rgba(28, 31, 36, .09)"
-  wa: "#128048"
   ok: "#17924F"
   erro: "#C0352B"
   rosa: "#D61F69"
@@ -26,28 +25,22 @@ colors:
 typography:
   display:
     fontFamily: "Atkinson Hyperlegible Next, Segoe UI, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(3rem, 7vw, 6rem)"
-    fontWeight: 800
-    lineHeight: 0.94
+    fontSize: "clamp(3rem, 5.4vw, 5.5rem)"
+    fontWeight: 700
+    lineHeight: 1
     letterSpacing: "-0.035em"
   headline:
     fontFamily: "Atkinson Hyperlegible Next, Segoe UI, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(2.3rem, 4.6vw, 4rem)"
-    fontWeight: 800
-    lineHeight: 1.02
-    letterSpacing: "-0.04em"
+    fontSize: "clamp(2.2rem, 4vw, 3.5rem)"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.03em"
   title:
     fontFamily: "Atkinson Hyperlegible Next, Segoe UI, system-ui, -apple-system, sans-serif"
-    fontSize: "clamp(1.8rem, 3vw, 2.6rem)"
+    fontSize: "1.35rem"
     fontWeight: 800
-    lineHeight: 1.04
-    letterSpacing: "-0.035em"
-  title-sm:
-    fontFamily: "Atkinson Hyperlegible Next, Segoe UI, system-ui, -apple-system, sans-serif"
-    fontSize: "1.18rem"
-    fontWeight: 800
-    lineHeight: 1.25
-    letterSpacing: "-0.02em"
+    lineHeight: 1.15
+    letterSpacing: "-0.025em"
   body:
     fontFamily: "Atkinson Hyperlegible Next, Segoe UI, system-ui, -apple-system, sans-serif"
     fontSize: "1.125rem"
@@ -71,354 +64,210 @@ typography:
     lineHeight: 1
     letterSpacing: "-0.01em"
 rounded:
-  lg: "28px"
-  md: "20px"
-  sm: "16px"
-  pill: "999px"
-  petala: "44% 26px 44% 26px / 38% 26px 38% 26px"
-  ico-petala: "22px"
+  pilula: "999px"
+  painel: "28px"
+  foto: "22px"
+  cartao: "20px"
+  campo: "16px"
+  arco: "999px 999px 28px 28px"
+  abobada: "50% 50% 22px 22px / 30% 30% 22px 22px"
 spacing:
   pad: "clamp(18px, 4vw, 48px)"
   secao: "clamp(84px, 9vw, 132px)"
-  nav-h: "72px"
-  container: "1320px"
+  nav: "72px"
+  max: "1320px"
+  gap-cartoes: "20px"
 components:
-  button-primario:
+  button-primary:
     backgroundColor: "{colors.vermelho}"
     textColor: "{colors.branco}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 26px"
+    rounded: "{rounded.pilula}"
     height: "56px"
-  button-primario-hover:
+    padding: "0 26px 0 8px"
+  button-primary-hover:
     backgroundColor: "{colors.tinta}"
     textColor: "{colors.branco}"
-  button-contorno:
-    backgroundColor: "rgba(255,255,255,.55)"
-    textColor: "{colors.tinta}"
-    typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 26px"
-    height: "56px"
-  button-contorno-hover:
-    backgroundColor: "{colors.tinta}"
-    textColor: "{colors.branco}"
-  button-claro:
+  button-outline:
     backgroundColor: "{colors.branco}"
     textColor: "{colors.tinta}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "0 26px"
+    rounded: "{rounded.pilula}"
     height: "56px"
-  button-claro-hover:
-    backgroundColor: "{colors.vermelho}"
+    padding: "0 26px"
+  button-outline-hover:
+    backgroundColor: "{colors.tinta}"
     textColor: "{colors.branco}"
-  card-vidro:
-    backgroundColor: "rgba(255,255,255,.78)"
+  panel:
+    backgroundColor: "{colors.branco}"
     textColor: "{colors.tinta}"
-    rounded: "{rounded.lg}"
-    padding: "28px"
-  card-grafite:
-    backgroundColor: "rgba(255,255,255,.05)"
-    textColor: "{colors.branco}"
-    rounded: "{rounded.lg}"
-    padding: "18px"
-  card-resultados:
-    backgroundColor: "{colors.vermelho}"
-    textColor: "{colors.branco}"
-    rounded: "{rounded.lg}"
-    padding: "30px"
-  moldura-petala:
-    backgroundColor: "{colors.fundo-3}"
-    rounded: "{rounded.petala}"
-  input-campo:
-    backgroundColor: "rgba(255,255,255,.88)"
+    rounded: "{rounded.painel}"
+  exam-card:
+    backgroundColor: "{colors.branco}"
     textColor: "{colors.tinta}"
-    rounded: "{rounded.sm}"
-    padding: "0 48px 0 52px"
+    rounded: "{rounded.cartao}"
+    padding: "20px 24px 22px"
+  tab:
+    backgroundColor: "transparent"
+    textColor: "{colors.tinta-2}"
+    rounded: "{rounded.pilula}"
+    height: "48px"
+    padding: "0 20px"
+  tab-selected:
+    backgroundColor: "{colors.tinta}"
+    textColor: "{colors.branco}"
+  input:
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.tinta}"
+    rounded: "{rounded.campo}"
     height: "58px"
-  input-busca:
-    backgroundColor: "rgba(255,255,255,.9)"
+    padding: "0 48px 0 52px"
+  hero-chip:
+    backgroundColor: "rgba(255,255,255,.8)"
     textColor: "{colors.tinta}"
-    rounded: "{rounded.pill}"
-    padding: "0 22px"
-    height: "62px"
-  chip-ficha:
-    backgroundColor: "rgba(255,255,255,.88)"
-    textColor: "{colors.tinta}"
-    rounded: "{rounded.pill}"
-    padding: "0 22px"
-    height: "48px"
-  chip-ficha-selected:
-    backgroundColor: "{colors.tinta}"
-    textColor: "{colors.branco}"
-  aba:
-    backgroundColor: "rgba(255,255,255,.78)"
-    textColor: "{colors.tinta-2}"
-    rounded: "{rounded.pill}"
-    padding: "0 20px"
-    height: "48px"
-  aba-selected:
-    backgroundColor: "{colors.tinta}"
-    textColor: "{colors.branco}"
-  atalho:
-    backgroundColor: "rgba(255,255,255,.72)"
-    textColor: "{colors.tinta}"
-    rounded: "{rounded.pill}"
-    padding: "0 18px 0 12px"
-    height: "44px"
-  petala-ico:
-    backgroundColor: "{colors.branco}"
-    rounded: "{rounded.ico-petala}"
-    size: "64px"
-  nav-link:
-    textColor: "{colors.tinta-2}"
-    rounded: "{rounded.pill}"
-    padding: "0 15px"
-    height: "42px"
-  nav-link-atual:
-    backgroundColor: "{colors.tinta}"
-    textColor: "{colors.branco}"
-  faixa:
-    backgroundColor: "{colors.vermelho}"
-    textColor: "{colors.branco}"
-    padding: "22px 0 18px"
-  flutuante-wa:
-    backgroundColor: "{colors.wa}"
-    textColor: "{colors.branco}"
-    rounded: "{rounded.pill}"
-    padding: "0 20px"
-    height: "64px"
+    rounded: "18px"
+    padding: "12px 18px 12px 12px"
 ---
 
 # Design System: Clínica Santa Rita
 
-## Direção atual: limpa (outubro de 2026)
-
-O site passou para uma direção limpa e sóbria, adequada a uma clínica séria. O que vale hoje, por cima do que o restante deste documento descreve:
-
-- **Fundo:** sólido. Saíram o fundo animado em WebGL, o grão e as ondas desenhadas. As seções alternam branco e cinza bem claro (#F6F7F9); o centro de imagem continua grafite, só com grade de pontos e uma luz lenta.
-- **Cartões:** brancos, borda de 1px (#E4E7EC), sombra baixa; no hover sobem 3px. Sem a luz que seguia o mouse.
-- **Fotos:** retângulos arredondados de 22px, sem a forma de pétala, sem passe-partout e sem grão.
-- **Vermelho:** só em ação (botão principal, links), destaque de palavra e estado ativo. Ícones ficam cinza e ganham vermelho no hover, sem girar.
-- **Tipografia:** títulos em 700 com tracking -0,028em; o título do hero menor (até 4,9rem).
-- **Selos de seção:** só o rótulo e um traço curto, sem o círculo pulsando nem as letras embaralhando.
-- **Botões:** sólidos; o principal escurece no hover. Saíram a varredura de cor, o brilho passando, a onda de clique e o efeito magnético.
-- **Movimento:** entradas curtas de opacidade e deslocamento. Saíram a abertura com cortina, a palavra que girava no hero, os rabiscos e reflexos nas palavras, a inclinação 3D, a paralaxe, os chips flutuando e os traçados de ECG do topo e do rodapé (o monitor do painel do paciente fica).
-
 ## Overview
 
-**Creative North Star: "Três Corações, Um Lugar"**
+**Creative North Star: "Luz de Brasília"**
 
-A Santa Rita se apresenta com a própria fachada: chão branco e cinza-claro, voz em grafite, os dois cinzas do símbolo como apoio e o vermelho da faixa da fachada como luz e pulso. O símbolo de três corações (consulta, laboratório e imagem) não é decoração, é o mecanismo da página: ele se monta na abertura, acende o cuidado que o visitante aponta e marca a passagem da faixa vermelha. Atrás de tudo, um fundo vivo em WebGL desenha as ondas dos painéis da recepção, ondulando com o tempo, a rolagem e (só com mouse) o cursor.
+A clínica como um prédio de luz, à maneira dos hospitais da Rede Sarah, de Lelé: concreto branco curvo, luz zenital que entra pelos sheds em faixas e uma única cor, o vermelho da fachada. O fundo da página é a parede de concreto iluminada: faixas diagonais de sol derivam devagar por conta própria (WebGL), sem depender da rolagem. Sobre ele, painéis brancos lisos; as fotos reais das salas entram por janelas em arco.
 
-A densidade é generosa e muito legível: uma família só, Atkinson Hyperlegible Next, em 800 nos títulos e 400 a 1.125rem no corpo, pensada para pacientes mais velhos no celular. A matéria de toda caixa é vidro branco fosco, aceso por uma luz vermelha que segue o cursor no preenchimento e numa borda mascarada. Fotos reais da clínica vivem em molduras de pétala (dois cantos opostos inteiros, como os lóbulos dos corações). Há um único capítulo grafite, o Centro de Imagem, tratado como a tela de um visualizador, e o rodapé.
+A densidade é de site de clínica que um paciente de 70 anos lê sem esforço: corpo grande (18px), contraste alto, alvos de toque de 44px ou mais, reserva com um toque em toda tela. O movimento é generoso no hero (método da Cemtra, a pedido do usuário: entrada encenada, palavra que gira, parallax do ponteiro) e contido no resto (palavras que sobem uma vez, uma faixa de sol que passa, sheds que se desenham uma vez).
 
-O mundo recusa o modelo de clínica com cartões brancos e médico de banco de imagem, as placas de sinalização chapadas da versão 1 (arquivada em `.impeccable/v1-sinalizacao`), temas azul-marinho e o rosa fora da campanha.
+Rejeitados e confirmados: temas azul-marinho ou escuros, rosa fora de campanha, página de cartões brancos sobre fundo chapado.
 
 **Key Characteristics:**
-- Chão claro (#F5F5F6) com ondas vivas da recepção; vidro branco como superfície; grafite (#1C1F24) como voz.
-- Um vermelho de fachada (#D7262B): botão principal, faixa, cartão de resultados, luz do cursor, foco, pulso. Como texto, só o tom escuro (#B51D23).
-- Os três corações do símbolo como ícones, mecanismo e ritmo (abertura, Três cuidados, atalhos, faixa).
-- Fotos reais em pétala, com anel branco e sombra quente.
-- Um capítulo grafite: Centro de Imagem (visualizador com grade e mira) e rodapé.
-- Outubro Rosa é uma classe removível que troca o vermelho por rosa; desligada hoje.
+- Três cores trabalhando: branco/concreto, grafite e vermelho da fachada. A luz é efeito, nunca uma quarta cor.
+- Fundo vivo de faixas de luz, só no tempo; fallback em CSS com o mesmo desenho parado.
+- Janelas em arco e abóbada para fotos; pílulas para tudo que se aperta.
+- Estado legível: o escolhido fica sólido, o resto em contorno tracejado.
+- Sheds (perfil do telhado em dente de serra) entre capítulos e no alto do rodapé.
 
 ## Colors
 
-Branco, cinza-claro e grafite carregam tudo; o vermelho da faixa é o único acento de marca e aparece como luz, pulso e ação.
+Concreto frio e grafite com um só vermelho; tudo que não é vermelho é cinza-azulado de concreto.
 
 ### Primary
-- **Vermelho da Fachada** (vermelho): o botão principal, a faixa inclinada, o cartão "Resultados de exames", o círculo de ícone em hover, o selo de código das unidades, o ícone aberto do FAQ, a barra de progresso da navegação (3px), o anel de foco (2.5px, offset 3px), a seleção de texto, o cursor dos campos, os riscos à mão, o traço de ECG e a luz do cursor no vidro. Também é o coração de cima do símbolo (`--sym-b`).
-- **Vermelho Aceso** (vermelho-claro): brilho dentro dos gradientes (abertura, hero, cartão de resultados) e todo vermelho sobre o grafite: linha de varredura, ponto e barra do índice dos exames, mira, pulso do rodapé.
-- **Vermelho-Texto** (vermelho-texto): a única forma de vermelho como texto ou ícone fino sobre claro: palavra que gira no hero, links-seta, setas em hover, ícones de fatos e horários, número "25 anos", links do FAQ.
-
-### Secondary
-- **Prata do Símbolo** (prata): o coração da direita (`--sym-c`), o halo prateado no canto do hero, a barra de rolagem e os cabeçalhos de coluna do rodapé. O coração da esquerda usa o cinza `tinta-3` (`--sym-a`).
+- **Vermelho da Fachada** (vermelho): o botão principal (WhatsApp), o ícone que acende no hover, foco, seleção de texto, órbita tracejada do hero, barra de progresso. Também é a cor do WhatsApp: o token `--wa` aponta para ele.
+- **Vermelho-Texto** (vermelho-texto): toda palavra vermelha sobre claro (palavra que gira no título, números de destaque, links de seta, selos de exame). Nunca use o vermelho puro em texto pequeno.
+- **Vermelho Aceso** (vermelho-claro): só sobre fundo escuro (cartão grafite, rodapé) e no miolo do gradiente do cartão de resultados.
 
 ### Neutral
-- **Grafite-Tinta** (tinta): texto principal, botão de menu, ficha e aba selecionadas, destaque deslizante da seção atual, varredura de hover do botão principal, botão "Ligar" da barra móvel.
-- **Tinta Média** (tinta-2): leads, descrições, links de navegação em repouso.
-- **Tinta Clara** (tinta-3): setas em repouso, ícones de campo, notas; mesmo valor do cinza do símbolo.
-- **Chão** (fundo): fundo da página, da abertura e do menu do celular.
-- **Chão Sombra** (fundo-2): círculo do ícone do FAQ, base do mapa.
-- **Chão Fundo** (fundo-3): base das molduras em pétala antes da foto carregar; hover do ícone do FAQ.
-- **Branco** (branco): base do vidro, ícones circulares, botão claro, texto sobre vermelho e grafite.
-- **Noite Grafite** (noite) e **Noite Grafite 2** (noite-2): fundo do Centro de Imagem e do rodapé; base das fotos de exame.
-- **Wordmark** (wordmark): a cor do nome "Clínica.Santa.Rita" no claro.
-- **Linha** (linha): divisores de 1px em listas dentro de cartões (canais, fatos, especialidades, FAQ, menu).
-- **Verde WhatsApp** (wa): só o botão flutuante e o botão WhatsApp da barra móvel.
-- **Ok / Erro** (ok, erro): só estados de formulário.
-
-### Campanha (Outubro Rosa)
-- **Rosa** (rosa), **Rosa Aceso** (rosa-claro), **Rosa-Texto** (rosa-texto): substituem `vermelho`, `vermelho-claro` e `vermelho-texto` quando `<html>` recebe a classe `.rosa` (via `data-campanha="auto|rosa|off"`; hoje `off`). Na mesma troca o símbolo veste violeta e rosa (#9900FF, #CC33FF, #FF99FF) e o wordmark fica rosa (#E8368E). Aparecem também a seção da campanha e as etiquetas "Outubro Rosa" em Mastologia e Mamografia.
+- **Grafite-Tinta** (tinta): texto, varredura do hover dos botões, aba e ficha selecionadas, botão de ligar na barra móvel.
+- **Tinta Média / Tinta Clara** (tinta-2, tinta-3): texto de apoio e leads; rótulos, setas e ícones em repouso.
+- **Concreto** (fundo, fundo-2, fundo-3): chão da página, fundo dos círculos de ícone, fundo de foto ainda carregando.
+- **Prata do Símbolo** (prata): o terceiro coração do símbolo, títulos de coluna do rodapé; o traço tracejado e dos sheds usa o mesmo cinza.
+- **Borda Fina** (borda-fina): fio de 1px de todo painel e cartão branco.
+- **Noite** (noite): só o rodapé e o sexto cartão do centro de imagem.
+- **OK / Erro** (ok, erro): apenas validação de formulário. Não são cores de marca.
 
 ### Named Rules
-**The One Red Rule.** Existe um vermelho, o da faixa da fachada. Ele é ação (botão principal), luz (cursor, foco, brilhos) e pulso (ECG, anéis). Superfícies inteiras em vermelho são só três: a faixa, o cartão de resultados e o botão principal.
+**The Three Colors Rule.** Branco, grafite e o vermelho da fachada; nenhuma quarta cor trabalha. O WhatsApp é vermelho, não verde; o status "aberto" é vermelho, não verde.
 
-**The Dark Red Text Rule.** Vermelho como texto sobre claro usa sempre `vermelho-texto`. `vermelho` e `vermelho-claro` só viram traço fino ou texto sobre o grafite.
-
-**The Switchable Campaign Rule.** Toda cor de marca passa pelas variáveis (`--vermelho*`, `--sym-*`, `--wordmark`) para que a classe `.rosa` troque a campanha inteira num só interruptor. Nenhum vermelho fixo no código de componente.
-
-**The Soft Wash Rule.** Lavagens radiais vermelhas nos fundos de seção ficam entre 9% e 14% (hero até 26% no núcleo, rodapé 22% sobre o grafite). Aquecem o chão; não o pintam.
+**The Campaign Switch Rule.** Rosa (rosa, rosa-claro, rosa-texto) só existe sob a classe `.rosa`, que troca os tokens de vermelho e do símbolo; desligar a classe devolve a identidade base.
 
 ## Typography
 
-**Display Font:** Atkinson Hyperlegible Next (variável 200–800, auto-hospedada; com Segoe UI, system-ui)
-**Body Font:** Atkinson Hyperlegible Next (mesma família)
+**Display/Body Font:** Atkinson Hyperlegible Next (com Segoe UI, system-ui)
 **Wordmark:** Noto Serif 500, subconjunto só com as letras de "Clínica.Santa.Rita"
 
-**Character:** Uma sem-serifa desenhada para baixa visão, usada pesada (800) com tracking negativo nos títulos e em 400 no corpo. A serifa existe só no nome da clínica, com os pontos em vermelho, como na fachada.
+**Character:** Uma família só, de legibilidade clínica, em peso alto e entreletra fechada nos títulos; a serifa aparece apenas na marca, com os pontos em vermelho.
 
 ### Hierarchy
-- **Display** (800, clamp(3rem, 7vw, 6rem), 0.94, -0.035em): só o título do hero, máximo 9.5ch; no celular clamp(2.7rem, 12.5vw, 3.6rem). A última palavra gira (família, prevenção, saúde) em Vermelho-Texto.
-- **Headline** (800, clamp(2.3rem, 4.6vw, 4rem), 1.02, -0.04em): título de seção, máximo 17ch, `text-wrap: balance`, revelado palavra a palavra. A declaração do "sobre" usa clamp(1.9rem, 4.1vw, 3.6rem), 1.12, máximo 26ch.
-- **Title** (800, clamp(1.8rem, 3vw, 2.6rem), -0.035em): nome do exame e da unidade. Cartões menores: 1.35–1.6rem (portas, painéis, formulário).
-- **Title-sm** (800, 1.18rem, -0.02em): nome de especialidade e pergunta do FAQ.
-- **Body** (400, 1.125rem, 1.6): texto corrido, `text-wrap: pretty`; respostas até 60ch. **Lead** em clamp(1.08rem, 1.3vw, 1.2rem) na Tinta Média, máximo 48ch (hero 42ch, até 1.27rem).
-- **Label** (750, 1.03rem, -0.005em): botões, fichas, abas, rótulos de campo (0.95rem), status. Navegação em 650.
-- **Wordmark** (Noto Serif 500, 1.4rem; grande clamp(1.8rem, 4.4vw, 2.8rem)): só o nome da clínica, pontos em `vermelho` (campanha: wordmark rosa).
-- **Gigante do rodapé** (800, clamp(4rem, 17.5vw, 17rem), 0.78, -0.06em): "Santa Rita" um degrau acima do grafite (#2A2E36), letras subindo uma a uma.
+- **Display** (700, clamp(3rem, 5.4vw, 5.5rem), 1): título do hero, máx. 12ch; a última palavra em vermelho-texto.
+- **Headline** (700, clamp(2.2rem, 4vw, 3.5rem), 1.05): título de seção. A declaração do "sobre" sobe para clamp(2.2rem, 5vw, 4.4rem).
+- **Title** (800, 1.35–1.6rem, 1.1–1.15): títulos de painel, pergunta do FAQ, nome de exame (700, 1.38rem).
+- **Body** (400, 1.125rem, 1.6): texto corrido; lead em tinta-2, 42–48ch.
+- **Label** (750, 1.03rem): botões, abas, fichas, links de seta.
 
 ### Named Rules
-**The No Kicker Rule.** Nenhum sobretítulo ou eyebrow acima de títulos; o título abre a seção. Caixa-alta espaçada existe só na assinatura do logotipo ("Cuidando da sua saúde", 0.58rem, 0.22em), nos cabeçalhos de coluna do rodapé (0.78rem, 0.16em, prata) e na etiqueta da campanha.
+**The Real Heading Rule.** Grupos e seções são nomeados por títulos de verdade em caixa normal, nunca por sobretítulo em caixa alta espaçada; o selo de seção e o risco desenhado estão desligados.
 
-**The Readable First Rule.** Corpo nunca abaixo de 1.125rem/400 em texto corrido, apoio nunca abaixo de 0.9rem; títulos em 800. Números sempre `tabular-nums`.
-
-**The Serif Is The Name Rule.** Noto Serif só no wordmark. Nenhum título ou texto usa serifa.
+**The Rising Word Rule.** Títulos sobem da própria linha (máscara por palavra) uma vez e depois uma faixa de sol passa por cima uma vez.
 
 ## Layout
 
-Contêiner de 1320px com respiro lateral fluido (`pad`). Toda seção usa o mesmo ritmo (`secao`, clamp(84px, 9vw, 132px)); o rodapé abre com clamp(96px, 10vw, 140px). Cabeçalhos de seção são uma grade de duas colunas (título à esquerda, lead alinhado embaixo à direita), virando uma coluna em 1024px. As composições são assimétricas em pares 5/7 ou 7/5 (Três cuidados, agendamento, unidades, FAQ, contato, campanha); o hero é 1.08/0.92; o laboratório é um bento 5/4/3 com a foto em duas linhas; o "sobre" é um bento de 12 colunas (7+5); especialidades em 3 colunas de texto (2 em 1024px, 1 em 640px).
+Coluna de até 1320px com margem lateral fluida (pad); seções com respiro vertical fluido (secao). Cabeçalhos de seção em duas colunas (título à esquerda, lead à direita, alinhados pela base) que viram uma coluna abaixo de 1024px. Grades de conteúdo 5/7 (texto/painel); centro de imagem em 3 → 2 → 1 colunas com 20px de vão.
 
-Centro de Imagem: seção clara como as outras (fundo #F6F7F9), com uma grade de três colunas (duas no tablet, uma no celular): cinco cartões brancos de exame (foto 16:10 com selo, sala com ícone, nome, descrição curta, indicação/duração/preparo em linhas com divisor fino e o link "Agendar") e um sexto cartão grafite com "Também realizamos" e o botão do WhatsApp. Sem interação escondida; no hover o cartão ganha sombra e a foto aproxima 4%.
+Entre capítulos, uma faixa de sheds de 46px desenhada em traço fino. O hero ocupa 100svh em duas colunas (texto 1.04fr, palco 0.96fr); abaixo de 1024px vira uma coluna na ordem título → palco (a sala) → lead → botões → fatos, para o primeiro viewport mostrar a clínica.
 
-Pontos de quebra: 1180px (navegação vira botão de menu), 1024px (grades em uma coluna), 760px (`nav-h` 62px, botão flutuante vira barra inferior em pílula com WhatsApp e Ligar, ondas do fundo mais fracas), 640px e 560px (ajustes de lista e formulário).
+Breakpoints: 1180px (nav vira botão de menu), 1024px (uma coluna), 760px (celular: barra móvel WhatsApp + ligar, fotos de borda a borda), 640px, 400px, 360px.
 
-**The One Rhythm Rule.** Seção nova usa `padding-block: var(--secao)` e o contêiner; não inventa espaçamento vertical.
+**The Full-Bleed Photo Rule.** No celular (≤760px) as fotos vão até a borda da tela, recortadas, nunca encolhidas: o bento do laboratório, a fachada e os cartões de exame perdem a margem lateral e o canto inferior, mantendo só o arco no alto.
 
 ## Elevation & Depth
 
-Profundidade híbrida: vidro branco translúcido com desfoque sobre o chão vivo, sombras longas e difusas com spread negativo, realce interno branco de 1px no topo, e um grão fino fixo (ruído SVG a 3.5%, multiply). Sombras sob vermelho e sob fotos em pétala são quentes (mistura do vermelho), nunca cinza puro. Não há sombra dura deslocada. No modo `.leve` o desfoque cai e o vidro vira branco 97%.
+Híbrido discreto: painéis brancos com fio de 1px e uma sombra difusa e baixa; a profundidade forte fica com a luz do fundo e com as fotos. Sem vidro nos painéis; o vidro (blur) só aparece nos selos flutuantes do hero e na barra móvel; a nav compacta é branca opaca.
 
 ### Shadow Vocabulary
-- **Vidro em repouso** (`inset 0 1px 0 #fff, 0 1px 2px rgba(28,31,36,.05), 0 30px 60px -34px rgba(28,31,36,.32)`): todo cartão de vidro.
-- **Vidro aceso** (`inset 0 1px 0 #fff, 0 1px 2px rgba(28,31,36,.05), 0 44px 80px -36px color-mix(in srgb, var(--vermelho) 40%, rgba(60,10,12,.6))`): hover com ponteiro fino, junto com subida de 5px.
-- **Moldura pétala** (`0 0 0 9px rgba(255,255,255,.6), 0 50px 90px -40px color-mix(in srgb, var(--vermelho) 38%, rgba(40,10,12,.6))`): fotos reais no claro. No grafite: anel branco 6% e sombra preta.
-- **Vermelho aceso** (`inset 0 1px 0 rgba(255,255,255,.25), 0 18px 34px -16px color-mix(in srgb, var(--vermelho) 85%, transparent)`): botão principal; variações no cartão de resultados, na faixa e no botão do vídeo.
-- **Flutuante** (`inset 0 0 0 1px rgba(255,255,255,.95), 0 18px 44px -24px rgba(28,31,36,.45)`): navegação compacta e barra móvel.
-- **Ícone** (`inset 0 0 0 1px rgba(28,31,36,.1), 0 8px 18px -12px rgba(28,31,36,.4)`): círculos brancos de ícone e pétalas-ícone.
+- **Painel** (`0 1px 2px rgba(28,31,36,.05), 0 20px 44px -26px rgba(28,31,36,.34)`): todo painel e cartão em repouso.
+- **Painel alto** (`0 2px 6px rgba(28,31,36,.06), 0 34px 64px -30px rgba(28,31,36,.42)`): painel apontado, que sobe 5px.
+- **Foto** (`0 30px 60px -38px rgba(28,31,36,.5)`): molduras de foto.
+- **Vermelho** (`0 14px 28px -16px color-mix(in srgb, var(--vermelho) 85%, transparent)`): só o que é vermelho (botão principal, botão flutuante, cartão de resultados).
 
 ### Named Rules
-**The Lit Glass Rule.** Toda caixa é vidro branco e toda caixa interativa acende: um brilho branco (240px) e um vermelho a 12% (460px) seguem o cursor no preenchimento, e uma borda vermelha mascarada de 1.5px acende ao redor, em hover e `focus-within`.
-
-**The Warm Shadow Rule.** Sombra sob vermelho ou sob foto emoldurada mistura o vermelho; sombra sob vidro neutro é tinta.
+**The Sun Pass Rule.** No hover, uma faixa de sol (gradiente branco a 105°) atravessa o painel uma vez; nunca em loop, nunca com movimento reduzido.
 
 ## Shapes
 
-A regra de forma está no cabeçalho do CSS: cartões 28px, mídias internas 20px, campos 16px, botões, fichas, abas e atalhos em pílula. A geometria-assinatura é a **pétala** (`44% 26px 44% 26px / 38% 26px 38% 26px`): dois cantos opostos inteiros, tirados dos lóbulos dos corações, em toda foto real (hero, laboratório, fachada, espera, salas de exame). Ícones são círculos (46px) ou pétalas-ícone quadradas de 22px (64px; 54px/18px no celular). O logo da recepção no hero e o botão do vídeo são círculos com anéis que pulsam. A faixa vermelha é um retângulo inclinado -2° e mais largo que a tela.
-
-**The Shape Ladder Rule.** 28 → 20 → 16 → pílula, de fora para dentro; fotos sempre em pétala, nunca em retângulo arredondado comum.
+Curvas de concreto: pílulas para tudo que se aperta (botões, abas, fichas, nav, busca), painéis com 28px, cartões de exame com 20px, fotos com 22px, campos com 16px. Fotos de sala entram por janelas: o arco do hero (alto inteiramente redondo, base 28px) e a abóbada dos cartões de exame e do laboratório. O laboratório no hero é redondo, com órbita tracejada vermelha girando em 40s. O alto do rodapé é recortado no perfil dos sheds por máscara.
 
 ## Components
 
 ### Buttons
-Pílulas com círculo de ícone à esquerda e uma varredura de cor que entra pelo lado de onde o cursor chegou.
-- **Shape:** pílula (999px); alturas 46 / 56 / 64px (sm / padrão / lg), círculo de ícone 34 / 40 / 46px.
-- **Primário:** fundo Vermelho, texto Branco, peso 750, círculo de ícone branco 20%. Hover (ponteiro fino): Tinta varre a partir do lado de entrada (`scaleX`, 0.6s, expo out), círculo vira branco com ícone vermelho e gira -12°. Um brilho diagonal atravessa o botão a cada 5.5s. Os CTAs principais são magnéticos (seguem o ponteiro); o do hero dá duas batidas no ícone depois que o hero monta.
-- **Contorno:** branco 55% com desfoque 8px e anel interno 1.5px Tinta; varredura Tinta, texto Branco.
-- **Claro (sobre escuro ou vermelho):** Branco, texto Tinta, ícone em círculo Vermelho; varredura Vermelha.
-- **Clique:** onda circular a partir do ponto tocado (0.65s). **Ativo:** escala 0.97. **Foco:** anel Vermelho 2.5px, offset 3px.
-- **Link-seta:** texto 750 em Vermelho-Texto com sublinhado de 2px que cresce da esquerda e seta que avança 4px.
+Pílulas firmes, com a cor entrando pelo lado em que o cursor chega.
+- **Shape:** pílula (999px), 56px de altura (46px sm, 64px lg); com ícone, o ícone fica num círculo de 40px colado à esquerda.
+- **Primary:** vermelho com texto branco; ícone do WhatsApp num círculo branco translúcido.
+- **Hover / Focus:** uma camada grafite varre a partir do lado de entrada (`--origem` medido no ponteiro), em 0.6s; o rótulo rola para cima e é substituído pela cópia de baixo (sombra de texto deslocada 1.6em); o ícone gira −12°. O botão segue o cursor alguns pixels (ímã, 14×12px). `:focus-visible` mostra o mesmo estado do hover.
+- **Calling ring:** depois da entrada do hero, o botão principal emite um anel do ícone três vezes e para.
+- **Outline:** branco com contorno grafite de 1.5px; no hover vira grafite com texto branco.
+- **Claro:** branco sobre fundo escuro; a varredura é vermelha.
 
-### Chips
-- **Atalhos do hero:** pílula 44px, branco 72% com desfoque, mini-coração do símbolo à esquerda que gira -12° no hover.
-- **Fichas (formulário):** pílula 48px, branco 88% com anel 1px; selecionada vira Tinta; pressão 0.95.
-- **Abas de unidade:** pílula 48px, branco 78%; um indicador Tinta desliza até a aba selecionada (texto Branco).
-- **Chips de vidro do hero:** status aberto (ponto verde pulsando), resultados (ícone em círculo vermelho), "25 anos" (número em Vermelho-Texto).
-- **Selo de código:** etiqueta vermelha de raio 10px com texto branco 800, para o código da unidade.
+### Chips (abas de unidade e fichas do formulário)
+- **Style:** pílula de 48px, fundo transparente, contorno tracejado 1.5px em cinza prata.
+- **State:** selecionada vira grafite sólida com texto branco; nas abas uma luz grafite desliza até a escolhida. A unidade escolhida fica salva (`localStorage` `sr-unidade`) e volta marcada.
 
 ### Cards / Containers
-- **Corner Style:** 28px; mapa e mídias internas 20px.
-- **Background:** vidro claro (gradiente branco 90%→66% com reflexo superior, blur 18px, saturate 150%); no grafite, branco 7%→2% com borda branca 9%.
-- **Shadow Strategy:** Vidro em repouso / Vidro aceso.
-- **Border:** 1px branco 95%.
-- **Internal Padding:** 20–44px (clamp em formulário, campanha e unidade).
-- **Listas internas:** itens separados por divisores `linha`, nunca caixas aninhadas (canais, fatos, especialidades, FAQ).
-- **Cartão de resultados:** o único cartão vermelho: gradiente radial do Vermelho Aceso ao vermelho escurecido, ondas brancas a 14% deslizando, seta grande que avança no hover.
-- **Portas (Três cuidados):** linha de vidro com pétala-ícone do coração do serviço, título e seta; ao apontar, o coração correspondente acende no símbolo grande e os outros esmaecem.
+- **Corner Style:** painel 28px; cartão de exame 20px (reto e de borda a borda no celular).
+- **Background:** branco opaco; o sexto cartão de exames e o rodapé em noite.
+- **Shadow Strategy:** Painel → Painel alto no hover, com subida de 5px e Sun Pass.
+- **Border:** 1px borda-fina.
+- **Internal Padding:** 20–34px fluido.
+- **Ícones dentro:** círculo de concreto (fundo-2) com ícone tinta-2 em repouso; no hover vira vermelho com ícone branco.
 
 ### Inputs / Fields
-- **Style:** 58px de altura, raio 16px, borda 1px tinta 15%, fundo branco 88%, ícone à esquerda em Tinta Clara; busca em pílula de 62px.
-- **Rótulo flutuante:** o rótulo mora dentro da caixa (`campo--flutua`), no lugar do placeholder; ao focar ou preencher sobe e encolhe para 78% no topo da caixa. Selects e data usam `campo--fixo`, com o rótulo sempre no alto.
-- **Hover:** borda tinta 30%.
-- **Focus:** fundo branco, borda Vermelha, halo `0 0 0 5px` vermelho 14%, ícone em Vermelho-Texto com escala 1.1–1.12.
-- **Error:** borda Erro, fundo #FFF6F5. **Válido:** selo circular Ok com check à direita.
+- **Style:** 58px, raio 16px, fio grafite a 15%, ícone à esquerda, rótulo que flutua para cima ao escrever.
+- **Focus:** fundo branco, borda vermelha e halo vermelho a 14% de 5px; ícone e rótulo em vermelho-texto.
+- **Error / OK:** borda erro e fundo #FFF6F5; o válido ganha um selo verde (ok) que surge à direita.
 
 ### Navigation
-- **Desktop:** barra transparente que, ao rolar, se contrai (1320 → 1180px, 0.8s) numa pílula de vidro branco. Links em pílula 42px, peso 650, Tinta Média; um destaque deslizante segue o hover (tinta 6%) e marca a seção atual em Tinta com texto Branco. Esconde ao descer, volta ao subir; barra de progresso Vermelha de 3px no topo.
-- **Celular (<1180px):** botão circular Tinta de 52px; o menu abre num recorte circular a partir do botão, sobre o chão com brilho vermelho; links grandes (800) com divisores e seta vermelha.
-- **Contato rápido:** botão WhatsApp flutuante em pílula verde (64px) que revela "Agendar" no hover; abaixo de 760px, barra inferior de vidro com WhatsApp e Ligar.
+Barra em pílula fixa no topo; ao rolar, compacta para 1180px e vira branca opaca com fio e sombra. Links em tinta-2 (650), uma luz desliza sob o link apontado e fica grafite no atual. Some ao descer, volta ao subir. Abaixo de 1180px, botão redondo grafite abre o menu num círculo a partir dele; abaixo de 760px, barra móvel no rodapé com WhatsApp e ligar.
 
-### Símbolo dos três corações (assinatura)
-Três símbolos SVG separados (esquerda cinza, topo vermelho, direita prata) compõem o logo. Na abertura (uma vez por sessão) os corações chegam e se montam com uma luz vermelha crescendo atrás; em Três cuidados cada serviço acende o seu coração; nos atalhos e na faixa aparecem como mini-corações (na faixa, o coração vermelho vira branco).
+### Hero (signature)
+À direita, a sala de ressonância num arco, com o símbolo dos três corações atrás dele. A entrada, sem nada ligado à rolagem: a foto se revela de baixo para cima (clip-path) enquanto os três corações chegam de três lados e se encontram; o título sobe de uma máscara por linha e a última palavra passa por consulta → coleta → ressonância, cada uma fazendo bater o seu coração, até parar em "mensagem", quando o símbolo bate inteiro. Os selos de vidro (25+ anos com contador, a matriz com status ao vivo) e o laboratório redondo surgem com mola; depois a divisão de texto é desfeita, selos e símbolo flutuam em laços que pausam fora da tela, e o palco segue o ponteiro em camadas (`data-prof`). Abaixo dos botões, uma linha de fatos com ícones vermelhos e links sublinhados em vermelho.
 
-### Faixa da fachada (assinatura)
-A faixa vermelha da fachada como letreiro corrido: inclinada -2°, texto branco 800 com mini-símbolos, anda com a rolagem, acelera com a velocidade e inverte com a direção.
-
-### Fundo vivo (assinatura)
-WebGL puro, fixo atrás da página: linhas de onda dos painéis da recepção que ondulam com tempo, rolagem e cursor, sobre uma luz macia que deriva (fbm) e uma segunda camada de linhas finas que anda mais devagar (profundidade); de vez em quando um pulso vermelho corre por uma das linhas. O tom vermelho só acompanha um ponteiro fino; no toque as ondas ficam cinzas, e abaixo de 760px o traço cai para 55%. Sem WebGL (ou `.leve`), um padrão SVG estático de ondas a 6% fica no lugar.
-
-### Centro de Imagem (assinatura)
-Capítulo grafite calmo: uma luz vermelha distante no canto e um brilho prata no canto oposto, sem grade. A foto da sala fica numa moldura de vidro escuro (28px, com a foto num recorte de 20px, grão fino por cima e um leve "respirar" de zoom), com a legenda da sala e o número numa barra de vidro. Ao lado, a ficha do exame: ícone vermelho em quadrado arredondado, selo ("Sem radiação", "Baixa dose"), título, descrição, três blocos com ícone (indicado para, duração, antes do exame), o botão de agendar e o link "Dúvidas sobre o preparo?". Abas em pílula com um realce branco que desliza até a sala atual. No desktop, um shader WebGL faz a sala nova entrar como uma folha por cima da anterior, pelo lado para onde se rola: borda nítida com sombra macia, a foto desliza só 30% por dentro (paralaxe) e assenta com leve recuo de zoom, a antiga recua e escurece (1,2 s, power3.inOut). Pedidos no meio da passagem entram em fila (a atual acelera), então a imagem nunca pula. Texturas com mipmap (WebGL2, ou redesenhadas em 2048×1024 no WebGL1) para não cintilar.
-
-### Pulso e riscos
-O painel do paciente é um monitor multiparâmetro em canvas: tela grafite com papel milimetrado vermelho, ECG PQRST (soma de cinco gaussianas, ritmo levemente variável a cada batida), curva de oximetria (Pleth) com entalhe dicrótico, feixe que varre, apaga à frente e deixa rastro que esmaece, e coluna de números com FC (o coração bate no pico R) e SpO₂. O mesmo traço corre como faixa fina no pé do hero (só ≥1025px) e no topo do rodapé. O risco vermelho feito à mão sublinha só duas expressões: a palavra que gira no hero e "mesmo lugar." em Três cuidados.
-
-### Fluidez na abertura
-Nada pesado nasce na abertura: os títulos e textos só são fatiados para animar quando chegam perto da tela; o WebGL do centro de imagem só é criado quando a seção se aproxima e as fotos vão para a placa uma por quadro (ImageBitmap); os cartões de vidro não usam desfoque ao vivo (era refeito a cada quadro sobre o fundo animado); o grão da página vem do próprio shader do fundo; o recálculo do ScrollTrigger depois do load roda em tempo ocioso.
-
-### Moldura de foto (Sobre)
-Passe-partout branco de 8px, foto num recorte de 20px, grão fino e degradê escuro embaixo; legenda numa pílula de vidro escuro com ícone num círculo vermelho; na fachada, um selo branco "25+ anos de cuidado". Vídeo (8 colunas) e sala de espera (4) têm a mesma altura.
-
-### Vídeo
-O vídeo da clínica (720p, 11 MB) roda sozinho, mudo e em loop, só enquanto está visível; um botão de vidro liga o som. Com movimento reduzido, não toca sozinho e ganha os controles.
-
-### Dúvidas frequentes
-Perguntas agrupadas em "Agendamento e atendimento" e "Exames e resultados", cada grupo num cartão de vidro com divisores; ao lado, fixo no desktop, um cartão "Ainda ficou com dúvida?" com WhatsApp e telefone (no celular, depois das perguntas).
-
-### Rodapé
-Grafite com o símbolo, o wordmark em Noto Serif, Instagram e três colunas de links (Navegue, Para você, Parceiros); links externos levam a seta presa à última palavra. Fecha só com o copyright, sem crédito de desenvolvedor nem wordmark gigante.
-
-### Selos, ícones e efeitos de texto
-Cada seção abre com um selo: ícone num círculo branco (pulsando em anel vermelho) que entra girando, rótulo em versalete vermelho que se decifra letra a letra e um traço que cresce. As 18 especialidades têm ícones próprios (traço 1.8px, círculo cinza que fica vermelho no hover). A palavra-chave em vermelho (o "saúde." do hero e o "mesmo lugar.") recebe um reflexo que passa a cada 6s. Os textos de apoio sobem linha a linha; as fotos abrem como cortina que se afasta das bordas; os ícones de dentro das caixas chegam com um pulo depois da caixa.
-
-### Fotos
-Tiradas do vídeo original em 1080p: para cada foto, o quadro certo é achado por correspondência de imagem, sete quadros vizinhos são alinhados e fundidos (tira o ruído de compressão), e depois vêm contraste local e nitidez. Exames em 1440×1080 e 960×720 (4:3), com srcset.
-
-### Motion
-GSAP + ScrollTrigger + SplitText, rolagem suave com Lenis. Títulos revelam palavra a palavra de dentro de máscaras de linha; a declaração do "sobre" acende palavra a palavra; o título de cada sala de exame entra letra a letra saindo do desfoque. Fotos em paralaxe, cartões inclinam sob o cursor. Abertura só na primeira visita da sessão (sessionStorage), nunca com âncora na URL nem com movimento reduzido. Ease padrão `cubic-bezier(.16, 1, .3, 1)`; `cubic-bezier(.77, 0, .175, 1)` no recorte do menu. Anéis pulsantes (2.8s) no logo do hero, no vídeo e no WhatsApp. `.leve` (≤4 núcleos, ≤4 GB, economia de dados, rede 2G ou `?leve=1`) desliga blur, WebGL, Lenis, paralaxe e o palco fixado. Além disso, uma sonda mede 3 s de quadros reais depois da abertura: abaixo de 40 fps a página liga `.leve` na hora (sem desfoque de vidro, grão, brilhos de traçado e animações de repintura), corta o fundo animado pela metade (ou o para, abaixo de 24 fps), desenha o ECG a cada dois quadros e guarda a decisão na sessão. O fundo também para quando o centro de imagem ou o rodapé cobrem a tela inteira. Com economia de dados, o vídeo não toca sozinho. Telas de notebook baixas (≤860px de altura) ganham um palco de exames compacto. Com `prefers-reduced-motion`: sem animações, transições a 1ms; sem JS todo o conteúdo fica visível.
+### Background (signature)
+Faixas de luz em WebGL a meia resolução e até 30 quadros, só derivando no tempo. Uma sonda mede o ritmo: abaixo de 20 qps o canvas sai e fica o fundo em CSS (o mesmo desenho, parado). Modo leve e movimento reduzido também ficam com o desenho parado.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar vidro branco como a matéria de toda caixa, com a luz vermelha do cursor no preenchimento e na borda.
-- **Do** emoldurar toda foto real da clínica em pétala, com anel branco e sombra quente.
-- **Do** passar toda cor de marca pelas variáveis (`--vermelho*`, `--sym-*`, `--wordmark`) para que o Outubro Rosa troque tudo num interruptor.
-- **Do** usar `vermelho-texto` (#B51D23) para qualquer vermelho em texto sobre claro.
-- **Do** manter a escada de raios 28 / 20 / 16 / pílula.
-- **Do** usar `padding-block: var(--secao)` em toda seção nova.
-- **Do** separar itens dentro de um cartão com divisores `linha`, não com caixas internas.
-- **Do** dar a cada efeito um caminho estático equivalente (reduced-motion, sem JS e `.leve`).
-- **Do** deixar o WhatsApp a um toque em toda tela (botão flutuante ou barra móvel).
+- **Do** manter exatamente três cores trabalhando: concreto/branco, grafite e vermelho (#D7262B); texto vermelho sempre em vermelho-texto.
+- **Do** usar pílulas para tudo que se aperta e janelas em arco ou abóbada para fotos de salas.
+- **Do** mostrar o estado escolhido sólido em grafite e as opções restantes em contorno tracejado.
+- **Do** dar a todo hover um equivalente em `:focus-visible`.
+- **Do** oferecer fallback parado para cada movimento: modo leve, movimento reduzido e aparelho lento.
+- **Do** levar as fotos até a borda da tela no celular, recortando em vez de encolher.
 
 ### Don't:
-- **Don't** trazer de volta a linguagem da v1: placas de sinalização chapadas como sistema de cartões e seções.
-- **Don't** usar tema azul-marinho ou fundo escuro além do capítulo grafite (Centro de Imagem) e do rodapé.
-- **Don't** usar rosa fora da classe `.rosa` da campanha.
-- **Don't** colocar cartões de avaliação do Google ou notas embutidas.
-- **Don't** afirmar número de especialidades ("50 especialidades") sem confirmação da clínica.
-- **Don't** usar `vermelho` ou `vermelho-claro` como cor de texto sobre fundo claro.
-- **Don't** colocar sobretítulos ou eyebrows acima de títulos.
-- **Don't** usar o risco feito à mão em mais palavras; ele marca só as duas ideias centrais.
-- **Don't** aninhar vidro dentro de vidro ou usar sombras duras deslocadas.
+- **Don't** usar verde para o WhatsApp ou para "aberto"; verde é só validação de formulário.
+- **Don't** ligar o fundo de luz ou o hero à rolagem.
+- **Don't** usar rosa fora da classe de campanha, nem temas azul-marinho ou escuros.
+- **Don't** nomear seções com sobretítulo em caixa alta espaçada; use títulos de verdade.
+- **Don't** deixar brilho em loop nos botões ou anéis pulsando para sempre; o chamado acontece um número contado de vezes.
+- **Don't** pôr vidro (blur) nos painéis; eles são concreto branco opaco.
