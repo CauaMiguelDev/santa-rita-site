@@ -642,8 +642,37 @@ void main(){
   const heroEl = $('[data-hero]');
   if (heroEl) new IntersectionObserver(([e]) => heroEl.classList.toggle('parado', !e.isIntersecting)).observe(heroEl);
 
+  /* ---------- centro de imagem: a sala escolhida se abre ---------- */
+  const salasEl = $('[data-salas]');
+  if (salasEl) {
+    const lista = $$('.sala', salasEl);
+    const abre = sala => {
+      if (sala.classList.contains('ativa')) return;
+      lista.forEach(s => {
+        const a = s === sala;
+        s.classList.toggle('ativa', a);
+        $('.sala__aba', s).setAttribute('aria-expanded', a);
+        $('.sala__info', s).inert = !a;
+      });
+    };
+    lista.forEach(s => { $('.sala__info', s).inert = !s.classList.contains('ativa'); });
+    salasEl.addEventListener('click', e => { const b = e.target.closest('.sala__aba'); if (b) abre(b.closest('.sala')); });
+    // no computador, parar o mouse sobre uma sala já abre (lado a lado só a partir de 1101px)
+    const largo = matchMedia('(min-width: 1101px)');
+    if (fino) {
+      let espera = 0;
+      salasEl.addEventListener('pointerover', e => {
+        const s = e.target.closest('.sala');
+        clearTimeout(espera);
+        if (s && largo.matches) espera = setTimeout(() => abre(s), 160);
+      });
+      salasEl.addEventListener('pointerleave', () => clearTimeout(espera));
+    }
+  }
+
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
+    $$('.sheds').forEach(sd => sd.classList.add('desenhado'));
     html.classList.remove('carregando', 'intro');
     (window.srT || []).forEach(clearTimeout);
     const ioNav = new IntersectionObserver(ents => ents.forEach(e => {
@@ -843,7 +872,7 @@ void main(){
   }));
 
   /* ---------- sheds: o perfil do telhado se desenha uma vez quando chega ---------- */
-  $$('.sheds').forEach(sd => gsap.fromTo(sd, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.6, ease: 'power2.inOut', scrollTrigger: { trigger: sd, start: 'top 92%' } }));
+  $$('.sheds').forEach(sd => gsap.fromTo($('.sheds__linha', sd), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: sd, start: 'top 92%' }, onComplete: () => sd.classList.add('desenhado') }));
 
   /* ---------- declaração: acende palavra por palavra ---------- */
   const decl = $('[data-declaracao]');
@@ -875,6 +904,9 @@ void main(){
     // quando se encontram, batem uma vez
     ScrollTrigger.create({ trigger: cuidados, start: 'center 55%', once: true, onEnter: () => gsap.to(s, { keyframes: { scale: [1, 1.08, .98, 1.04, 1] }, duration: .9, ease: 'power1.inOut', transformOrigin: '50% 50%' }) });
   }
+
+  /* ---------- centro de imagem: as salas sobem como cortinas, uma depois da outra ---------- */
+  if (salasEl) gsap.from($$('.sala', salasEl), { clipPath: 'inset(100% 0% 0% 0% round 28px)', y: 60, duration: 1.3, stagger: .1, ease: 'expo.out', clearProps: 'clipPath,transform', scrollTrigger: { trigger: salasEl, start: 'top 82%' } });
 
   /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
   if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));

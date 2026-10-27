@@ -1333,3 +1333,85 @@ body::after { display: none; }
 
 /* fotos com paralaxe: um pouco de sobra em cima e embaixo */
 .sobre__fachada > img, .sobre__espera > img { inset: -8% 0; height: 116%; }
+
+/* =========================================================
+   CENTRO DE IMAGEM: AS SALAS SE ABREM
+   Cinco salas lado a lado; a escolhida se abre como uma porta larga e mostra a foto inteira,
+   o que o exame faz, para que serve, quanto dura e o preparo. As outras ficam como faixas
+   escuras com o nome na vertical. No celular viram uma sanfona.
+   ========================================================= */
+.salas { display: flex; gap: 12px; height: clamp(560px, 74vh, 680px); }
+.sala { position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; overflow: hidden; border-radius: 28px; background: var(--noite); box-shadow: var(--sombra-painel); transition: flex-grow .9s var(--ease), box-shadow .6s ease; }
+.sala.ativa { flex-grow: 5.4; box-shadow: var(--sombra-painel-alta); }
+.sala__foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transform: scale(1.12); filter: saturate(.55) brightness(.75); transition: transform 1.4s var(--ease), filter .9s ease; }
+.sala.ativa .sala__foto { transform: scale(1); filter: none; }
+.sala::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgba(12,13,16,.95) 0%, rgba(12,13,16,.6) 36%, rgba(12,13,16,0) 68%); transition: opacity .6s ease; }
+.sala::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgba(12,13,16,.9), rgba(12,13,16,.25)); opacity: 1; transition: opacity .7s ease; }
+.sala.ativa::before { opacity: 0; }
+.sala__aba { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 18px; padding: 28px 0; border: 0; border-radius: inherit; background: none; color: #fff; font: inherit; cursor: pointer; transition: opacity .4s ease; }
+.sala__ico { width: 48px; height: 48px; flex: none; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.14); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); transition: background-color .4s ease, scale .5s var(--ease); }
+.sala__ico .i { width: 22px; height: 22px; }
+.sala__aba:hover .sala__ico { background: var(--vermelho); scale: 1.08; }
+.sala__nome { writing-mode: vertical-rl; rotate: 180deg; font-size: 1.1rem; font-weight: 750; letter-spacing: -.01em; white-space: nowrap; }
+.sala.ativa .sala__aba { opacity: 0; pointer-events: none; }
+.sala__aba:focus-visible { opacity: 1; outline: 3px solid #fff; outline-offset: -8px; }
+.sala__selo { position: absolute; top: 20px; right: 20px; z-index: 3; padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--vermelho-texto); font-size: .82rem; font-weight: 800; box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); opacity: 0; translate: 0 -10px; transition: opacity .4s ease, translate .6s var(--ease); }
+.sala.ativa .sala__selo { opacity: 1; translate: 0 0; transition-delay: .45s; }
+.sala__info { position: absolute; left: 0; bottom: 0; z-index: 3; width: min(700px, 48vw); padding: clamp(24px, 3vw, 40px); color: #fff; opacity: 0; translate: 0 28px; pointer-events: none; transition: opacity .35s ease, translate .6s var(--ease); }
+.sala.ativa .sala__info { opacity: 1; translate: 0 0; pointer-events: auto; transition: opacity .6s ease .4s, translate .9s var(--ease) .4s; }
+.sala__info h3 { color: #fff; font-size: clamp(1.9rem, 2.8vw, 2.7rem); font-weight: 700; line-height: 1.05; letter-spacing: -.03em; }
+.sala__texto { margin-top: 10px; max-width: 52ch; color: rgba(255,255,255,.82); font-size: 1.05rem; }
+.sala__fatos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 22px 0 24px; }
+.sala__fatos > div { padding: 12px 14px; border-radius: 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.sala__fatos dt { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,.7); font-size: .8rem; font-weight: 700; }
+.sala__fatos dt .i { width: 15px; height: 15px; flex: none; color: #FF8A8E; }
+.sala__fatos dd { margin: 5px 0 0; font-size: .92rem; font-weight: 600; line-height: 1.35; }
+/* os fatos chegam um depois do outro quando a sala abre */
+.sala__fatos > div { opacity: 0; translate: 0 14px; transition: opacity .4s ease, translate .6s var(--ease); }
+.sala.ativa .sala__fatos > div { opacity: 1; translate: 0 0; }
+.sala.ativa .sala__fatos > div:nth-child(1) { transition-delay: .55s; }
+.sala.ativa .sala__fatos > div:nth-child(2) { transition-delay: .65s; }
+.sala.ativa .sala__fatos > div:nth-child(3) { transition-delay: .75s; }
+.leve .sala__fatos > div { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(28,31,36,.75); }
+
+.exames__extra { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.25fr) auto; align-items: center; gap: 20px 28px; margin-top: 16px; padding: 24px 28px; }
+.exames__extra-ico { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: var(--tinta); color: #fff; }
+.exames__extra-ico .i { width: 24px; height: 24px; }
+.exames__extra-texto h3 { font-size: 1.3rem; letter-spacing: -.02em; }
+.exames__extra-texto p { margin-top: 4px; color: var(--tinta-2); font-size: .95rem; }
+.exames__extra-lista { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.exames__extra-lista li { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; background: var(--fundo-2); font-size: .9rem; font-weight: 700; }
+.exames__extra-lista .i { width: 15px; height: 15px; color: var(--vermelho); }
+
+@media (max-width: 1100px) {
+  .salas { flex-direction: column; height: auto; gap: 10px; }
+  .salas { interpolate-size: allow-keywords; }
+  .sala { flex: none; height: 96px; transition: height .8s var(--ease), box-shadow .6s ease; }
+  .sala.ativa { height: auto; }
+  .sala__aba { flex-direction: row; justify-content: flex-start; padding: 0 22px; }
+  .sala__nome { writing-mode: horizontal-tb; rotate: 0deg; font-size: 1.15rem; }
+  .sala.ativa .sala__aba { height: 96px; }
+  .sala__info { position: relative; width: 100%; padding: 250px 22px 24px; }
+  .sala::after { background: linear-gradient(to bottom, rgba(12,13,16,0) 0, rgba(12,13,16,.25) 130px, rgba(12,13,16,.94) 245px, rgba(12,13,16,.97) 100%); }
+  .sala__fatos { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .exames__extra { grid-template-columns: auto minmax(0, 1fr); }
+  .exames__extra-lista, .exames__extra .botao { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .salas, .exames__extra { margin-inline: calc(-1 * var(--pad) + 8px); }
+  .sala { border-radius: 22px; }
+  .sala__info { padding-top: 210px; }
+  .sala__info h3 { font-size: 1.8rem; }
+  .exames__extra .botao { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .sala, .sala__foto, .sala__info, .sala__fatos > div { transition: none; } }
+
+/* ---------- sheds: a linha se desenha traço a traço e um pulso vermelho corre pelo telhado ---------- */
+.sheds path { vector-effect: none; stroke-width: 1.5; }
+.sheds svg { overflow: visible; }
+.sheds__linha { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.sheds__pulso { stroke: var(--vermelho) !important; stroke-width: 2.6 !important; stroke-dasharray: .045 .955; stroke-dashoffset: 1; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--vermelho) 70%, transparent)); opacity: 0; transition: opacity .8s ease; }
+.sheds.desenhado .sheds__pulso { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) { .sheds.desenhado .sheds__pulso { animation: corre-telhado 7s linear infinite; } }
+@keyframes corre-telhado { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.leve .sheds__pulso { display: none; }

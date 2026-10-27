@@ -269,6 +269,12 @@ Cada pergunta é um cartão; aberto, ganha um véu vermelho a 5% e o título em 
 ### Rodapé
 Noite com o alto recortado em sheds, uma luz vermelha que segue o cursor e a coluna Unidades com o telefone de cada uma.
 
+### Centro de imagem: as salas se abrem
+Cinco salas lado a lado (a partir de 1101px); a escolhida se abre como uma porta larga (flex-grow 5.4, 0.9s) e mostra a foto inteira, o texto, os três fatos em vidro escuro (que chegam um depois do outro) e o botão de agendar. As outras ficam como faixas escuras com o ícone e o nome na vertical; parar o mouse 160ms sobre uma já abre. Abaixo de 1100px viram sanfona: faixas de 96px, a aberta cresce até o conteúdo. Na entrada, as salas sobem como cortinas (clip-path) em cascata. Abaixo, a faixa "Também realizamos" com os outros exames.
+
+### Sheds
+A linha do telhado se desenha traço a traço (2.2s) quando chega e, depois, um pulso vermelho de luz corre por ela sem parar (7s por volta).
+
 ## Do's and Don'ts
 
 ### Do:
