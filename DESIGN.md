@@ -252,7 +252,22 @@ Barra em pílula fixa no topo; ao rolar, compacta para 1180px e vira branca opac
 À direita, a sala de ressonância num arco, com o símbolo dos três corações atrás dele. A entrada, sem nada ligado à rolagem: a foto se revela de baixo para cima (clip-path) enquanto os três corações chegam de três lados e se encontram; o título sobe de uma máscara por linha e a última palavra passa por consulta → coleta → ressonância, cada uma fazendo bater o seu coração, até parar em "mensagem", quando o símbolo bate inteiro. Os selos de vidro (25+ anos com contador, a matriz com status ao vivo) e o laboratório redondo surgem com mola; depois a divisão de texto é desfeita, selos e símbolo flutuam em laços que pausam fora da tela, e o palco segue o ponteiro em camadas (`data-prof`). Abaixo dos botões, uma linha de fatos com ícones vermelhos e links sublinhados em vermelho.
 
 ### Background (signature)
-Faixas de luz em WebGL a meia resolução e até 30 quadros, só derivando no tempo. Uma sonda mede o ritmo: abaixo de 20 qps o canvas sai e fica o fundo em CSS (o mesmo desenho, parado). Modo leve e movimento reduzido também ficam com o desenho parado.
+Faixas de luz em WebGL a meia resolução e até 30 quadros, derivando no tempo; com mouse, a luz vai devagar até o cursor, e uma brasa vermelha a 7% passeia pelo canto. Uma sonda mede o ritmo: abaixo de 20 qps o canvas sai e fica o fundo em CSS (o mesmo desenho, parado). Modo leve e movimento reduzido também ficam com o desenho parado.
+
+### Cards: a luz segue o cursor
+Painéis (`.vidro`) e cartões de exame ganham um brilho branco e um anel vermelho na borda que acompanham o ponteiro (`--mx`/`--my`). Cartões de exame, passos e canais de contato inclinam em 3D (até 6°/8°) sob o cursor. Na entrada, as caixas sobem 44px de 0.97 a 1 em 1.1s (expo.out), em cascata.
+
+### Pré-agendamento: a noite (signature)
+Seção grafite (`noite`) que se abre de ponta a ponta com a rolagem (clip-path de 4% com cantos de 56px até a largura total). Uma brasa vermelha deriva no céu, uma luz vermelha segue o cursor e um traçado de ECG claro corre na base. Três passos numerados (os números acendem em sequência), cartões de canal (WhatsApp, telefone) e o formulário num painel branco.
+
+### Unidades: mapa do DF
+Mapa ilustrado (limite do DF tracejado, Lago Paranoá e o avião do Plano Piloto como referência), com rotas que saem da matriz em Taguatinga até cada unidade. As rotas se desenham e os pinos caem no lugar quando o mapa chega; pino e aba são o mesmo estado: o escolhido fica grafite com ponto vermelho e radar, e a rota dele fica vermelha. No celular só o pino ativo mostra o nome.
+
+### Dúvidas e chamada
+Cada pergunta é um cartão; aberto, ganha um véu vermelho a 5% e o título em vermelho-texto. O cartão de ajuda tem um balão vermelho com três pontos digitando. Antes do contato, a chamada final: os três corações se juntam e sobem com a rolagem atrás do convite, com um anel tracejado girando.
+
+### Rodapé
+Noite com o alto recortado em sheds, uma luz vermelha que segue o cursor e a coluna Unidades com o telefone de cada uma.
 
 ## Do's and Don'ts
 

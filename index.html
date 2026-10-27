@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=45">
+  <link rel="stylesheet" href="assets/css/site.css?v=47">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -39,7 +39,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=43" defer></script>
+  <script src="assets/js/site.js?v=47" defer></script>
 
   <script type="application/ld+json">
   {
@@ -489,21 +489,27 @@
     </div>
   </section>
 
-  <!-- ===== PRÉ-AGENDAMENTO ===== -->
-  <section class="secao agendar" id="agendar" aria-labelledby="agendar-titulo">
-    <div class="agendar__fundo" aria-hidden="true"><div class="ondas"></div></div>
+  <!-- ===== PRÉ-AGENDAMENTO: a noite, com o pulso ===== -->
+  <section class="secao agendar noite" id="agendar" aria-labelledby="agendar-titulo" data-noite>
+    <div class="noite__ceu" aria-hidden="true" data-ceu></div>
+    <canvas class="noite__pulso" data-ecg="linha-clara" aria-hidden="true"></canvas>
     <div class="container agendar__grade">
       <div class="agendar__intro">
-        <h2 class="titulo" id="agendar-titulo" data-palavras>Solicite seu agendamento</h2>
-        <p class="lead">Deixe seu nome e telefone: um consultor liga para combinar o melhor dia e horário com você.</p>
-        <ul class="canais vidro" data-card>
-          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="ico ico--sm"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span><span><strong>WhatsApp</strong><span class="num">(61) 3355-1107</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
-          <li><a href="tel:+556133551105"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
-          <li class="canais__status"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><span><strong class="status" data-status>Seg a sex, 7h às 18h</strong><span>Taguatinga até 18h; demais unidades até 17h</span></span></li>
-        </ul>
+        <h2 class="titulo titulo--claro" id="agendar-titulo" data-palavras>Seu horário, combinado do seu jeito.</h2>
+        <p class="lead lead--claro">Deixe nome e telefone. Um consultor liga, entende o que você precisa e marca o melhor dia na unidade mais perto de você.</p>
+        <ol class="passos" data-passos>
+          <li class="passo vidro-noite" data-card><span class="passo__n num">1</span><span><strong>Você envia o pedido</strong>Nome, telefone e o que quer agendar.</span></li>
+          <li class="passo vidro-noite" data-card><span class="passo__n num">2</span><span><strong>Um consultor liga</strong>De segunda a sexta, no horário de atendimento.</span></li>
+          <li class="passo vidro-noite" data-card><span class="passo__n num">3</span><span><strong>Você confirma</strong>Dia, horário, unidade e as orientações de preparo.</span></li>
+        </ol>
+        <div class="agendar__canais">
+          <a class="canal-noite" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="canal-noite__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span><span><strong>WhatsApp</strong><span class="num">(61) 3355-1107</span></span><svg class="i canal-noite__seta" aria-hidden="true"><use href="#i-seta"/></svg></a>
+          <a class="canal-noite" href="tel:+556133551105"><span class="canal-noite__ico canal-noite__ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i canal-noite__seta" aria-hidden="true"><use href="#i-seta"/></svg></a>
+        </div>
+        <p class="agendar__status"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><span class="status" data-status>Seg a sex, 7h às 18h</span><span class="agendar__status-sub">Taguatinga até 18h; demais unidades até 17h</span></span></p>
       </div>
 
-      <form class="formulario vidro" data-card id="form-agendar" action="forms/contato.php" method="post" novalidate>
+      <form class="formulario formulario--noite vidro" data-card id="form-agendar" action="forms/contato.php" method="post" novalidate>
         <h3 class="formulario__titulo">Pré-agendamento</h3>
         <div class="campo campo--flutua">
           <div class="campo__caixa"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><input id="nome" name="nome" type="text" autocomplete="name" placeholder=" " required><label for="nome">Seu nome</label><svg class="i campo__ok" aria-hidden="true"><use href="#i-check"/></svg></div>
@@ -572,30 +578,39 @@
     </div>
   </section>
 
-  <div class="sheds" aria-hidden="true"><svg viewBox="0 0 1400 40" preserveAspectRatio="none"><path d="M0 34 Q95 34 100 6 L100 34 L140 34 Q235 34 240 6 L240 34 L280 34 Q375 34 380 6 L380 34 L420 34 Q515 34 520 6 L520 34 L560 34 Q655 34 660 6 L660 34 L700 34 Q795 34 800 6 L800 34 L840 34 Q935 34 940 6 L940 34 L980 34 Q1075 34 1080 6 L1080 34 L1120 34 Q1215 34 1220 6 L1220 34 L1260 34 Q1355 34 1360 6 L1360 34 L1400 34"/></svg></div>
-
   <!-- ===== UNIDADES ===== -->
   <section class="secao unidades" id="unidades" aria-labelledby="un-titulo">
     <div class="container">
       <div class="cabeca">
-        <h2 class="titulo" id="un-titulo" data-palavras>5 unidades perto de você</h2>
-        <p class="lead">De segunda a sexta. Taguatinga atende das <span class="num">7h às 18h</span>; as demais unidades, até as <span class="num">17h</span>.</p>
+        <h2 class="titulo" id="un-titulo" data-palavras>Cinco endereços, o mesmo cuidado.</h2>
+        <p class="lead">Toque numa unidade no mapa ou nas abas para ver endereço, horário e rota. Taguatinga atende das <span class="num">7h às 18h</span>; as demais, até as <span class="num">17h</span>.</p>
       </div>
-      <div class="abas" role="tablist" aria-label="Unidades" data-abas></div>
-      <div class="unidade vidro" data-card id="unidade-painel" role="tabpanel" data-unidade>
-        <div class="unidade__info">
-          <h3 data-u-nome>Taguatinga Norte</h3>
-          <p class="unidade__end"><span class="codigo num" data-u-codigo>QND 47</span> <span data-u-end>Lote 10, Taguatinga Norte, Brasília-DF</span></p>
-          <p class="unidade__hora"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span data-u-hora>Seg a sex, 7h às 18h</span></p>
-          <div class="unidade__acoes">
-            <a class="botao botao--primario" data-u-contato href="tel:+556133551105"><span class="botao__ico"><svg class="i" aria-hidden="true"><use data-u-contato-ico href="#i-phone"/></svg></span><span class="num" data-u-contato-txt>(61) 3355-1105</span></a>
-            <a class="botao botao--contorno" data-u-rota href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20Santa%20Rita%20QND%2047%20Lote%2010%20Taguatinga%20Norte%20Bras%C3%ADlia" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Como chegar</a>
+      <div class="unidades__grade">
+        <div class="mapa-df vidro" data-card>
+          <div class="mapa-df__quadro">
+            <svg class="mapa-df__svg" aria-hidden="true" data-mapa-df></svg>
+            <div class="mapa-df__pinos" data-pinos></div>
           </div>
+          <span class="mapa-df__legenda">Distrito Federal e entorno, fora de escala</span>
         </div>
-        <div class="unidade__mapa">
-          <iframe data-u-mapa title="Mapa da unidade Taguatinga Norte da Clínica Santa Rita"
-            src="https://maps.google.com/maps?q=-15.8044546,-48.0669338&amp;z=16&amp;hl=pt-BR&amp;output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="unidades__painel">
+          <div class="abas" role="tablist" aria-label="Unidades" data-abas></div>
+          <div class="unidade vidro" data-card id="unidade-painel" role="tabpanel" data-unidade>
+          <div class="unidade__info">
+            <h3 data-u-nome>Taguatinga Norte</h3>
+            <p class="unidade__end"><span class="codigo num" data-u-codigo>QND 47</span> <span data-u-end>Lote 10, Taguatinga Norte, Brasília-DF</span></p>
+            <p class="unidade__hora"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span data-u-hora>Seg a sex, 7h às 18h</span></p>
+            <div class="unidade__acoes">
+              <a class="botao botao--primario" data-u-contato href="tel:+556133551105"><span class="botao__ico"><svg class="i" aria-hidden="true"><use data-u-contato-ico href="#i-phone"/></svg></span><span class="num" data-u-contato-txt>(61) 3355-1105</span></a>
+              <a class="botao botao--contorno" data-u-rota href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20Santa%20Rita%20QND%2047%20Lote%2010%20Taguatinga%20Norte%20Bras%C3%ADlia" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Como chegar</a>
+            </div>
+          </div>
+          <div class="unidade__mapa">
+            <iframe data-u-mapa title="Mapa da unidade Taguatinga Norte da Clínica Santa Rita"
+              src="https://maps.google.com/maps?q=-15.8044546,-48.0669338&amp;z=16&amp;hl=pt-BR&amp;output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+          </div>
         </div>
       </div>
       <noscript>
@@ -616,13 +631,13 @@
     <div class="container duvidas__grade">
       <div class="duvidas__lado">
         <div class="cabeca cabeca--coluna">
-          <h2 class="titulo" id="faq-titulo" data-palavras>Dúvidas frequentes</h2>
-          <p class="lead">Respostas rápidas sobre agendamento, convênios, preparo e resultados de exames.</p>
+          <h2 class="titulo" id="faq-titulo" data-palavras>Perguntas que a gente ouve todo dia.</h2>
+          <p class="lead">Agendamento, convênios, preparo e resultados: as respostas curtas para chegar tranquilo ao seu atendimento.</p>
         </div>
         <div class="ajuda vidro" data-card>
-          <span class="ajuda__ico"><svg class="i" aria-hidden="true"><use href="#i-msg"/></svg></span>
+          <span class="ajuda__balao" aria-hidden="true"><i></i><i></i><i></i></span>
           <p class="ajuda__titulo">Ainda ficou com dúvida?</p>
-          <p class="ajuda__texto">Nossa equipe responde pelo WhatsApp de segunda a sexta, no horário de atendimento.</p>
+          <p class="ajuda__texto">Mande a sua pergunta pelo WhatsApp. A equipe responde de segunda a sexta, no horário de atendimento.</p>
           <div class="ajuda__acoes">
             <a class="botao botao--primario botao--sm" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Chamar no WhatsApp</a>
             <a class="botao botao--sm botao--contorno" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
@@ -630,48 +645,48 @@
         </div>
       </div>
       <div class="faq__grupos">
-        <h3 class="faq__grupo">Agendamento e atendimento</h3>
-        <div class="faq vidro" data-card>
-          <details name="faq">
+        <h3 class="faq__grupo"><span class="faq__grupo-ico"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span>Agendamento e atendimento</h3>
+        <div class="faq" data-faq>
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Como faço para agendar uma consulta ou exame?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>O jeito mais rápido é pelo WhatsApp <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener" class="num">(61) 3355-1107</a>: diga a especialidade ou o exame, a unidade e o melhor período. Também dá para ligar no <a href="tel:+556133551105" class="num">(61) 3355-1105</a> ou preencher o <a href="#agendar">pré-agendamento</a>, e um consultor retorna para confirmar data e horário.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>A Clínica Santa Rita atende convênios?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Sim. Atendemos particular e os principais convênios. A cobertura muda de um plano para outro e de um procedimento para outro, então o melhor é confirmar antes pelo <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Quais%20conv%C3%AAnios%20voc%C3%AAs%20atendem%3F" target="_blank" rel="noopener">WhatsApp</a>, informando o nome do convênio e o que você precisa fazer.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Qual o horário de funcionamento?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>De segunda a sexta. A matriz de Taguatinga atende das <span class="num">7h às 18h</span>; Águas Lindas, Riacho Fundo, Santo Antônio e Sobradinho atendem até as <span class="num">17h</span>. Alguns exames têm horários próprios, que a equipe informa no agendamento.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>O que devo levar no dia do atendimento?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Documento oficial com foto, a carteirinha do convênio (se for usar) e o pedido médico, quando houver. Se tiver exames anteriores da mesma região, traga também: ajudam o médico a comparar. Chegue com uns 15 minutos de antecedência para o cadastro.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Onde ficam as unidades?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>A matriz fica na <span class="num">QND 47, Lote 10</span>, Taguatinga Norte, Brasília-DF. Também atendemos em Águas Lindas de Goiás, Riacho Fundo, Santo Antônio do Descoberto e Sobradinho. Veja <a href="#unidades">endereços, mapas e rotas de todas as unidades</a>.</p></div>
           </details>
         </div>
-        <h3 class="faq__grupo">Exames e resultados</h3>
-        <div class="faq vidro" data-card>
-          <details name="faq">
+        <h3 class="faq__grupo"><span class="faq__grupo-ico"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span>Exames e resultados</h3>
+        <div class="faq" data-faq>
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Preciso de pedido médico para fazer exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Pelo convênio, sim: o plano exige o pedido médico. No particular, depende do exame. Se você ainda não tem o pedido, pode <a href="#especialidades">agendar uma consulta</a> com um dos nossos especialistas e já sair com tudo encaminhado.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Como me preparo para os exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Cada exame tem seu preparo: jejum, bexiga cheia, evitar algum suplemento ou cosmético no dia. Ao agendar, enviamos as orientações certas para o seu caso. Os principais cuidados de cada exame de imagem estão no <a href="#exames">Centro de diagnóstico por imagem</a>.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Como vejo o resultado dos meus exames?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Os exames de laboratório saem pela internet, em <a href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">Resultados de exames</a>. Eletrocardiograma, espirometria, MAPA e Holter ficam no <a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do paciente</a>. Se tiver dificuldade para acessar, chame a gente no WhatsApp.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Quais especialidades vocês atendem?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Cardiologia, ginecologia, ortopedia, dermatologia, endocrinologia, neurologia, pneumologia, psiquiatria e várias outras. A lista completa está em <a href="#especialidades">Especialidades</a>: toque em uma delas e o WhatsApp abre com o pedido de agendamento já escrito.</p></div>
           </details>
-          <details name="faq">
+          <details class="faq__item vidro" data-card name="faq">
             <summary>Vocês fazem exame toxicológico e medicina do trabalho?<span class="faq__ico"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></summary>
             <div class="faq__resp"><p>Sim. As informações e o agendamento do exame toxicológico são feitos pelo <a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20exame%20toxicol%C3%B3gico." target="_blank" rel="noopener">WhatsApp</a>. Exames admissionais, periódicos e demissionais ficam com a nossa parceira <a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Clínica Cemtra</a>, especializada em medicina do trabalho.</p></div>
           </details>
@@ -680,16 +695,32 @@
     </div>
   </section>
 
+  <!-- ===== CHAMADA: os três corações sobem ===== -->
+  <section class="chamada" aria-labelledby="chamada-titulo" data-chamada>
+    <div class="chamada__palco" aria-hidden="true">
+      <svg class="chamada__anel" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48"/></svg>
+      <svg class="chamada__simbolo" viewBox="-12 -12 124 102.5" data-chamada-simbolo><g class="h h--esq"><use href="#c-esq" width="100" height="78.5"/></g><g class="h h--dir"><use href="#c-dir" width="100" height="78.5"/></g><g class="h h--topo"><use href="#c-topo" width="100" height="78.5"/></g></svg>
+    </div>
+    <div class="container chamada__conteudo">
+      <h2 class="chamada__titulo" id="chamada-titulo" data-palavras>Sua próxima consulta está a uma mensagem.</h2>
+      <p class="chamada__texto">Consulta, laboratório e imagem em 5 unidades no DF e entorno, de segunda a sexta a partir das 7h.</p>
+      <div class="chamada__acoes">
+        <a class="botao botao--primario botao--lg" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar pelo WhatsApp</a>
+        <a class="botao botao--contorno botao--lg" href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CONTATO ===== -->
   <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
     <div class="container contato__grade">
       <div class="contato__info">
-        <h2 class="titulo" id="contato-titulo" data-palavras>Fale conosco</h2>
-        <p class="lead">Sugestões, elogios ou reclamações vão direto para a gerência e a ouvidoria.</p>
-        <ul class="canais vidro" data-card>
-          <li><a href="tel:+556133551105"><span class="ico ico--sm ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
-          <li><a href="mailto:gerencia@clinicasantarita.com.br"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Gerência</strong><span>gerencia@<wbr>clinicasantarita.com.br</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
-          <li><a href="mailto:ouvidoria@clinicasantarita.com.br"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Ouvidoria</strong><span>ouvidoria@<wbr>clinicasantarita.com.br</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+        <h2 class="titulo" id="contato-titulo" data-palavras>Fale com a gente.</h2>
+        <p class="lead">Sugestões, elogios e reclamações chegam direto à gerência e à ouvidoria da clínica.</p>
+        <ul class="canais-cartoes">
+          <li><a class="canal vidro" data-card data-tilt href="tel:+556133551105"><span class="canal__ico"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><strong>Telefone</strong><span class="num">(61) 3355-1105</span></span><svg class="i canal__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a class="canal vidro" data-card data-tilt href="mailto:gerencia@clinicasantarita.com.br"><span class="canal__ico canal__ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Gerência</strong><span>gerencia@<wbr>clinicasantarita.com.br</span></span><svg class="i canal__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+          <li><a class="canal vidro" data-card data-tilt href="mailto:ouvidoria@clinicasantarita.com.br"><span class="canal__ico canal__ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Ouvidoria</strong><span>ouvidoria@<wbr>clinicasantarita.com.br</span></span><svg class="i canal__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
         </ul>
       </div>
       <form class="formulario vidro" data-card id="form-contato" action="forms/contact.php" method="post">
@@ -716,6 +747,7 @@
 </main>
 
 <footer class="rodape" data-rodape>
+  <div class="rodape__luz" aria-hidden="true" data-rodape-luz></div>
   <div class="container rodape__grade">
     <div class="rodape__marca">
       <svg class="rodape__simbolo" viewBox="0 0 100 78.5" aria-hidden="true"><use href="#simbolo"/></svg>
@@ -741,6 +773,16 @@
         <li><a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do <span class="nw">paciente&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
         <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Medicina do <span class="nw">Trabalho&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
         <li><a href="https://clinicasantarita.com.br/tcn/trabalhe-conosco.html" target="_blank" rel="noopener">Trabalhe <span class="nw">conosco&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      </ul>
+    </nav>
+    <nav class="rodape__col rodape__col--unidades" aria-label="Rodapé: unidades">
+      <h2>Unidades</h2>
+      <ul>
+        <li><a href="tel:+556133551105"><strong>Taguatinga Norte</strong><span class="num">(61) 3355-1105</span></a></li>
+        <li><a href="https://wa.me/5561992581800" target="_blank" rel="noopener"><strong>Águas Lindas</strong><span class="num">(61) 99258-1800</span></a></li>
+        <li><a href="https://wa.me/5561992889508" target="_blank" rel="noopener"><strong>Riacho Fundo</strong><span class="num">(61) 99288-9508</span></a></li>
+        <li><a href="https://wa.me/5561992582301" target="_blank" rel="noopener"><strong>Santo Antônio</strong><span class="num">(61) 99258-2301</span></a></li>
+        <li><a href="https://wa.me/5561992534533" target="_blank" rel="noopener"><strong>Sobradinho</strong><span class="num">(61) 99253-4533</span></a></li>
       </ul>
     </nav>
     <nav class="rodape__col" aria-label="Rodapé: parceiros">

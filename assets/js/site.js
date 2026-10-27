@@ -14,23 +14,23 @@
      DADOS
      ========================================================= */
   const UNIDADES = [
-    { id: 'tag', nome: 'Taguatinga Norte', curto: 'Taguatinga', selo: 'Matriz', codigo: 'QND 47', end: 'Lote 10, Taguatinga Norte, Brasília-DF',
+    { id: 'tag', lat: -15.8044, lng: -48.0669, nome: 'Taguatinga Norte', curto: 'Taguatinga', selo: 'Matriz', codigo: 'QND 47', end: 'Lote 10, Taguatinga Norte, Brasília-DF',
       hora: 'Seg a sex, 7h às 18h', tel: '+556133551105', fone: '(61) 3355-1105',
       rota: 'https://www.google.com/maps/search/?api=1&query=Cl%C3%ADnica%20Santa%20Rita%20QND%2047%20Lote%2010%20Taguatinga%20Norte%20Bras%C3%ADlia',
       mapa: 'https://maps.google.com/maps?q=' + encodeURIComponent('-15.8044546,-48.0669338') + '&z=16&hl=pt-BR&output=embed' },
-    { id: 'agl', nome: 'Águas Lindas de Goiás', curto: 'Águas Lindas', codigo: 'Quadra 39', end: 'Lote 16, Av. Jardim Brasília, Águas Lindas de Goiás-GO',
+    { id: 'agl', lat: -15.7224, lng: -48.2880, nome: 'Águas Lindas de Goiás', curto: 'Águas Lindas', codigo: 'Quadra 39', end: 'Lote 16, Av. Jardim Brasília, Águas Lindas de Goiás-GO',
       hora: 'Seg a sex, 7h às 17h', wa: '5561992581800', fone: '(61) 99258-1800',
       rota: 'https://maps.app.goo.gl/fxjeTxy9A7zMZPn46',
       mapa: 'https://maps.google.com/maps?q=' + encodeURIComponent('-15.7224299,-48.2879671') + '&z=16&hl=pt-BR&output=embed' },
-    { id: 'rf', nome: 'Riacho Fundo', codigo: 'CLN 07', end: 'Bloco F, Lote 01/02, Riacho Fundo-DF',
+    { id: 'rf', lat: -15.8810, lng: -48.0180, nome: 'Riacho Fundo', codigo: 'CLN 07', end: 'Bloco F, Lote 01/02, Riacho Fundo-DF',
       hora: 'Seg a sex, 7h às 17h', wa: '5561992889508', fone: '(61) 99288-9508',
       rota: 'https://maps.app.goo.gl/HZ3EsojS985XRf58A',
       mapa: 'https://maps.google.com/maps?q=' + encodeURIComponent('CLN 7 Bloco F, Riacho Fundo, Brasília - DF') + '&z=16&hl=pt-BR&output=embed' },
-    { id: 'sad', nome: 'Santo Antônio do Descoberto', curto: 'Santo Antônio', codigo: 'Quadra 56', end: 'Lote 16, Centro, Santo Antônio do Descoberto-GO',
+    { id: 'sad', lat: -15.9460, lng: -48.2653, nome: 'Santo Antônio do Descoberto', curto: 'Santo Antônio', codigo: 'Quadra 56', end: 'Lote 16, Centro, Santo Antônio do Descoberto-GO',
       hora: 'Seg a sex, 7h às 17h', wa: '5561992582301', fone: '(61) 99258-2301',
       rota: 'https://maps.app.goo.gl/hwdCSNE7oAck1Nwp8',
       mapa: 'https://maps.google.com/maps?q=' + encodeURIComponent('-15.9460449,-48.2653426') + '&z=16&hl=pt-BR&output=embed' },
-    { id: 'sob', nome: 'Sobradinho 1', curto: 'Sobradinho', codigo: 'Quadra 10', end: 'Área 01, Lojas 03, 04 e 05, Sobradinho-DF',
+    { id: 'sob', lat: -15.6444, lng: -47.7933, nome: 'Sobradinho 1', curto: 'Sobradinho', codigo: 'Quadra 10', end: 'Área 01, Lojas 03, 04 e 05, Sobradinho-DF',
       hora: 'Seg a sex, 7h às 17h', wa: '5561992534533', fone: '(61) 99253-4533',
       rota: 'https://maps.app.goo.gl/ycBaumqh7qRLPnGV6',
       mapa: 'https://maps.google.com/maps?q=' + encodeURIComponent('-15.6444156,-47.7932658') + '&z=16&hl=pt-BR&output=embed' }
@@ -76,6 +76,29 @@
       b.style.setProperty('--origem', e.clientX - r.left < r.width / 2 ? 'left center' : 'right center');
     }));
   });
+
+  /* ---------- a luz segue o cursor: nas caixas, no céu da noite e no rodapé ---------- */
+  if (fino) {
+    $$('[data-card]').forEach(c => c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      c.style.setProperty('--my', `${e.clientY - r.top}px`);
+    }, { passive: true }));
+    [['[data-noite]', '[data-ceu]'], ['[data-rodape]', '[data-rodape-luz]']].forEach(([a, l]) => {
+      const area = $(a), luzA = $(l);
+      if (!area || !luzA || reduz) return;
+      let ultimo = null;
+      area.addEventListener('pointermove', e => {
+        if (!ultimo) requestAnimationFrame(() => {
+          const r = area.getBoundingClientRect();
+          luzA.style.setProperty('--dx', `${ultimo.clientX - r.left}px`);
+          luzA.style.setProperty('--dy', `${ultimo.clientY - r.top}px`);
+          ultimo = null;
+        });
+        ultimo = e;
+      }, { passive: true });
+    });
+  }
 
   /* ---------- especialidades: busca que entende o paciente ---------- */
   const CHAVES = {
@@ -178,6 +201,35 @@
     requestAnimationFrame(moveLuz);
     addEventListener('resize', moveLuz, { passive: true });
     document.fonts && document.fonts.ready.then(moveLuz);
+    /* mapa ilustrado do DF: as rotas saem da matriz em Taguatinga até cada unidade */
+    const mapaDF = $('[data-mapa-df]'), pinos = $('[data-pinos]');
+    if (mapaDF && pinos) {
+      const proj = (lat, lng) => [(lng + 48.42) / 1.14 * 1000, (-15.42 - lat) / 0.70 * 600];
+      const VB = { x: 30, y: 110, w: 760, h: 440 };
+      const NS = 'http://www.w3.org/2000/svg';
+      const el = (tag, at) => { const n = document.createElementNS(NS, tag); for (const k in at) n.setAttribute(k, at[k]); mapaDF.appendChild(n); return n; };
+      mapaDF.setAttribute('viewBox', `${VB.x} ${VB.y} ${VB.w} ${VB.h}`);
+      el('path', { d: 'M118 69H974V540H281L158 394L118 240Z', class: 'mapa-df__limite' });
+      el('text', { x: 772, y: 536, 'text-anchor': 'end', class: 'mapa-df__nome' }).textContent = 'DISTRITO FEDERAL';
+      el('text', { x: 44, y: 540, class: 'mapa-df__goias' }).textContent = 'GOIÁS';
+      // o Lago Paranoá e o Plano Piloto (o avião de Lúcio Costa) para orientar quem olha
+      el('path', { d: 'M505 250C530 238 560 250 572 268C590 290 612 300 606 322C600 345 572 352 556 372C545 386 520 384 514 368C508 350 528 336 522 318C516 300 492 292 492 274C492 262 497 254 505 250Z', class: 'mapa-df__lago' });
+      el('path', { d: 'M468 255Q432 318 470 372', class: 'mapa-df__plano' });
+      el('path', { d: 'M428 312L512 324', class: 'mapa-df__plano' });
+      el('text', { x: 470, y: 402, 'text-anchor': 'middle', class: 'mapa-df__ref' }).textContent = 'Plano Piloto';
+      const [mx, my] = proj(UNIDADES[0].lat, UNIDADES[0].lng);
+      UNIDADES.forEach((u, i) => {
+        const [x, y] = proj(u.lat, u.lng);
+        if (i) el('path', { d: `M${mx} ${my}Q${(mx + x) / 2} ${(my + y) / 2 - 60} ${x} ${y}`, class: 'mapa-df__rota', 'data-rota': u.id, pathLength: 1 });
+        const p = document.createElement('button');
+        p.type = 'button'; p.className = 'pino' + (i ? '' : ' ativo'); p.dataset.u = u.id; p.tabIndex = -1;
+        p.setAttribute('aria-hidden', 'true');
+        p.style.left = `${(x - VB.x) / VB.w * 100}%`; p.style.top = `${(y - VB.y) / VB.h * 100}%`;
+        p.innerHTML = `<span class="pino__rotulo">${u.curto || u.nome}</span><span class="pino__ponto"></span>`;
+        pinos.appendChild(p);
+      });
+      pinos.addEventListener('click', e => { const p = e.target.closest('.pino'); if (p) seleciona(p.dataset.u); });
+    }
     const mapa = $('[data-u-mapa]', painelU);
     const seleciona = (id, foca) => {
       const u = UNIDADES.find(x => x.id === id);
@@ -185,6 +237,8 @@
       try { localStorage.setItem('sr-unidade', id); } catch (e) { /* navegação privada */ }
       $$('.aba', abas).forEach(b => { const s = b.dataset.u === id; b.setAttribute('aria-selected', s); b.tabIndex = s ? 0 : -1; if (s && foca) b.focus(); });
       moveLuz();
+      if (pinos) $$('.pino', pinos).forEach(p => p.classList.toggle('ativo', p.dataset.u === id));
+      if (mapaDF) $$('[data-rota]', mapaDF).forEach(r => r.classList.toggle('ativa', r.dataset.rota === id));
       painelU.setAttribute('aria-labelledby', `aba-${id}`);
       painelU.classList.add('trocando');
       setTimeout(() => {
@@ -325,20 +379,25 @@
     const pr = gl.createProgram();
     gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
     gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float;
-uniform vec2 r;uniform float t,d,o;
+uniform vec2 r,m;uniform float t,d,o;
 float faixa(float s,float l,float m){float f=fract(s);return smoothstep(0.,m,f)*(1.-smoothstep(l-m,l,f));}
 void main(){
   vec2 q=gl_FragCoord.xy/r.y;q.y+=o;
   float a=mix(1.02,2.12,d);
   float s=dot(q,vec2(cos(a),sin(a)));
-  float s1=s*1.55+t*.011,s2=s*3.2-t*.017+.37;
+  float s1=s*1.55+t*.019,s2=s*3.2-t*.029+.37;
   float luz=faixa(s1,.36,.13)+faixa(s2,.17,.06)*.45;
   float aleta=faixa(s1+.012,.03,.012)*.6;
   luz*=mix(.72,1.,gl_FragCoord.y/r.y);
+  vec2 p0=gl_FragCoord.xy/r.y,pm=m/r.y;
+  float foco=exp(-dot(p0-pm,p0-pm)*9.);
+  luz=luz*(1.+.6*foco)+foco*.22;
   vec3 sombra=vec3(.846,.862,.888),concreto=vec3(.922,.933,.948);
   vec3 sol=mix(mix(vec3(.975,.987,1.),vec3(1.),smoothstep(0.,.5,d)),vec3(1.,.99,.975),smoothstep(.5,1.,d));
   vec3 c=mix(mix(sombra,concreto,.55+.45*sin(s*2.1+.6)*.5+.225),sol,clamp(luz,0.,1.));
   c-=aleta*.035;
+  vec2 b=vec2((.22+.18*sin(t*.06))*r.x/r.y,.72+.16*cos(t*.045));
+  c=mix(c,vec3(.84,.15,.17),exp(-dot(p0-b,p0-b)*2.4)*.07);
   c+=(fract(sin(dot(gl_FragCoord.xy+t,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
   gl_FragColor=vec4(c,1.);
 }`));
@@ -350,7 +409,10 @@ void main(){
     gl.enableVertexAttribArray(0);
     gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     const u = n => gl.getUniformLocation(pr, n);
-    const uR = u('r'), uT = u('t'), uD = u('d'), uO = u('o');
+    const uR = u('r'), uT = u('t'), uD = u('d'), uO = u('o'), uM = u('m');
+    // a luz do fundo vai até o cursor devagar (só com mouse)
+    const cursor = { x: -9999, y: -9999, ax: -9999, ay: -9999 };
+    if (fino) addEventListener('pointermove', e => { cursor.x = e.clientX * .5; cursor.y = (innerHeight - e.clientY) * .5; if (cursor.ax < -999) { cursor.ax = cursor.x; cursor.ay = cursor.y; } }, { passive: true });
     cv.className = 'fundo-luz';
     cv.setAttribute('aria-hidden', 'true');
     document.body.prepend(cv);
@@ -368,6 +430,8 @@ void main(){
       gl.uniform1f(uT, reduz ? 0 : agora / 1000);
       gl.uniform1f(uD, .42);
       gl.uniform1f(uO, 0);
+      cursor.ax += (cursor.x - cursor.ax) * .08; cursor.ay += (cursor.y - cursor.ay) * .08;
+      gl.uniform2f(uM, cursor.ax, cursor.ay);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
     const quadro = agora => {
@@ -790,15 +854,15 @@ void main(){
 
   /* ---------- caixas: entrada em cascata ---------- */
   const caixas = $$('[data-card]').filter(c => !c.closest('.hero'));
-  gsap.set(caixas, { opacity: 0, y: 24 });
+  gsap.set(caixas, { opacity: 0, y: 44, scale: .97 });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
     onEnter: lote => {
-      gsap.to(lote, { opacity: 1, y: 0, duration: .8, stagger: .06, ease: 'power3.out', overwrite: true, clearProps: 'transform,opacity' });
+      gsap.to(lote, { opacity: 1, y: 0, scale: 1, duration: 1.1, stagger: .08, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
     }
   });
   $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -16, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: l, start: 'top 88%' } }));
-  $$('.petala > img, .moldura > img, .exame-card__foto img').forEach(img => gsap.from(img, { scale: 1.14, duration: 1.6, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: img.parentElement, start: 'top 92%' } }));
+  $$('.petala > img, .moldura > img, .exame-card__foto img').filter(img => !img.closest('.bento__foto, .sobre__fachada, .sobre__espera')).forEach(img => gsap.from(img, { scale: 1.14, duration: 1.6, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: img.parentElement, start: 'top 92%' } }));
 
   /* ---------- três cuidados: os corações se juntam com a rolagem ---------- */
   if (cuidados && !leve) {
@@ -810,6 +874,54 @@ void main(){
       .fromTo($('.h--dir', s), { x: d, y: d * .6, rotation: 18 }, { x: 0, y: 0, rotation: 0, ease: 'none' }, 0);
     // quando se encontram, batem uma vez
     ScrollTrigger.create({ trigger: cuidados, start: 'center 55%', once: true, onEnter: () => gsap.to(s, { keyframes: { scale: [1, 1.08, .98, 1.04, 1] }, duration: .9, ease: 'power1.inOut', transformOrigin: '50% 50%' }) });
+  }
+
+  /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
+  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+
+  /* ---------- a noite se abre de ponta a ponta enquanto chega ---------- */
+  const noiteSec = $('[data-noite]');
+  if (noiteSec && !leve) gsap.fromTo(noiteSec, { clipPath: 'inset(0% 4% 0% 4% round 56px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: noiteSec, start: 'top bottom', end: 'top 25%', scrub: true } });
+  // os números dos passos acendem em sequência
+  const passos = $('[data-passos]');
+  if (passos) gsap.from($$('.passo__n', passos), { scale: 0, rotation: -90, duration: .8, stagger: .18, ease: 'back.out(2)', scrollTrigger: { trigger: passos, start: 'top 80%' } });
+
+  /* ---------- mapa: as rotas saem da matriz e os pinos caem no lugar ---------- */
+  const mapaSec = $('.mapa-df');
+  if (mapaSec) {
+    const tlMapa = gsap.timeline({ scrollTrigger: { trigger: mapaSec, start: 'top 75%' } });
+    tlMapa.fromTo($$('.mapa-df__rota', mapaSec), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.4, stagger: .12, ease: 'power2.inOut' })
+      .from($$('.pino', mapaSec), { y: -24, scale: .4, opacity: 0, duration: .8, stagger: .1, ease: 'back.out(2)' }, .3);
+  }
+
+  /* ---------- chamada: os corações se juntam e sobem com a rolagem ---------- */
+  const chamada = $('[data-chamada]');
+  if (chamada) {
+    const cs = $('[data-chamada-simbolo]', chamada);
+    if (!leve) gsap.fromTo($('.chamada__palco', chamada), { yPercent: 22, scale: .82 }, { yPercent: -4, scale: 1, ease: 'none', scrollTrigger: { trigger: chamada, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+    gsap.timeline({ scrollTrigger: { trigger: chamada, start: 'top 65%' } })
+      .from($('.h--esq', cs), { x: -44, y: 26, rotation: -18, opacity: 0, duration: 1.4, ease: 'expo.out' })
+      .from($('.h--dir', cs), { x: 44, y: 26, rotation: 18, opacity: 0, duration: 1.4, ease: 'expo.out' }, '<.1')
+      .from($('.h--topo', cs), { y: -44, rotation: -12, opacity: 0, duration: 1.4, ease: 'expo.out' }, '<.1')
+      .add(() => bate(cs), '-=.5');
+  }
+
+  /* ---------- cartões que inclinam em 3D sob o cursor ---------- */
+  if (fino) {
+    $$('.exame-card, .passo').forEach(c => { c.dataset.tilt = ''; });
+    $$('[data-tilt]').forEach(c => {
+      const rx = gsap.quickTo(c, 'rotationX', { duration: .8, ease: 'power3' });
+      const ry = gsap.quickTo(c, 'rotationY', { duration: .8, ease: 'power3' });
+      const ty = gsap.quickTo(c, 'y', { duration: .8, ease: 'power3' });
+      c.addEventListener('pointerenter', () => gsap.set(c, { transformPerspective: 1100 }));
+      c.addEventListener('pointermove', e => {
+        const r = c.getBoundingClientRect();
+        rx(-((e.clientY - r.top) / r.height - .5) * 6);
+        ry(((e.clientX - r.left) / r.width - .5) * 8);
+        ty(-6);
+      });
+      c.addEventListener('pointerleave', () => { rx(0); ry(0); ty(0); });
+    });
   }
 
   /* ---------- números que contam ---------- */
