@@ -273,7 +273,7 @@ Um painel só, com cantos de 36px: à esquerda, a noite sobre a parede da marca 
 Abre com a vista aérea da matriz em Taguatinga escurecendo para a noite, a frase "Cuidando da saúde do DF e entorno há mais de 25 anos." e as cinco cidades em fichas de vidro. Depois, as colunas: marca com status ao vivo e botões, Navegue, Para você e Parceiros, Unidades com telefone e Contato. Na base, o botão vermelho de voltar ao topo.
 
 ### Fotos
-Além das salas de exame, fotos tiradas do vídeo da clínica: consultório, ecocardiograma e eletrocardiograma numa galeria em Especialidades, a recepção da matriz em Dúvidas, a parede com a marca em Contato e a vista aérea no rodapé. Todas com o mesmo tratamento de luz do dia e paralaxe leve.
+Além das salas de exame, fotos tiradas do vídeo da clínica: a sala do ecocardiograma num arco e os eletrodos do eletro num círculo com órbita no topo de Especialidades (com três pontos: agendamento em um toque, exames do coração e 5 unidades), a recepção da matriz em Dúvidas, a parede com a marca em Contato e a vista aérea no rodapé. Todas com o mesmo tratamento de luz do dia e paralaxe leve.
 
 ### Centro de imagem: rolagem para o lado (método dos serviços da Cemtra)
 O palco fica parado enquanto a página rola e os cartões andam da direita para a esquerda; à esquerda, o título, o texto, o contador "1 de 5" e uma barra de progresso vermelha. Cartões brancos (ícone vermelho, texto, fichas das indicações, duração e preparo, link de agendar) alternam com salas em arco, com a foto real e um vidro escuro por cima. No fim, "Também realizamos" com os outros exames. No celular o título fica em cima e os cartões andam embaixo; sem o palco (movimento reduzido, tela deitada muito baixa) viram grade.

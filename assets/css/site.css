@@ -1014,8 +1014,6 @@ body::after { display: none; }
 /* ---------- dúvidas: os grupos são títulos de verdade, não sobretítulos ---------- */
 .faq__grupo { margin-left: 2px; color: var(--tinta); font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; text-transform: none; }
 
-@media (max-width: 760px) {
-}
 
 /* ---------- no celular as fotos vão até a borda da tela: recortadas, nunca encolhidas ---------- */
 @media (max-width: 760px) {
@@ -1482,23 +1480,8 @@ body::after { display: none; }
 }
 
 /* ---------- fotos novas ---------- */
-.galeria { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-bottom: 18px; }
-.galeria__foto { position: relative; isolation: isolate; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 26px; background: var(--fundo-3); box-shadow: var(--sombra-painel); }
-.galeria__foto img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; transition: scale 1.2s var(--ease); }
-.galeria__foto:hover img { scale: 1.06; }
-.galeria__foto::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(15,16,20,.4), transparent 45%); }
-.galeria__foto figcaption { position: absolute; left: 14px; bottom: 14px; z-index: 1; display: flex; align-items: center; gap: 9px; padding: 7px 15px 7px 7px; border-radius: 999px; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: .9rem; font-weight: 750; box-shadow: 0 10px 24px -14px rgba(0,0,0,.6); }
-.galeria__ico { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--vermelho); color: #fff; }
-.galeria__ico .i { width: 16px; height: 16px; }
 .duvidas__foto { aspect-ratio: 16 / 10; }
 .contato__foto { aspect-ratio: 16 / 9; margin-top: 12px; }
-@media (max-width: 760px) {
-  .galeria { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .galeria__foto:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
-  .galeria__foto { border-radius: 20px; }
-  .galeria__foto figcaption { left: 8px; bottom: 8px; font-size: .78rem; padding: 5px 11px 5px 5px; }
-  .galeria__ico { width: 24px; height: 24px; }
-}
 
 /* =========================================================
    RODAPÉ: a cidade vista de cima e as colunas
@@ -1579,4 +1562,39 @@ body::after { display: none; }
   .contato__painel { margin-inline: calc(-1 * var(--pad) + 8px); border-radius: 28px; }
   .contato__lado { padding: 28px 20px; }
   .contato__form { padding: 26px 20px; }
+}
+
+/* =========================================================
+   ESPECIALIDADES: TEXTO COM TRÊS PONTOS E UM PALCO DE FOTOS
+   A sala do ecocardiograma num arco e o eletro num círculo com órbita, como no hero.
+   ========================================================= */
+.esp__topo { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(36px, 6vw, 100px); align-items: center; margin-bottom: clamp(44px, 5vw, 76px); }
+.esp__texto .lead { margin-top: 18px; }
+.esp__pontos { display: grid; gap: 10px; margin: 30px 0 0; padding: 0; list-style: none; }
+.esp__pontos li { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px 14px 14px; border-radius: 20px; background: rgba(255,255,255,.75); box-shadow: inset 0 0 0 1px var(--borda-fina), 0 18px 36px -30px rgba(28,31,36,.4); color: var(--tinta-2); font-size: .95rem; line-height: 1.45; transition: translate .5s var(--ease), background-color .3s ease, box-shadow .4s ease; }
+.esp__pontos li:hover { translate: 6px 0; background: #fff; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vermelho) 30%, var(--borda-fina)), 0 24px 40px -28px rgba(28,31,36,.45); }
+.esp__pontos strong { display: block; margin-bottom: 2px; color: var(--tinta); font-size: 1.04rem; }
+.esp__ponto-ico { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 14px; background: var(--vermelho); color: #fff; box-shadow: 0 12px 22px -12px var(--vermelho); transition: rotate .5s var(--ease); }
+.esp__ponto-ico .i { width: 21px; height: 21px; }
+.esp__pontos li:hover .esp__ponto-ico { rotate: -10deg; }
+.esp__palco { position: relative; z-index: 1; justify-self: center; width: min(100%, 430px); aspect-ratio: 4 / 5; }
+.esp__arco { position: absolute; inset: 0 0 0 10%; margin: 0; overflow: hidden; border-radius: 999px 999px 28px 28px; background: var(--fundo-3); box-shadow: 0 0 0 10px rgba(255,255,255,.75), 0 50px 90px -40px rgba(28,31,36,.5); }
+.esp__arco img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 42% 50%; transition: scale 1.4s var(--ease); }
+.esp__palco:hover .esp__arco img { scale: 1.05; }
+.esp__circulo { position: absolute; left: -8%; bottom: 5%; z-index: 2; width: 44%; aspect-ratio: 1; margin: 0; }
+.esp__circulo img { position: absolute; inset: 10%; width: 80%; height: 80%; border-radius: 50%; object-fit: cover; object-position: 10% 88%; box-shadow: 0 0 0 6px #fff, 0 24px 44px -18px rgba(28,31,36,.5); }
+.esp__circulo img { object-view-box: inset(42% 58% 2% 6%); }
+.esp__circulo .hero__orbita { animation: orbita 40s linear infinite; }
+.esp__selo { right: -10%; top: 14%; left: auto; bottom: auto; }
+.esp__selo strong { display: block; font-size: .95rem; }
+.esp__selo-sub { display: block; color: var(--tinta-2); font-size: .8rem; }
+@media (prefers-reduced-motion: reduce) { .esp__circulo .hero__orbita { animation: none; } }
+@media (max-width: 1024px) {
+  .esp__topo { grid-template-columns: minmax(0, 1fr); }
+  .esp__palco { width: min(72vw, 400px); margin-top: 12px; }
+}
+@media (max-width: 760px) {
+  .esp__palco { width: 70vw; }
+  .esp__selo { right: -18%; top: 8%; }
+  .esp__circulo { left: -16%; }
 }

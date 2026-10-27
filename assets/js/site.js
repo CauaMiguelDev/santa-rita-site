@@ -834,8 +834,20 @@
     });
   }
 
+  /* ---------- especialidades: o palco de fotos entra como no hero ---------- */
+  const espPalco = $('[data-esp-palco]');
+  if (espPalco) {
+    gsap.timeline({ scrollTrigger: { trigger: espPalco, start: 'top 80%' }, defaults: { ease: 'expo.out' } })
+      .fromTo($('.esp__arco img', espPalco), { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.25 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.6, ease: 'expo.inOut', clearProps: 'clipPath,transform' })
+      .from($('.esp__circulo', espPalco), { scale: .5, opacity: 0, rotation: -30, duration: 1.2, ease: 'back.out(1.6)' }, .6)
+      .from($('.esp__selo', espPalco), { scale: .6, opacity: 0, y: 20, duration: 1, ease: 'back.out(1.6)' }, .8);
+    if (!leve) $$('.esp__circulo, .esp__selo', espPalco).forEach((el, i) => gsap.to(el, { yPercent: i ? 8 : -6, duration: 3.4 + i, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 }));
+  }
+  const pontos = $('[data-pontos]');
+  if (pontos) gsap.from(pontos.children, { x: -24, opacity: 0, duration: .9, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: pontos, start: 'top 85%' } });
+
   /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
-  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img, .galeria__foto img, .rodape__vista img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img, .rodape__vista img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
 
   /* ---------- a noite se abre de ponta a ponta enquanto chega ---------- */
   const noiteSec = $('[data-noite]');
