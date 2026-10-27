@@ -321,6 +321,17 @@
 
   /* ---------- contato: mesmo contrato do php-email-form antigo (o servidor responde "OK") ---------- */
   const contato = $('#form-contato');
+  // temas rápidos: um toque preenche o assunto (ou, em "Outro assunto", leva para o campo)
+  const temas = $('[data-temas]');
+  if (temas && contato) temas.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    $$('button', temas).forEach(x => x.setAttribute('aria-pressed', x === b));
+    const assunto = $('#c-subject');
+    assunto.value = b.dataset.assunto;
+    assunto.dispatchEvent(new Event('input', { bubbles: true }));
+    if (!b.dataset.assunto) assunto.focus();
+  });
   if (contato) {
     const st = $('.formulario__status', contato);
     const env = $('button[type=submit]', contato), envTxt = $('.botao__txt', env);
@@ -335,6 +346,7 @@
         if (!r.ok || t !== 'OK') throw new Error(t);
         mostra('Mensagem enviada. Obrigado! Responderemos em breve.', true);
         contato.reset(); contato.classList.remove('was-validated');
+        if (temas) $$('button', temas).forEach(x => x.setAttribute('aria-pressed', 'false'));
         $$('.valido', contato).forEach(c => c.classList.remove('valido'));
       } catch {
         mostra('Não foi possível enviar agora. Fale com a gente pelo WhatsApp (61) 3355-1107 ou pelo telefone (61) 3355-1105.', false);
@@ -563,7 +575,6 @@
 
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
-    $$('.sheds').forEach(sd => sd.classList.add('desenhado'));
     html.classList.remove('carregando', 'intro');
     (window.srT || []).forEach(clearTimeout);
     const ioNav = new IntersectionObserver(ents => ents.forEach(e => {
@@ -762,8 +773,6 @@
     });
   }));
 
-  /* ---------- sheds: o perfil do telhado se desenha uma vez quando chega ---------- */
-  $$('.sheds').forEach(sd => gsap.fromTo($('.sheds__linha', sd), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: sd, start: 'top 92%' }, onComplete: () => sd.classList.add('desenhado') }));
 
   /* ---------- declaração: acende palavra por palavra ---------- */
   const decl = $('[data-declaracao]');

@@ -266,6 +266,9 @@ Mapa ilustrado (limite do DF tracejado, Lago Paranoá e o avião do Plano Piloto
 ### Dúvidas e chamada
 Cada pergunta é um cartão; aberto, ganha um véu vermelho a 5% e o título em vermelho-texto. O cartão de ajuda tem um balão vermelho com três pontos digitando. Antes do contato, a chamada final: os três corações se juntam e sobem com a rolagem atrás do convite, com um anel tracejado girando.
 
+### Contato
+Um painel só, com cantos de 36px: à esquerda, a noite sobre a parede da marca (foto a 26%, brasa vermelha no canto), com os quatro canais em linhas de vidro escuro (ícone vermelho ou grafite, rótulo pequeno, valor forte, seta que avança) e o endereço da matriz com o status ao vivo; à direita, o formulário, com temas rápidos tracejados (Sugestão, Elogio, Reclamação, Outro assunto) que preenchem o assunto e ficam sólidos quando escolhidos.
+
 ### Rodapé
 Abre com a vista aérea da matriz em Taguatinga escurecendo para a noite, a frase "Cuidando da saúde do DF e entorno há mais de 25 anos." e as cinco cidades em fichas de vidro. Depois, as colunas: marca com status ao vivo e botões, Navegue, Para você e Parceiros, Unidades com telefone e Contato. Na base, o botão vermelho de voltar ao topo.
 
@@ -274,11 +277,6 @@ Além das salas de exame, fotos tiradas do vídeo da clínica: consultório, eco
 
 ### Centro de imagem: rolagem para o lado (método dos serviços da Cemtra)
 O palco fica parado enquanto a página rola e os cartões andam da direita para a esquerda; à esquerda, o título, o texto, o contador "1 de 5" e uma barra de progresso vermelha. Cartões brancos (ícone vermelho, texto, fichas das indicações, duração e preparo, link de agendar) alternam com salas em arco, com a foto real e um vidro escuro por cima. No fim, "Também realizamos" com os outros exames. No celular o título fica em cima e os cartões andam embaixo; sem o palco (movimento reduzido, tela deitada muito baixa) viram grade.
-
-### Sheds
-A linha do telhado se desenha traço a traço (2.2s) quando chega e, depois, um pulso vermelho de luz corre por ela sem parar (7s por volta).
-
-## Do's and Don'ts
 
 ### Do:
 - **Do** manter exatamente três cores trabalhando: concreto/branco, grafite e vermelho (#D7262B); texto vermelho sempre em vermelho-texto.

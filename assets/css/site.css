@@ -984,10 +984,6 @@ body::after { display: none; }
 .petala { border-radius: var(--r-foto); box-shadow: 0 34px 70px -40px rgba(28,31,36,.55); }
 .bento__foto.petala { border-radius: var(--abobada); }
 
-/* ---------- sheds desenhados entre os capítulos ---------- */
-.sheds { width: min(100% - 2 * var(--pad), var(--max)); height: 46px; margin: 0 auto; }
-.sheds svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.sheds path { fill: none; stroke: #BFC6CE; stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 
 /* ---------- fotos ---------- */
 .moldura { padding: 0; background: var(--fundo-2); border-radius: var(--r-foto); box-shadow: 0 30px 60px -38px rgba(28,31,36,.5); }
@@ -1008,10 +1004,7 @@ body::after { display: none; }
 .fichas input:hover + span { border-color: var(--tinta-3); box-shadow: none; }
 .fichas input:checked + span { border: 1.5px solid var(--tinta); background: var(--tinta); }
 
-/* ---------- rodapé: o alto recortado no perfil dos sheds ---------- */
-.rodape { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='44'%3E%3Cpath d='M0 44V30Q95 30 100 4V30H140V44Z'/%3E%3C/svg%3E") top left / 140px 44px repeat-x, linear-gradient(#000, #000) 0 43px / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='44'%3E%3Cpath d='M0 44V30Q95 30 100 4V30H140V44Z'/%3E%3C/svg%3E") top left / 140px 44px repeat-x, linear-gradient(#000, #000) 0 43px / 100% 100% no-repeat; }
 
-@media (max-width: 760px) { .rodape { -webkit-mask-size: 84px 27px, 100% 100%; mask-size: 84px 27px, 100% 100%; -webkit-mask-position: top left, 0 26px; mask-position: top left, 0 26px; } }
 
 /* ---------- contato rápido e voltar ao topo ---------- */
 .flutuante::before { display: none; }
@@ -1334,15 +1327,7 @@ body::after { display: none; }
 /* fotos com paralaxe: um pouco de sobra em cima e embaixo */
 .sobre__fachada > img, .sobre__espera > img { inset: -8% 0; height: 116%; }
 
-/* ---------- sheds: a linha se desenha traço a traço e um pulso vermelho corre pelo telhado ---------- */
-.sheds path { vector-effect: none; stroke-width: 1.5; }
-.sheds svg { overflow: visible; }
-.sheds__linha { stroke-dasharray: 1; stroke-dashoffset: 0; }
-.sheds__pulso { stroke: var(--vermelho) !important; stroke-width: 2.6 !important; stroke-dasharray: .045 .955; stroke-dashoffset: 1; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--vermelho) 70%, transparent)); opacity: 0; transition: opacity .8s ease; }
-.sheds.desenhado .sheds__pulso { opacity: 1; }
-@media (prefers-reduced-motion: no-preference) { .sheds.desenhado .sheds__pulso { animation: corre-telhado 7s linear infinite; } }
 @keyframes corre-telhado { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-.leve .sheds__pulso { display: none; }
 
 /* =========================================================
    CENTRO DE IMAGEM: O MÉTODO DOS SERVIÇOS DA CEMTRA
@@ -1550,6 +1535,48 @@ body::after { display: none; }
   .rodape__marca, .rodape__col--contato { grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
-  .rodape { -webkit-mask-position: top left, 0 26px; mask-position: top left, 0 26px; }
   .rodape__cidades li { font-size: .78rem; padding: 6px 11px; }
+}
+
+/* =========================================================
+   CONTATO: UM PAINEL SÓ
+   À esquerda, a noite sobre a parede da marca, com os canais em linhas; à direita, o formulário,
+   com temas rápidos que já preenchem o assunto.
+   ========================================================= */
+.contato__painel { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); overflow: hidden; border-radius: 36px; background: #fff; border: 1px solid var(--borda-fina); box-shadow: var(--sombra-painel-alta); }
+.contato__lado { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: clamp(32px, 4vw, 56px); color: #fff; background: var(--noite); }
+.contato__fundo { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; opacity: .26; filter: grayscale(.3); transform: scale(1.08); transition: transform 1.6s var(--ease); }
+.contato__lado::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(520px 360px at 0% 0%, color-mix(in srgb, var(--vermelho) 30%, transparent), transparent 70%), linear-gradient(180deg, rgba(21,23,27,.3), rgba(21,23,27,.92) 70%); }
+.contato__painel:hover .contato__fundo { transform: scale(1); }
+.contato__lado .lead { margin-top: 16px; }
+.contato__canais { display: grid; gap: 8px; margin: 30px 0 0; padding: 0; list-style: none; }
+.contato__canais a { display: flex; align-items: center; gap: 14px; padding: 12px 14px 12px 12px; border-radius: 18px; color: #fff; text-decoration: none; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); transition: background-color .35s ease, translate .5s var(--ease), box-shadow .35s ease; }
+.contato__canais a > span:nth-child(2) { display: grid; min-width: 0; }
+.contato__canais small { color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 700; }
+.contato__canais strong { font-size: 1rem; font-weight: 700; overflow-wrap: anywhere; }
+.contato__ico { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 14px; background: var(--vermelho); color: #fff; transition: rotate .5s var(--ease); }
+.contato__ico .i { width: 21px; height: 21px; }
+.contato__ico--grafite { background: rgba(255,255,255,.14); }
+.contato__seta { width: 18px; height: 18px; flex: none; margin-left: auto; color: rgba(255,255,255,.45); transition: translate .45s var(--ease), color .3s ease; }
+.contato__canais a:hover { background: rgba(255,255,255,.11); translate: 4px 0; box-shadow: inset 0 0 0 1px rgba(255,107,112,.5); }
+.contato__canais a:hover .contato__ico { rotate: -10deg; }
+.contato__canais a:hover .contato__seta { translate: 4px 0; color: #fff; }
+.contato__endereco { display: flex; align-items: flex-start; gap: 10px; margin-top: auto; padding-top: 28px; color: rgba(255,255,255,.72); font-size: .92rem; }
+.contato__endereco > .i { width: 20px; height: 20px; flex: none; color: #FF6B70; }
+.contato__endereco strong { display: block; color: #fff; }
+.contato__endereco .status { margin-top: 4px; color: rgba(255,255,255,.8); font-size: .9rem; }
+.contato__endereco .status::before { background: rgba(255,255,255,.4); }
+.contato__endereco .status.aberto::before { background: #FF6B70; }
+.contato__form { padding: clamp(28px, 4vw, 56px); }
+.contato__dica { margin: -8px 0 10px; color: var(--tinta-2); font-size: .95rem; font-weight: 650; }
+.contato__temas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.contato__temas button { height: 42px; padding: 0 16px; border: 1.5px dashed #B8C0C9; border-radius: 999px; background: transparent; color: var(--tinta); font: inherit; font-size: .92rem; font-weight: 700; cursor: pointer; transition: background-color .3s ease, color .3s ease, border-color .3s ease, scale .3s var(--ease); }
+.contato__temas button:hover { border-color: var(--tinta-3); }
+.contato__temas button:active { scale: .95; }
+.contato__temas button[aria-pressed="true"] { border-style: solid; border-color: var(--tinta); background: var(--tinta); color: #fff; }
+@media (max-width: 1024px) { .contato__painel { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) {
+  .contato__painel { margin-inline: calc(-1 * var(--pad) + 8px); border-radius: 28px; }
+  .contato__lado { padding: 28px 20px; }
+  .contato__form { padding: 26px 20px; }
 }
