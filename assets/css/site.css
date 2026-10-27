@@ -912,7 +912,7 @@ main > section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
   --wa: var(--vermelho);
 }
 /* sem WebGL (ou modo leve), o fundo é o mesmo desenho de luz, parado */
-html { background: radial-gradient(900px 600px at 15% 10%, #fff, transparent 70%), radial-gradient(800px 600px at 90% 80%, color-mix(in srgb, var(--vermelho) 5%, transparent), transparent 70%), var(--fundo); background-attachment: fixed; }
+html { background: var(--fundo); }
 body::after { display: none; }
 .fundo-luz { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; }
 .fundo-luz.pronto { opacity: 1; }
@@ -1445,4 +1445,116 @@ body::after { display: none; }
   .pan .servico { min-height: min(580px, 64svh); }
   .pan .servicos__barra { display: block; position: absolute; z-index: 3; left: var(--margem); bottom: 7svh; width: min(240px, 22vw); height: 4px; border-radius: 4px; background: var(--fundo-3); overflow: hidden; }
   .pan .servicos__barra span { display: block; height: 100%; background: var(--vermelho); transform-origin: 0 50%; transform: scaleX(0); }
+}
+
+/* =========================================================
+   FUNDO NO MÉTODO DA CEMTRA: concreto liso, três planos de cor que flutuam devagar,
+   um grão fino por cima e desenhos de linha em algumas seções. Sem WebGL.
+   ========================================================= */
+.fundo-cores { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fundo-cores i { position: absolute; border-radius: 50%; will-change: transform; }
+.fundo-cores i:nth-child(1) { left: -18vw; top: -26vw; width: 70vw; height: 70vw; background: radial-gradient(closest-side, rgba(255,255,255,.95), rgba(255,255,255,0)); }
+.fundo-cores i:nth-child(2) { right: -22vw; top: 12vh; width: 58vw; height: 58vw; background: radial-gradient(closest-side, color-mix(in srgb, var(--vermelho) 11%, transparent), transparent); }
+.fundo-cores i:nth-child(3) { left: 8vw; bottom: -30vw; width: 60vw; height: 60vw; background: radial-gradient(closest-side, rgba(110,118,130,.16), transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .fundo-cores i:nth-child(1) { animation: deriva-a 38s ease-in-out infinite alternate; }
+  .fundo-cores i:nth-child(2) { animation: deriva-b 46s ease-in-out infinite alternate; }
+  .fundo-cores i:nth-child(3) { animation: deriva-c 52s ease-in-out infinite alternate; }
+}
+@keyframes deriva-a { to { transform: translate(14vw, 10vh) scale(1.1); } }
+@keyframes deriva-b { to { transform: translate(-16vw, 22vh) scale(.9); } }
+@keyframes deriva-c { to { transform: translate(20vw, -14vh) scale(1.15); } }
+.grao { position: fixed; inset: 0; z-index: 95; pointer-events: none; opacity: .04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.leve .grao, .leve .fundo-cores i { animation: none; }
+.leve .grao { display: none; }
+/* planos: algumas seções ficam num plano branco com a curva vermelha no alto */
+.plano { background: rgba(255,255,255,.72); }
+.tem-arte { position: relative; overflow: clip; }
+.tem-arte > .container { position: relative; z-index: 1; }
+.arte { position: absolute; z-index: 0; pointer-events: none; }
+.arte-curva { left: 0; top: -1px; width: 100%; height: clamp(40px, 6vw, 90px); fill: none; stroke: var(--vermelho); stroke-width: 2; opacity: .45; }
+.arte-curva path { vector-effect: non-scaling-stroke; }
+.arte-coracoes { right: -6vw; top: 40px; width: min(48vw, 560px); height: auto; overflow: visible; --sym-a: transparent; --sym-b: transparent; --sym-c: transparent; fill: none; stroke: var(--vermelho); stroke-width: .35; opacity: .32; }
+.arte-coracoes g { stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset 2.8s var(--ease); }
+.arte-coracoes.visivel g { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) { .arte-coracoes { animation: flutua 14s ease-in-out infinite alternate; } }
+@keyframes flutua { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-24px) rotate(-4deg); } }
+.arte-ecg { left: 0; bottom: 24px; width: 100%; height: 110px; overflow: visible; }
+.arte-ecg path { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.arte-ecg__linha { stroke: rgba(28,31,36,.14); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 3s var(--ease); }
+.arte-ecg.visivel .arte-ecg__linha { stroke-dashoffset: 0; }
+.arte-ecg__pulso { stroke: var(--vermelho); stroke-width: 3; stroke-dasharray: .05 .95; stroke-dashoffset: 1; opacity: 0; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--vermelho) 70%, transparent)); }
+@media (prefers-reduced-motion: no-preference) { .arte-ecg.visivel .arte-ecg__pulso { opacity: .8; animation: corre-telhado 9s linear 2.6s infinite; } }
+.arte-sol { right: -170px; top: -120px; width: min(56vw, 560px); height: auto; opacity: .3; }
+@media (prefers-reduced-motion: no-preference) { .arte-sol { animation: orbita 120s linear infinite; } }
+.arte-sol__raios line { stroke: var(--vermelho); stroke-width: 4; stroke-linecap: round; opacity: .55; }
+.arte-sol__anel { fill: none; stroke: var(--vermelho); stroke-width: 2; stroke-dasharray: 4 8; }
+.arte-sol__disco { fill: var(--vermelho); opacity: .12; }
+@media (max-width: 760px) {
+  .arte-coracoes { right: -30vw; width: 80vw; opacity: .22; }
+  .arte-sol { right: -240px; top: -150px; opacity: .2; }
+  .arte-ecg { height: 70px; }
+}
+
+/* ---------- fotos novas ---------- */
+.galeria { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-bottom: 18px; }
+.galeria__foto { position: relative; isolation: isolate; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 26px; background: var(--fundo-3); box-shadow: var(--sombra-painel); }
+.galeria__foto img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; transition: scale 1.2s var(--ease); }
+.galeria__foto:hover img { scale: 1.06; }
+.galeria__foto::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(15,16,20,.4), transparent 45%); }
+.galeria__foto figcaption { position: absolute; left: 14px; bottom: 14px; z-index: 1; display: flex; align-items: center; gap: 9px; padding: 7px 15px 7px 7px; border-radius: 999px; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: .9rem; font-weight: 750; box-shadow: 0 10px 24px -14px rgba(0,0,0,.6); }
+.galeria__ico { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--vermelho); color: #fff; }
+.galeria__ico .i { width: 16px; height: 16px; }
+.duvidas__foto { aspect-ratio: 16 / 10; }
+.contato__foto { aspect-ratio: 16 / 9; margin-top: 12px; }
+@media (max-width: 760px) {
+  .galeria { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .galeria__foto:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+  .galeria__foto { border-radius: 20px; }
+  .galeria__foto figcaption { left: 8px; bottom: 8px; font-size: .78rem; padding: 5px 11px 5px 5px; }
+  .galeria__ico { width: 24px; height: 24px; }
+}
+
+/* =========================================================
+   RODAPÉ: a cidade vista de cima, ladrilhos com o símbolo e as colunas
+   ========================================================= */
+.rodape { padding-top: 0; color: rgba(255,255,255,.72); }
+.rodape__vista { position: relative; margin: 0; height: clamp(300px, 36vw, 480px); overflow: hidden; }
+.rodape__vista img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; }
+.rodape__vista::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,23,27,.12) 0%, rgba(21,23,27,.5) 50%, var(--noite) 100%); }
+.rodape__vista-texto { position: absolute; left: 0; right: 0; bottom: clamp(28px, 4vw, 56px); z-index: 1; }
+.rodape__frase { max-width: 17ch; color: #fff; font-size: clamp(2rem, 4.4vw, 4rem); font-weight: 700; line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
+.rodape__cidades { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+.rodape__cidades li { padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; font-size: .88rem; font-weight: 700; }
+.rodape__ladrilhos { display: flex; gap: 2px; height: 46px; overflow: hidden; background: #0C0D10; }
+.ladrilho { width: 46px; height: 46px; flex: none; display: grid; place-items: center; background: #1B1E23; transition: rotate .7s var(--ease), background-color .4s ease; }
+.ladrilho svg { width: 30px; height: auto; }
+.ladrilho--cinza { --sym-b: #8A919C; }
+.ladrilho--claro { background: #23272E; }
+.rodape__grade { padding-top: clamp(56px, 7vw, 96px); grid-template-columns: minmax(0, 1.45fr) repeat(4, minmax(0, 1fr)); gap: 36px; }
+.rodape__sobre { margin-top: 16px; max-width: 34ch; color: rgba(255,255,255,.66); font-size: .98rem; }
+.rodape__status { margin-top: 14px; }
+.rodape__status .status { color: #fff; }
+.rodape__acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.botao--fantasma { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.3); }
+.botao--fantasma::before { background: var(--vermelho); }
+.botao--fantasma .i { width: 18px; height: 18px; }
+.rodape__sub { margin-top: 26px; }
+.rodape__col a { display: inline-block; transition: color .3s ease, translate .45s var(--ease); }
+.rodape__col.rodape__col--unidades a { display: grid; gap: 1px; }
+.rodape__col a:hover { color: #fff; text-decoration: none; translate: 4px 0; }
+.rodape__col--contato li > a, .rodape__col--contato li > span { display: inline-flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,.78); overflow-wrap: anywhere; }
+.rodape__col--contato .i { width: 17px; height: 17px; flex: none; margin: 3px 0 0; color: #FF6B70; }
+.rodape__col--unidades a:hover { translate: 4px 0; }
+.rodape__base { align-items: center; }
+.rodape__topo { margin-left: auto; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: var(--vermelho); color: #fff; transition: transform .6s var(--ease), background-color .3s ease; }
+.rodape__topo .i { width: 22px; height: 22px; rotate: 180deg; }
+.rodape__topo:hover { transform: translateY(-4px) rotate(-8deg); background: #E8383D; }
+@media (max-width: 1024px) {
+  .rodape__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rodape__marca, .rodape__col--contato { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .rodape { -webkit-mask-position: top left, 0 26px; mask-position: top left, 0 26px; }
+  .rodape__cidades li { font-size: .78rem; padding: 6px 11px; }
 }

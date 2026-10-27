@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=51">
+  <link rel="stylesheet" href="assets/css/site.css?v=54">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -39,7 +39,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=52" defer></script>
+  <script src="assets/js/site.js?v=53" defer></script>
 
   <script type="application/ld+json">
   {
@@ -279,11 +279,19 @@
   </section>
 
   <!-- ===== ESPECIALIDADES ===== -->
-  <section class="secao especialidades" id="especialidades" aria-labelledby="esp-titulo">
+  <section class="secao especialidades plano tem-arte" id="especialidades" aria-labelledby="esp-titulo">
+    <svg class="arte arte-curva" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 84 C 380 4, 1220 4, 1600 84"/></svg>
+    <svg class="arte arte-coracoes" viewBox="-12 -12 124 102.5" aria-hidden="true"><g><use href="#c-esq" width="100" height="78.5"/><use href="#c-dir" width="100" height="78.5"/><use href="#c-topo" width="100" height="78.5"/></g></svg>
     <div class="container">
       <div class="cabeca">
-        <h2 class="titulo" id="esp-titulo" data-palavras>Especialidades</h2>
+        <h2 class="titulo" id="esp-titulo" data-palavras>Médicos especialistas, perto de casa.</h2>
         <p class="lead">Escolha a especialidade e o WhatsApp abre com o pedido de agendamento já escrito.</p>
+      </div>
+
+      <div class="galeria">
+        <figure class="galeria__foto" data-card><img src="assets/img/novo/consultorio-900.jpg" srcset="assets/img/novo/consultorio-900.jpg 900w, assets/img/novo/consultorio-1440.jpg 1440w" sizes="(min-width: 1025px) 40vw, 100vw" width="1440" height="810" loading="lazy" decoding="async" alt="Consultório da clínica com maca e cortinas"><figcaption><span class="galeria__ico"><svg class="i" aria-hidden="true"><use href="#i-steth"/></svg></span>Consultórios</figcaption></figure>
+        <figure class="galeria__foto" data-card><img src="assets/img/novo/ecocardio-900.jpg" srcset="assets/img/novo/ecocardio-900.jpg 900w, assets/img/novo/ecocardio-1440.jpg 1440w" sizes="(min-width: 1025px) 30vw, 50vw" width="1440" height="810" loading="lazy" decoding="async" alt="Sala de ecocardiograma com o aparelho de ultrassom e a maca"><figcaption><span class="galeria__ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span>Ecocardiograma</figcaption></figure>
+        <figure class="galeria__foto" data-card><img src="assets/img/novo/eletro-900.jpg" srcset="assets/img/novo/eletro-900.jpg 900w, assets/img/novo/eletro-1440.jpg 1440w" sizes="(min-width: 1025px) 30vw, 50vw" width="1440" height="810" loading="lazy" decoding="async" alt="Sala de eletrocardiograma com os eletrodos e o computador do exame"><figcaption><span class="galeria__ico"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span>Eletrocardiograma</figcaption></figure>
       </div>
 
       <div class="esp vidro" data-card>
@@ -319,7 +327,8 @@
   </section>
 
   <!-- ===== LABORATÓRIO ===== -->
-  <section class="secao laboratorio" id="laboratorio" aria-labelledby="lab-titulo">
+  <section class="secao laboratorio tem-arte" id="laboratorio" aria-labelledby="lab-titulo">
+    <svg class="arte arte-ecg" viewBox="0 0 1600 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="arte-ecg__linha" d="M0 70 L60 70 Q70 58 80 70 L92 70 L96 79 L102 16 L108 90 L114 70 L130 70 Q145 50 160 70 L200 70 L260 70 Q270 58 280 70 L292 70 L296 79 L302 16 L308 90 L314 70 L330 70 Q345 50 360 70 L400 70 L460 70 Q470 58 480 70 L492 70 L496 79 L502 16 L508 90 L514 70 L530 70 Q545 50 560 70 L600 70 L660 70 Q670 58 680 70 L692 70 L696 79 L702 16 L708 90 L714 70 L730 70 Q745 50 760 70 L800 70 L860 70 Q870 58 880 70 L892 70 L896 79 L902 16 L908 90 L914 70 L930 70 Q945 50 960 70 L1000 70 L1060 70 Q1070 58 1080 70 L1092 70 L1096 79 L1102 16 L1108 90 L1114 70 L1130 70 Q1145 50 1160 70 L1200 70 L1260 70 Q1270 58 1280 70 L1292 70 L1296 79 L1302 16 L1308 90 L1314 70 L1330 70 Q1345 50 1360 70 L1400 70 L1460 70 Q1470 58 1480 70 L1492 70 L1496 79 L1502 16 L1508 90 L1514 70 L1530 70 Q1545 50 1560 70 L1600 70" pathLength="1"/><path class="arte-ecg__pulso" d="M0 70 L60 70 Q70 58 80 70 L92 70 L96 79 L102 16 L108 90 L114 70 L130 70 Q145 50 160 70 L200 70 L260 70 Q270 58 280 70 L292 70 L296 79 L302 16 L308 90 L314 70 L330 70 Q345 50 360 70 L400 70 L460 70 Q470 58 480 70 L492 70 L496 79 L502 16 L508 90 L514 70 L530 70 Q545 50 560 70 L600 70 L660 70 Q670 58 680 70 L692 70 L696 79 L702 16 L708 90 L714 70 L730 70 Q745 50 760 70 L800 70 L860 70 Q870 58 880 70 L892 70 L896 79 L902 16 L908 90 L914 70 L930 70 Q945 50 960 70 L1000 70 L1060 70 Q1070 58 1080 70 L1092 70 L1096 79 L1102 16 L1108 90 L1114 70 L1130 70 Q1145 50 1160 70 L1200 70 L1260 70 Q1270 58 1280 70 L1292 70 L1296 79 L1302 16 L1308 90 L1314 70 L1330 70 Q1345 50 1360 70 L1400 70 L1460 70 Q1470 58 1480 70 L1492 70 L1496 79 L1502 16 L1508 90 L1514 70 L1530 70 Q1545 50 1560 70 L1600 70" pathLength="1"/></svg>
     <div class="container">
       <div class="cabeca">
         <h2 class="titulo" id="lab-titulo" data-palavras>Laboratório próprio. Resultado online.</h2>
@@ -544,7 +553,8 @@
   </section>
 
   <!-- ===== UNIDADES ===== -->
-  <section class="secao unidades" id="unidades" aria-labelledby="un-titulo">
+  <section class="secao unidades plano tem-arte" id="unidades" aria-labelledby="un-titulo">
+    <svg class="arte arte-curva" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 84 C 380 4, 1220 4, 1600 84"/></svg>
     <div class="container">
       <div class="cabeca">
         <h2 class="titulo" id="un-titulo" data-palavras>Cinco endereços, o mesmo cuidado.</h2>
@@ -592,13 +602,18 @@
   </section>
 
   <!-- ===== DÚVIDAS ===== -->
-  <section class="secao duvidas" id="duvidas" aria-labelledby="faq-titulo">
+  <section class="secao duvidas tem-arte" id="duvidas" aria-labelledby="faq-titulo">
+    <svg class="arte arte-sol" viewBox="-210 -210 420 420" aria-hidden="true"><g class="arte-sol__raios"><line x1="150.0" y1="0.0" x2="196.0" y2="0.0"/><line x1="146.2" y1="33.4" x2="191.1" y2="43.6"/><line x1="135.1" y1="65.1" x2="176.6" y2="85.0"/><line x1="117.3" y1="93.5" x2="153.2" y2="122.2"/><line x1="93.5" y1="117.3" x2="122.2" y2="153.2"/><line x1="65.1" y1="135.1" x2="85.0" y2="176.6"/><line x1="33.4" y1="146.2" x2="43.6" y2="191.1"/><line x1="0.0" y1="150.0" x2="0.0" y2="196.0"/><line x1="-33.4" y1="146.2" x2="-43.6" y2="191.1"/><line x1="-65.1" y1="135.1" x2="-85.0" y2="176.6"/><line x1="-93.5" y1="117.3" x2="-122.2" y2="153.2"/><line x1="-117.3" y1="93.5" x2="-153.2" y2="122.2"/><line x1="-135.1" y1="65.1" x2="-176.6" y2="85.0"/><line x1="-146.2" y1="33.4" x2="-191.1" y2="43.6"/><line x1="-150.0" y1="0.0" x2="-196.0" y2="0.0"/><line x1="-146.2" y1="-33.4" x2="-191.1" y2="-43.6"/><line x1="-135.1" y1="-65.1" x2="-176.6" y2="-85.0"/><line x1="-117.3" y1="-93.5" x2="-153.2" y2="-122.2"/><line x1="-93.5" y1="-117.3" x2="-122.2" y2="-153.2"/><line x1="-65.1" y1="-135.1" x2="-85.0" y2="-176.6"/><line x1="-33.4" y1="-146.2" x2="-43.6" y2="-191.1"/><line x1="-0.0" y1="-150.0" x2="-0.0" y2="-196.0"/><line x1="33.4" y1="-146.2" x2="43.6" y2="-191.1"/><line x1="65.1" y1="-135.1" x2="85.0" y2="-176.6"/><line x1="93.5" y1="-117.3" x2="122.2" y2="-153.2"/><line x1="117.3" y1="-93.5" x2="153.2" y2="-122.2"/><line x1="135.1" y1="-65.1" x2="176.6" y2="-85.0"/><line x1="146.2" y1="-33.4" x2="191.1" y2="-43.6"/></g><circle class="arte-sol__anel" r="118"/><circle class="arte-sol__disco" r="92"/></svg>
     <div class="container duvidas__grade">
       <div class="duvidas__lado">
         <div class="cabeca cabeca--coluna">
           <h2 class="titulo" id="faq-titulo" data-palavras>Perguntas que a gente ouve todo dia.</h2>
           <p class="lead">Agendamento, convênios, preparo e resultados: as respostas curtas para chegar tranquilo ao seu atendimento.</p>
         </div>
+        <figure class="moldura duvidas__foto" data-card>
+          <img src="assets/img/novo/recepcao-900.jpg" srcset="assets/img/novo/recepcao-900.jpg 900w, assets/img/novo/recepcao-1440.jpg 1440w" sizes="(min-width: 1025px) 36vw, 100vw" width="1440" height="810" loading="lazy" decoding="async" alt="Recepção da matriz em Taguatinga, com o símbolo da clínica na parede e pacientes sendo atendidos no balcão">
+          <figcaption class="moldura__legenda"><svg class="i" aria-hidden="true"><use href="#i-cadeira"/></svg><span><strong>Recepção da matriz</strong>Taguatinga Norte</span></figcaption>
+        </figure>
         <div class="ajuda vidro" data-card>
           <span class="ajuda__balao" aria-hidden="true"><i></i><i></i><i></i></span>
           <p class="ajuda__titulo">Ainda ficou com dúvida?</p>
@@ -687,6 +702,10 @@
           <li><a class="canal vidro" data-card data-tilt href="mailto:gerencia@clinicasantarita.com.br"><span class="canal__ico canal__ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Gerência</strong><span>gerencia@<wbr>clinicasantarita.com.br</span></span><svg class="i canal__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
           <li><a class="canal vidro" data-card data-tilt href="mailto:ouvidoria@clinicasantarita.com.br"><span class="canal__ico canal__ico--grafite"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><strong>Ouvidoria</strong><span>ouvidoria@<wbr>clinicasantarita.com.br</span></span><svg class="i canal__seta" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
         </ul>
+        <figure class="moldura contato__foto" data-card>
+          <img src="assets/img/novo/parede-marca-900.jpg" srcset="assets/img/novo/parede-marca-900.jpg 900w, assets/img/novo/parede-marca-1440.jpg 1440w" sizes="(min-width: 1025px) 36vw, 100vw" width="1440" height="810" loading="lazy" decoding="async" alt="Parede da clínica com o símbolo dos três corações e o nome Clínica Santa Rita">
+          <figcaption class="moldura__legenda"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span><strong>QND 47, Lote 10</strong>Taguatinga Norte, Brasília-DF</span></figcaption>
+        </figure>
       </div>
       <form class="formulario vidro" data-card id="form-contato" action="forms/contact.php" method="post">
         <h3 class="formulario__titulo">Envie uma mensagem</h3>
@@ -713,11 +732,25 @@
 
 <footer class="rodape" data-rodape>
   <div class="rodape__luz" aria-hidden="true" data-rodape-luz></div>
+  <figure class="rodape__vista">
+    <img src="assets/img/novo/aereo-900.jpg" srcset="assets/img/novo/aereo-900.jpg 900w, assets/img/novo/aereo-1440.jpg 1440w" sizes="100vw" width="1440" height="810" loading="lazy" decoding="async" alt="Vista aérea de Taguatinga com o prédio da matriz da Clínica Santa Rita na avenida">
+    <figcaption class="container rodape__vista-texto">
+      <p class="rodape__frase">Cuidando da saúde do DF e entorno há mais de 25 anos.</p>
+      <ul class="rodape__cidades"><li>Taguatinga</li><li>Águas Lindas</li><li>Riacho Fundo</li><li>Santo Antônio do Descoberto</li><li>Sobradinho</li></ul>
+    </figcaption>
+  </figure>
+  <div class="rodape__ladrilhos" aria-hidden="true" data-ladrilhos></div>
   <div class="container rodape__grade">
     <div class="rodape__marca">
       <svg class="rodape__simbolo" viewBox="0 0 100 78.5" aria-hidden="true"><use href="#simbolo"/></svg>
       <p class="wordmark wordmark--claro">Clínica<i>.</i>Santa<i>.</i>Rita</p>
       <p class="marca__assinatura marca__assinatura--claro">Cuidando da sua saúde</p>
+      <p class="rodape__sobre">Policlínica com consultas, laboratório próprio e centro de diagnóstico por imagem, em 5 unidades no DF e entorno.</p>
+      <p class="rodape__status"><span class="status" data-status>Seg a sex, 7h às 18h</span></p>
+      <div class="rodape__acoes">
+        <a class="botao botao--primario botao--sm" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Agendar</a>
+        <a class="botao botao--fantasma botao--sm" href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg>Resultados</a>
+      </div>
       <a class="rodape__social" href="https://www.instagram.com/clinicasantaritadf/" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-insta"/></svg>@clinicasantaritadf</a>
     </div>
     <nav class="rodape__col" aria-label="Rodapé: seções">
@@ -728,16 +761,22 @@
         <li><a href="#exames">Exames de imagem</a></li>
         <li><a href="#agendar">Pré-agendamento</a></li>
         <li><a href="#unidades">Unidades</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
-    <nav class="rodape__col" aria-label="Rodapé: serviços">
+    <nav class="rodape__col" aria-label="Rodapé: serviços e parceiros">
       <h2>Para você</h2>
       <ul>
         <li><a href="https://www.rico.uniexames.com.br/logins/login" target="_blank" rel="noopener">Resultados de <span class="nw">exames&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
         <li><a href="https://clinicasantarita.com.br/exames/painel_paciente.php" target="_blank" rel="noopener">Painel do <span class="nw">paciente&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
         <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Medicina do <span class="nw">Trabalho&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
         <li><a href="https://clinicasantarita.com.br/tcn/trabalhe-conosco.html" target="_blank" rel="noopener">Trabalhe <span class="nw">conosco&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+      </ul>
+      <h2 class="rodape__sub">Parceiros</h2>
+      <ul>
+        <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Clínica <span class="nw">Cemtra&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="http://grupoconsaude.com.br/" target="_blank" rel="noopener">Grupo <span class="nw">ConSaúde&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
       </ul>
     </nav>
     <nav class="rodape__col rodape__col--unidades" aria-label="Rodapé: unidades">
@@ -750,20 +789,26 @@
         <li><a href="https://wa.me/5561992534533" target="_blank" rel="noopener"><strong>Sobradinho</strong><span class="num">(61) 99253-4533</span></a></li>
       </ul>
     </nav>
-    <nav class="rodape__col" aria-label="Rodapé: parceiros">
-      <h2>Parceiros</h2>
+    <div class="rodape__col rodape__col--contato">
+      <h2>Contato</h2>
       <ul>
-        <li><a href="https://cemtradf.com.br/" target="_blank" rel="noopener">Clínica <span class="nw">Cemtra&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
-        <li><a href="http://grupoconsaude.com.br/" target="_blank" rel="noopener">Grupo <span class="nw">ConSaúde&nbsp;<svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span></a></li>
+        <li><a href="tel:+556133551105"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="num">(61) 3355-1105</span></a></li>
+        <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg><span class="num">(61) 3355-1107</span></a></li>
+        <li><a href="mailto:gerencia@clinicasantarita.com.br"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span>gerencia@<wbr>clinicasantarita.com.br</span></a></li>
+        <li><a href="mailto:ouvidoria@clinicasantarita.com.br"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span>ouvidoria@<wbr>clinicasantarita.com.br</span></a></li>
+        <li><span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span>QND 47, Lote 10, Taguatinga Norte</span></span></li>
       </ul>
-    </nav>
+    </div>
   </div>
   <div class="container rodape__base">
     <p>© <span data-ano>2026</span> Clínica Santa Rita. Todos os direitos reservados.</p>
+    <a class="rodape__topo" href="#inicio" aria-label="Voltar ao topo"><svg class="i" aria-hidden="true"><use href="#i-caret"/></svg></a>
   </div>
 </footer>
 
 <!-- contato rápido: botão no desktop, barra no celular -->
+<div class="fundo-cores" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grao" aria-hidden="true"></div>
 <a class="topo escondido" href="#inicio" data-topo aria-label="Voltar ao topo da página"><svg class="topo__anel" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><circle class="topo__progresso" cx="24" cy="24" r="22" pathLength="1"/></svg><svg class="i" aria-hidden="true"><use href="#i-caret"/></svg></a>
 <a class="flutuante escondido" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cl%C3%ADnica%20Santa%20Rita." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg><span class="flutuante__rotulo" aria-hidden="true">Agendar</span></a>
 <div class="barra-movel no-hero" aria-label="Contato rápido">

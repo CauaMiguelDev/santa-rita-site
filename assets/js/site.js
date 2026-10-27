@@ -366,90 +366,6 @@
     });
   }
 
-  /* ---------- fundo: linhas de nível que fluem devagar ----------
-     Faixas diagonais de sol, como a luz zenital dos hospitais de Lelé, que derivam devagar sozinhas
-     (a rolagem não mexe nelas). Meia resolução e até 30 quadros;
-     sem WebGL, no modo leve ou com quadros lentos, fica o mesmo desenho parado do CSS. */
-  const luzDeBrasilia = () => {
-    if (leve) return;
-    const cv = document.createElement('canvas');
-    const gl = cv.getContext('webgl', { alpha: false, antialias: false, depth: false, powerPreference: 'low-power' });
-    if (!gl) return;
-    const sh = (tipo, src) => { const x = gl.createShader(tipo); gl.shaderSource(x, src); gl.compileShader(x); return x; };
-    const pr = gl.createProgram();
-    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
-    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision mediump float;
-uniform vec2 r,m;uniform float t,d,o;
-float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}
-float fbm(vec2 p){float v=0.,a=.5;for(int k=0;k<4;k++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
-void main(){
-  vec2 q=gl_FragCoord.xy/r.y;
-  vec2 dm=q-m/r.y;float foco=exp(-dot(dm,dm)*7.);
-  vec2 w=vec2(fbm(q*1.2+vec2(t*.035,0.)),fbm(q*1.2+vec2(4.1,t*.03)));
-  float v=fbm(q*1.5+w*1.6+vec2(0.,t*.018))+foco*.08;
-  vec3 c=mix(vec3(.9,.913,.93),vec3(.978,.982,.99),smoothstep(.28,.78,v));
-  float k=v*13.,l=abs(fract(k)-.5);
-  float linha=1.-smoothstep(0.,.075,l);
-  float verm=step(5.5,mod(floor(k+.5),7.))*linha;
-  c-=linha*.026;
-  c=mix(c,vec3(.84,.15,.17),clamp(verm*(.09+foco*.5)+linha*foco*.18,0.,.5));
-  c+=(fract(sin(dot(gl_FragCoord.xy+t,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
-  gl_FragColor=vec4(c,1.);
-}`));
-    gl.linkProgram(pr);
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
-    gl.useProgram(pr);
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-    const u = n => gl.getUniformLocation(pr, n);
-    const uR = u('r'), uT = u('t'), uD = u('d'), uO = u('o'), uM = u('m');
-    // a luz do fundo vai até o cursor devagar (só com mouse)
-    const cursor = { x: -9999, y: -9999, ax: -9999, ay: -9999 };
-    if (fino) addEventListener('pointermove', e => { cursor.x = e.clientX * .5; cursor.y = (innerHeight - e.clientY) * .5; if (cursor.ax < -999) { cursor.ax = cursor.x; cursor.ay = cursor.y; } }, { passive: true });
-    cv.className = 'fundo-luz';
-    cv.setAttribute('aria-hidden', 'true');
-    document.body.prepend(cv);
-    const mede = () => {
-      cv.width = Math.ceil(innerWidth * .5); cv.height = Math.ceil(innerHeight * .5);
-      gl.viewport(0, 0, cv.width, cv.height);
-      gl.uniform2f(uR, cv.width, cv.height);
-    };
-    mede();
-    let alturaAntes = innerHeight;
-    // no celular a barra de endereço muda a altura ao rolar: só remede quando a largura ou a altura mudam de verdade
-    addEventListener('resize', () => { if (cv.width !== Math.ceil(innerWidth * .5) || Math.abs(innerHeight - alturaAntes) > 120) { alturaAntes = innerHeight; mede(); } }, { passive: true });
-    let ultimo = 0, rodando = true, sonda = null;
-    const pinta = agora => {
-      gl.uniform1f(uT, reduz ? 0 : agora / 1000);
-      gl.uniform1f(uD, .42);
-      gl.uniform1f(uO, 0);
-      cursor.ax += (cursor.x - cursor.ax) * .08; cursor.ay += (cursor.y - cursor.ay) * .08;
-      gl.uniform2f(uM, cursor.ax, cursor.ay);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    };
-    const quadro = agora => {
-      if (!rodando) return;
-      requestAnimationFrame(quadro);
-      if (document.hidden || agora - ultimo < 32) return;
-      ultimo = agora;
-      pinta(agora);
-      if (sonda) {
-        if (!sonda.t0) sonda.t0 = agora;
-        sonda.n++;
-        // menos de 20 quadros por segundo de fundo: o aparelho está sofrendo, o fundo para
-        if (agora - sonda.t0 > 3000) { if (sonda.n / ((agora - sonda.t0) / 1000) < 20) { rodando = false; cv.remove(); } sonda = null; }
-      }
-    };
-    requestAnimationFrame(t => { pinta(t); cv.classList.add('pronto'); });
-    if (reduz) return;
-    requestAnimationFrame(quadro);
-    setTimeout(() => { sonda = { t0: 0, n: 0 }; }, 2500);
-    document.addEventListener('visibilitychange', () => { if (sonda) sonda = { t0: 0, n: 0 }; });
-  };
-  luzDeBrasilia();
 
   /* ---------- monitor cardíaco: traçado PQRST de verdade ----------
      A onda é a soma de cinco gaussianas (P, Q, R, S, T), cada batimento com um ritmo levemente diferente.
@@ -637,6 +553,40 @@ void main(){
 
   const heroEl = $('[data-hero]');
   if (heroEl) new IntersectionObserver(([e]) => heroEl.classList.toggle('parado', !e.isIntersecting)).observe(heroEl);
+
+  /* ---------- desenhos das seções: aparecem quando chegam ---------- */
+  const artes = $$('.arte-coracoes, .arte-ecg');
+  if (artes.length) {
+    const ioArte = new IntersectionObserver(ents => ents.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visivel'); ioArte.unobserve(e.target); } }), { rootMargin: '0px 0px -15% 0px' });
+    artes.forEach(a => ioArte.observe(a));
+  }
+
+  /* ---------- rodapé: ladrilhos com o símbolo que giram quando o cursor passa ---------- */
+  const ladrilhos = $('[data-ladrilhos]');
+  if (ladrilhos) {
+    const enche = () => {
+      ladrilhos.textContent = '';
+      for (let k = 0, n = Math.ceil(innerWidth / 48) + 2; k < n; k++) {
+        const s = document.createElement('span');
+        const r = Math.random();
+        s.className = 'ladrilho' + (r < .3 ? ' ladrilho--cinza' : '') + (r > .8 ? ' ladrilho--claro' : '');
+        s.style.rotate = `${Math.floor(Math.random() * 4) * 90}deg`;
+        s.innerHTML = '<svg viewBox="0 0 100 78.5"><use href="#simbolo"/></svg>';
+        ladrilhos.appendChild(s);
+      }
+    };
+    enche();
+    let larguraL = innerWidth;
+    addEventListener('resize', () => { if (Math.abs(innerWidth - larguraL) > 60) { larguraL = innerWidth; enche(); } }, { passive: true });
+    const gira = s => { s.style.rotate = `${(parseFloat(s.style.rotate) || 0) + 90}deg`; };
+    if (fino && !reduz) ladrilhos.addEventListener('pointermove', e => {
+      const agora = performance.now();
+      $$('.ladrilho', ladrilhos).forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (Math.abs(r.left + r.width / 2 - e.clientX) < 52 && agora - (+s.dataset.t || 0) > 650) { s.dataset.t = agora; gira(s); }
+      });
+    });
+  }
 
   /* ---------- sem bibliotecas ou com movimento reduzido ---------- */
   if (!temGsap || reduz) {
@@ -903,7 +853,7 @@ void main(){
   }
 
   /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
-  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img, .galeria__foto img, .rodape__vista img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
 
   /* ---------- a noite se abre de ponta a ponta enquanto chega ---------- */
   const noiteSec = $('[data-noite]');
