@@ -1487,13 +1487,14 @@ body::after { display: none; }
    RODAPÉ: a cidade vista de cima e as colunas
    ========================================================= */
 .rodape { padding-top: 0; color: rgba(255,255,255,.72); }
-.rodape__vista { position: relative; margin: 0; height: clamp(300px, 36vw, 480px); overflow: hidden; }
-.rodape__vista img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; }
-.rodape__vista::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,23,27,.12) 0%, rgba(21,23,27,.5) 50%, var(--noite) 100%); }
-.rodape__vista-texto { position: absolute; left: 0; right: 0; bottom: clamp(28px, 4vw, 56px); z-index: 1; }
+.rodape__abertura { position: relative; overflow: hidden; padding: clamp(72px, 9vw, 130px) 0 clamp(40px, 5vw, 64px); border-bottom: 1px solid rgba(255,255,255,.08); }
+.rodape__abertura::before { content: ""; position: absolute; left: -10%; top: -40%; width: 70%; height: 140%; pointer-events: none; background: radial-gradient(closest-side, color-mix(in srgb, var(--vermelho) 22%, transparent), transparent 70%); }
+.rodape__coracoes { position: absolute; right: -4vw; top: 50%; translate: 0 -50%; width: min(46vw, 560px); height: auto; overflow: visible; pointer-events: none; --sym-a: transparent; --sym-b: transparent; --sym-c: transparent; fill: none; stroke: rgba(255,255,255,.14); stroke-width: .35; }
+@media (prefers-reduced-motion: no-preference) { .rodape__coracoes { animation: flutua 14s ease-in-out infinite alternate; } }
+.rodape__vista-texto { position: relative; z-index: 1; }
 .rodape__frase { max-width: 17ch; color: #fff; font-size: clamp(2rem, 4.4vw, 4rem); font-weight: 700; line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
 .rodape__cidades { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
-.rodape__cidades li { padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; font-size: .88rem; font-weight: 700; }
+.rodape__cidades li { padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: .88rem; font-weight: 700; }
 .rodape__grade { padding-top: clamp(56px, 7vw, 96px); grid-template-columns: minmax(0, 1.45fr) repeat(4, minmax(0, 1fr)); gap: 36px; }
 .rodape__sobre { margin-top: 16px; max-width: 34ch; color: rgba(255,255,255,.66); font-size: .98rem; }
 .rodape__status { margin-top: 14px; }

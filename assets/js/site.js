@@ -847,7 +847,7 @@
   if (pontos) gsap.from(pontos.children, { x: -24, opacity: 0, duration: .9, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: pontos, start: 'top 85%' } });
 
   /* ---------- paralaxe: as fotos andam um pouco mais devagar que a página ---------- */
-  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img, .rodape__vista img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+  if (!leve) $$('.bento__foto img, .sobre__fachada > img, .sobre__espera > img').forEach(img => gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
 
   /* ---------- a noite se abre de ponta a ponta enquanto chega ---------- */
   const noiteSec = $('[data-noite]');
