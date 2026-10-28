@@ -102,7 +102,6 @@
 
   /* ---------- especialidades: busca que entende o paciente ---------- */
   const CHAVES = {
-    Alergologia: 'alergia rinite asma coceira',
     Angiologia: 'veia varizes circulacao perna',
     Cardiologia: 'coracao pressao arritmia infarto peito',
     'Clínica Médica': 'clinico geral check up rotina adulto',
@@ -110,7 +109,6 @@
     Endocrinologia: 'diabetes tireoide hormonio peso',
     Gastroenterologia: 'estomago intestino figado azia barriga',
     Ginecologia: 'mulher preventivo papanicolau menstruacao',
-    Infectologia: 'infeccao virus febre',
     Mastologia: 'mama seio outubro rosa',
     Neurologia: 'cabeca enxaqueca dor de cabeca memoria nervo',
     Nutrição: 'dieta alimentacao emagrecer peso',
@@ -783,11 +781,13 @@
 
   /* ---------- caixas: entrada em cascata ---------- */
   const caixas = $$('[data-card]').filter(c => !c.closest('.hero') && !c.closest('[data-trilho]'));
-  gsap.set(caixas, { opacity: 0, y: 44, scale: .97 });
+  gsap.set(caixas, { opacity: 0, y: 64, rotationX: -12, scale: .96, transformPerspective: 1000, transformOrigin: '50% 100%' });
   ScrollTrigger.batch(caixas, {
     start: 'top 90%', once: true,
     onEnter: lote => {
-      gsap.to(lote, { opacity: 1, y: 0, scale: 1, duration: 1.1, stagger: .08, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
+      gsap.to(lote, { opacity: 1, y: 0, rotationX: 0, scale: 1, duration: 1.2, stagger: .09, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
+      // a luz desce uma vez por cada caixa, um pouco depois de ela chegar
+      lote.forEach((cx, i) => { if (cx.matches('.vidro, .vidro-noite')) setTimeout(() => { cx.classList.add('brilha'); setTimeout(() => cx.classList.remove('brilha'), 1600); }, 350 + i * 90); });
     }
   });
   $$('[data-lista]').forEach(l => gsap.from(l.children, { x: -16, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: l, start: 'top 88%' } }));
@@ -878,7 +878,7 @@
 
   /* ---------- cartões que inclinam em 3D sob o cursor ---------- */
   if (fino) {
-    $$('.exame-card, .passo').forEach(c => { c.dataset.tilt = ''; });
+    $$('.porta, .bento__painel, .bento__resultados, .servico, .ajuda, .passo').forEach(c => { c.dataset.tilt = ''; });
     $$('[data-tilt]').forEach(c => {
       const rx = gsap.quickTo(c, 'rotationX', { duration: .8, ease: 'power3' });
       const ry = gsap.quickTo(c, 'rotationY', { duration: .8, ease: 'power3' });

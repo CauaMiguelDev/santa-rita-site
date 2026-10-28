@@ -254,8 +254,8 @@ Barra em pílula fixa no topo; ao rolar, compacta para 1180px e vira branca opac
 ### Background (signature)
 No método da Cemtra, sem WebGL: concreto liso com três planos de cor que flutuam devagar (branco no alto à esquerda, vermelho a 11% à direita, cinza do símbolo embaixo), um grão fino por cima e desenhos de linha em algumas seções: o contorno dos três corações que se desenha em Especialidades, um traçado de ECG com um pulso vermelho no Laboratório, um anel tracejado com raios girando em Dúvidas. Especialidades e Unidades ficam num plano branco com uma curva vermelha no alto.
 
-### Cards: a luz segue o cursor
-Painéis (`.vidro`) e cartões de exame ganham um brilho branco e um anel vermelho na borda que acompanham o ponteiro (`--mx`/`--my`). Cartões de exame, passos e canais de contato inclinam em 3D (até 6°/8°) sob o cursor. Na entrada, as caixas sobem 44px de 0.97 a 1 em 1.1s (expo.out), em cascata.
+### Cards: caixas vivas
+Na chegada, cada caixa sobe de baixo desdobrando em 3D (de −12° a 0, 1.2s, expo.out, em cascata) e uma faixa de luz branca desce por ela uma vez. No hover, uma luz vermelha corre em volta da borda (gradiente cônico girando, 3.4s por volta), o preenchimento claro segue o cursor, o ícone dá um salto e os cartões menores (cuidados, laboratório, exames, ajuda, passos) inclinam em 3D. Nas listas, a linha apontada ganha um fundo vermelho a 9% que entra pela esquerda e o nome fica em vermelho-texto.
 
 ### Pré-agendamento: a noite (signature)
 Seção grafite (`noite`) que se abre de ponta a ponta com a rolagem (clip-path de 4% com cantos de 56px até a largura total). Uma brasa vermelha deriva no céu, uma luz vermelha segue o cursor e um traçado de ECG claro corre na base. Três passos numerados (os números acendem em sequência), cartões de canal (WhatsApp, telefone) e o formulário num painel branco.

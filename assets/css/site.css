@@ -1599,3 +1599,34 @@ body::after { display: none; }
   .esp__selo { right: -18%; top: 8%; }
   .esp__circulo { left: -16%; }
 }
+
+/* =========================================================
+   CAIXAS E CARTÕES VIVOS
+   Na chegada, cada caixa sobe de baixo em 3D (desdobra de -12°) e uma faixa de luz desce por ela uma vez.
+   No hover, uma luz vermelha corre em volta da borda, o ícone dá um salto e os cartões menores inclinam.
+   ========================================================= */
+@property --giro { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@property --my { syntax: '<length-percentage>'; inherits: false; initial-value: -40%; }
+.vidro::after, .exame-card::after, .vidro-noite::after {
+  background: conic-gradient(from var(--giro), transparent 0 58%, color-mix(in srgb, var(--vermelho) 25%, transparent) 66%, var(--vermelho) 76%, #FF8A8E 80%, transparent 92%);
+  animation: giro-borda 3.4s linear infinite paused;
+}
+.vidro-noite::after { background: conic-gradient(from var(--giro), transparent 0 58%, rgba(255,107,112,.3) 66%, #FF6B70 78%, transparent 92%); }
+[data-card]:hover::after, [data-card]:focus-within::after, .vidro-noite:hover::after { animation-play-state: running; }
+@keyframes giro-borda { to { --giro: 360deg; } }
+/* a faixa de luz que desce uma vez quando a caixa chega */
+.vidro.brilha::before, .vidro-noite.brilha::before { opacity: 1; animation: luz-desce 1.5s var(--ease) forwards; }
+@keyframes luz-desce { 0% { --my: -40%; opacity: 1; } 80% { opacity: 1; } 100% { --my: 140%; opacity: 0; } }
+/* o ícone dá um salto quando o cursor chega */
+@media (hover: hover) and (pointer: fine) {
+  [data-card]:hover :is(.ico, .servico__ico, .ajuda__balao, .passo__n, .faq__ico, .sobre__fato-ico),
+  .esp__lista a:hover .esp__ico, .esp__pontos li:hover .esp__ponto-ico, .contato__canais a:hover .contato__ico, .canal-noite:hover .canal-noite__ico { animation: icone-pula .7s var(--ease); }
+}
+@keyframes icone-pula { 0% { scale: 1; } 35% { scale: 1.18; rotate: -10deg; } 65% { scale: .96; } 100% { scale: 1; } }
+/* as linhas das listas ganham um fundo que entra pela esquerda */
+.esp__lista a, .bento__lista a { position: relative; isolation: isolate; }
+.esp__lista a::before, .bento__lista a::before { content: ""; position: absolute; inset: 2px -8px; z-index: -1; border-radius: 16px; background: linear-gradient(90deg, color-mix(in srgb, var(--vermelho) 9%, #fff), rgba(255,255,255,0)); transform: scaleX(0); transform-origin: 0 50%; transition: transform .55s var(--ease); }
+.esp__lista a:hover::before, .esp__lista a:focus-visible::before, .bento__lista a:hover::before { transform: scaleX(1); }
+.esp__lista a:hover strong, .bento__lista a:hover strong { color: var(--vermelho-texto); }
+.esp__lista a strong, .bento__lista a strong { transition: color .3s ease; }
+@media (prefers-reduced-motion: reduce) { .vidro.brilha::before, .vidro-noite.brilha::before { animation: none; opacity: 0; } }
