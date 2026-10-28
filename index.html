@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=61">
+  <link rel="stylesheet" href="assets/css/site.css?v=62">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -39,7 +39,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=61" defer></script>
+  <script src="assets/js/site.js?v=62" defer></script>
 
   <script type="application/ld+json">
   {
@@ -352,9 +352,16 @@
           <span>ECG, espirometria, MAPA e Holter</span>
           <span class="link-seta">Abrir painel <svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></span>
         </a>
-        <ul class="bento__lista vidro" data-card>
-          <li><a href="https://wa.me/556133551107?text=Ol%C3%A1!%20Quais%20conv%C3%AAnios%20voc%C3%AAs%20atendem%3F" target="_blank" rel="noopener"><span class="ico ico--sm ico--prata"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><span><strong>Convênios</strong><span>Particular e os principais convênios</span></span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
-        </ul>
+        <a class="bento__convenios vidro" data-card href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20saber%20se%20voc%C3%AAs%20atendem%20o%20meu%20conv%C3%AAnio." target="_blank" rel="noopener">
+          <span class="convenios__selo" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span>
+          <span class="convenios__texto"><strong>Convênios e particular</strong><span>Atendemos particular e os principais convênios. Mande o nome do seu plano e a gente confere a cobertura.</span></span>
+          <span class="botao botao--primario botao--sm convenios__botao">Consultar meu convênio</span>
+          <ol class="convenios__passos">
+            <li><span class="convenios__n"><svg class="i" aria-hidden="true"><use href="#i-msg"/></svg></span>Você manda o nome do plano</li>
+            <li><span class="convenios__n"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>A gente confere a cobertura</li>
+            <li><span class="convenios__n"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span>E já marca o seu horário</li>
+          </ol>
+        </a>
       </div>
     </div>
   </section>
