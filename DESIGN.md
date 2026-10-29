@@ -257,6 +257,10 @@ No método da Cemtra, sem WebGL: concreto liso com três planos de cor que flutu
 ### Cards: caixas vivas
 Na chegada, cada caixa sobe de baixo desdobrando em 3D (de −12° a 0, 1.2s, expo.out, em cascata) e uma faixa de luz branca desce por ela uma vez. No hover, uma luz vermelha corre em volta da borda (gradiente cônico girando, 3.4s por volta), o preenchimento claro segue o cursor, o ícone dá um salto e os cartões menores (cuidados, laboratório, exames, ajuda, passos) inclinam em 3D. Nas listas, a linha apontada ganha um fundo vermelho a 9% que entra pela esquerda e o nome fica em vermelho-texto. No laboratório, o cartão de Convênios tem selo vermelho com anel tracejado girando, texto, botão e três passos (manda o plano, a gente confere, já marca) ligados por uma linha tracejada onde um ponto vermelho corre; no hover os ícones dos passos ficam vermelhos em sequência.
 
+### Textos em movimento
+
+Cada título termina num destaque vermelho (`em.destaque`): as palavras sobem da máscara com um giro de 4° e um desfoque que some (expo.out, 55 ms entre palavras) e, quando chegam, um marca-texto vermelho translúcido se desenha sob o destaque da esquerda para a direita. Os parágrafos de apoio sobem linha por linha de uma máscara e depois voltam a ser texto normal. Entre o Laboratório e o Centro de imagem passa um letreiro com os cuidados da clínica (palavras cheias e vazadas alternadas, separadas pelo coração do símbolo que bate): anda sozinho, acelera e inclina com a velocidade da rolagem e inverte o sentido quando a rolagem sobe. Nos cartões, o conteúdo entra em cascata logo depois da caixa; as setas atravessam o círculo no hover e os cartões clicáveis afundam a 98,5% ao toque.
+
 ### Pré-agendamento: a noite (signature)
 Seção grafite (`noite`) que se abre de ponta a ponta com a rolagem (clip-path de 4% com cantos de 56px até a largura total). Uma brasa vermelha deriva no céu, uma luz vermelha segue o cursor e um traçado de ECG claro corre na base. Três passos numerados (os números acendem em sequência), cartões de canal (WhatsApp, telefone) e o formulário num painel branco.
 

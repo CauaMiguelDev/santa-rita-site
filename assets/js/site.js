@@ -765,8 +765,8 @@
     const parte = window.SplitText && !leve;
     const alvo = parte ? SplitText.create(h, { type: 'words', mask: 'words' }).words : h;
     gsap.from(alvo, {
-      ...(parte ? { yPercent: 105, stagger: .06 } : { y: 18, opacity: 0 }),
-      duration: .9, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 88%' },
+      ...(parte ? { yPercent: 110, rotate: 4, filter: 'blur(6px)', stagger: .055, transformOrigin: '0% 100%' } : { y: 18, opacity: 0 }),
+      duration: 1, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: h, start: 'top 88%' },
       onComplete: () => h.classList.add('luz-passa')
     });
   }));
@@ -786,6 +786,10 @@
     start: 'top 90%', once: true,
     onEnter: lote => {
       gsap.to(lote, { opacity: 1, y: 0, rotationX: 0, scale: 1, duration: 1.2, stagger: .09, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' });
+      lote.forEach((cx, i) => {
+        const filhos = [...cx.children].filter(k => !k.matches('img, figure, picture, iframe, canvas, .monitor, .contato__fundo, [hidden]') && getComputedStyle(k).position !== 'absolute').slice(0, 8);
+        if (filhos.length > 1) gsap.from(filhos, { y: 18, opacity: 0, duration: .9, stagger: .06, delay: .18 + i * .09, ease: 'expo.out', clearProps: 'transform,opacity' });
+      });
       // a luz desce uma vez por cada caixa, um pouco depois de ela chegar
       lote.forEach((cx, i) => { if (cx.matches('.vidro, .vidro-noite')) setTimeout(() => { cx.classList.add('brilha'); setTimeout(() => cx.classList.remove('brilha'), 1600); }, 350 + i * 90); });
     }
@@ -902,7 +906,30 @@
   });
 
   /* ---------- textos de apoio: sobem e aparecem ---------- */
-  $$('.secao .lead, .declaracao__apoio').forEach(p => gsap.from(p, { y: 14, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 92%' } }));
+  $$('.secao .lead, .declaracao__apoio, .esp__pe, [data-frase]').forEach(p => {
+    if (!window.SplitText || leve) return gsap.from(p, { y: 14, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 92%' } });
+    perto(p, () => {
+      const sp = SplitText.create(p, { type: 'lines', mask: 'lines' });
+      gsap.from(sp.lines, { yPercent: 105, duration: 1, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 92%' }, onComplete: () => sp.revert() });
+    });
+  });
+
+  /* ---------- letreiro: anda sozinho; a rolagem acelera, inclina e decide o sentido ---------- */
+  const letreiro = $('[data-letreiro]');
+  if (letreiro && !leve) {
+    const fita = $('[data-fita]', letreiro), grupo = fita.firstElementChild;
+    let x = 0, sentido = 1, vivo = false, inclina = 0;
+    ScrollTrigger.create({ trigger: letreiro, start: 'top bottom', end: 'bottom top', onToggle: s => { vivo = s.isActive; }, onUpdate: s => { if (s.direction) sentido = s.direction; } });
+    gsap.ticker.add((t, dt) => {
+      if (!vivo) return;
+      const vel = lenis ? lenis.velocity : 0;
+      x -= (.06 + Math.min(Math.abs(vel) * .05, 1.4)) * sentido * dt;
+      const w = grupo.offsetWidth;
+      if (x <= -w) x += w; else if (x > 0) x -= w;
+      inclina += (gsap.utils.clamp(-10, 10, -vel * .35) - inclina) * .12;
+      fita.style.transform = `translate3d(${x}px,0,0) skewX(${inclina.toFixed(2)}deg)`;
+    });
+  }
 
   /* ---------- especialidades: as linhas entram em cascata e os ícones pulam ---------- */
   const espLista = $('[data-esp-lista]');
