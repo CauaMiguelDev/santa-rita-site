@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=63">
+  <link rel="stylesheet" href="assets/css/site.css?v=65">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -39,7 +39,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=63" defer></script>
+  <script src="assets/js/site.js?v=65" defer></script>
 
   <script type="application/ld+json">
   {
@@ -375,19 +375,27 @@
   <!-- ===== CENTRO DE IMAGEM (rolagem para o lado, como os serviços da Cemtra) ===== -->
   <section class="servicos" id="exames" aria-labelledby="ex-titulo" data-servicos>
     <div class="servicos__palco">
+      <div class="servicos__varredura" aria-hidden="true"></div>
       <div class="servicos__intro">
+        <svg class="servicos__aneis" viewBox="0 0 400 400" aria-hidden="true"><g class="anel anel--1"><circle cx="200" cy="200" r="196"/></g><g class="anel anel--2"><circle cx="200" cy="200" r="158"/><circle class="anel__ponto" cx="200" cy="42" r="4"/></g><g class="anel anel--3"><circle cx="200" cy="200" r="118"/></g><g class="anel anel--4"><circle cx="200" cy="200" r="76"/><circle class="anel__ponto" cx="276" cy="200" r="3"/></g></svg>
+        <span class="servicos__etiqueta"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg>5 exames de imagem</span>
         <h2 class="titulo" id="ex-titulo" data-palavras>Centro de diagnóstico <em class="destaque">por imagem.</em></h2>
-        <p>Ressonância, tomografia, mamografia, ultrassom e densitometria no mesmo endereço, com laudo feito por especialistas. Escolha o exame e agende pelo WhatsApp.</p>
-        <span class="servicos__contador" aria-hidden="true"><b data-servico-atual>1</b> de 5</span>
+        <p>Ressonância, tomografia, mamografia digital, ultrassom e densitometria num só endereço, com laudo assinado por especialistas. Escolha o exame e agende pelo WhatsApp.</p>
+        <ul class="servicos__fatos">
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Laudo assinado por especialistas</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Ressonância e ultrassom sem radiação</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Preparo explicado pelo WhatsApp</li>
+        </ul>
+        <span class="servicos__contador" aria-hidden="true"><span class="servicos__num"><b data-servico-atual>01</b> / 05</span><span class="servicos__nome" data-servico-nome>Ressonância magnética</span></span>
       </div>
       <div class="servicos__janela" data-janela>
       <div class="servicos__trilho" data-trilho>
         <article class="vidro servico" id="ex-rm" data-card>
           <span class="servico__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span>
           <h3>Ressonância magnética</h3>
-          <p>Imagens detalhadas de cérebro, coluna, articulações e órgãos, feitas com campo magnético.</p>
+          <p>Imagens detalhadas de cérebro, coluna, articulações e órgãos, feitas com campo magnético e sem radiação.</p>
           <ul class="fichas-info"><li>Cérebro</li><li>Coluna</li><li>Joelho</li><li>Ombro</li><li>Abdômen</li></ul>
-          <p class="servico__meta"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><strong>Sem radiação.</strong> Em média de 20 a 45 minutos</span></p>
+          <p class="servico__meta"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><strong>De 20 a 45 minutos</strong> no aparelho, em média</span></p>
           <p class="servico__meta"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg><span>Avise se usa marca-passo, implantes metálicos ou tem claustrofobia</span></p>
           <a class="link-seta" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Resson%C3%A2ncia%20Magn%C3%A9tica." target="_blank" rel="noopener">Agendar ressonância<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
         </article>
@@ -397,7 +405,7 @@
           <div class="servico__vidro">
             <span class="servico__ico"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg></span>
             <h3>Tomografia computadorizada</h3>
-            <p>Cortes em alta definição do interior do corpo, em poucos minutos, para diagnósticos rápidos.</p>
+            <p>Cortes em alta definição do interior do corpo, feitos em poucos minutos, para um diagnóstico rápido.</p>
             <p class="servico__meta servico__meta--claro"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span>Poucos minutos no aparelho</span></p>
             <a class="link-seta link-seta--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Tomografia%20Computadorizada." target="_blank" rel="noopener">Agendar tomografia<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
           </div>
@@ -417,7 +425,7 @@
           <div class="servico__vidro">
             <span class="servico__ico"><svg class="i" aria-hidden="true"><use href="#e-onda"/></svg></span>
             <h3>Ultrassonografia</h3>
-            <p>Exame indolor feito com ondas de som, que mostra órgãos e estruturas em tempo real.</p>
+            <p>Exame indolor, feito com ondas de som, que mostra órgãos e estruturas em tempo real.</p>
             <p class="servico__meta servico__meta--claro"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span>De 15 a 30 minutos</span></p>
             <a class="link-seta link-seta--claro" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Ultrassonografia." target="_blank" rel="noopener">Agendar ultrassom<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
           </div>
@@ -433,6 +441,7 @@
         </article>
         <div class="servicos__fim">
           <p>Também realizamos</p>
+          <span class="servicos__fim-apoio">Exames do coração e da respiração, no mesmo endereço.</span>
           <ul class="fichas-info"><li>Eletrocardiograma</li><li>Espirometria</li><li>MAPA</li><li>Holter</li><li>Ecografia gestacional</li></ul>
           <a class="botao botao--primario botao--lg" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20saber%20o%20preparo%20e%20agendar%20um%20exame." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Tirar dúvidas</a>
         </div>

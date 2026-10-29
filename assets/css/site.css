@@ -1704,3 +1704,58 @@ body::after { display: none; }
 a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:active { scale: .985; transition: scale .16s var(--ease); }
 @media (max-width: 640px) { .letreiro__item--vazado { -webkit-text-stroke-width: 1.2px; } }
 @media (prefers-reduced-motion: reduce) { .letreiro__cor, .letreiro__fita { animation: none; } .titulo .destaque { transition: none; background-size: 100% .26em; } }
+
+/* ---------- o risco sob o destaque: traçado à mão, desenhado da esquerda para a direita quando as palavras chegam ---------- */
+.titulo .destaque, .chamada__titulo .destaque { background: none; }
+.destaque .risco { display: block; left: -1%; right: auto; width: 102%; bottom: -.22em; height: .36em; }
+.destaque .risco path { vector-effect: none; stroke: var(--vermelho); stroke-width: 5.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .95s cubic-bezier(.65, 0, .35, 1) .05s; }
+.destaque .risco .risco__eco { stroke-width: 2.2; opacity: .45; transition-delay: .5s; }
+.titulo--claro .destaque .risco path { stroke: #FF6B70; }
+.luz-passa .destaque .risco path, .leve .destaque .risco path { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .destaque .risco path { stroke-dashoffset: 0; transition: none; } }
+
+/* =========================================================
+   CENTRO DE IMAGEM: SALA DE EXAME
+   Papel milimetrado bem leve no fundo todo, os anéis do túnel da ressonância girando atrás do texto
+   (cada um num ritmo, dois com um ponto em órbita) e uma linha de varredura que desce devagar sobre os cartões.
+   ========================================================= */
+.servicos { --grade: linear-gradient(rgba(28,31,36,.045) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(90deg, rgba(28,31,36,.045) 1px, transparent 1px) 0 0 / 44px 44px; }
+.servicos__palco { isolation: isolate; overflow: clip; background: var(--grade), radial-gradient(60% 70% at 85% 60%, color-mix(in srgb, var(--vermelho) 7%, transparent), transparent 70%); }
+.servicos__intro { position: relative; isolation: isolate; }
+.servicos__aneis { position: absolute; z-index: -1; left: -400px; top: 54%; width: 660px; height: 660px; translate: 0 -50%; overflow: visible; pointer-events: none; }
+.anel { transform-origin: 200px 200px; transform-box: view-box; }
+.anel circle { fill: none; stroke: rgba(28,31,36,.08); stroke-width: 1.2; }
+.anel--1 circle { stroke-dasharray: 2 9; stroke: rgba(28,31,36,.16); }
+.anel--2 circle:first-child { stroke: color-mix(in srgb, var(--vermelho) 26%, transparent); stroke-dasharray: 60 14; }
+.anel--3 circle { stroke-width: 18; stroke: rgba(255,255,255,.55); }
+.anel--4 circle:first-child { stroke-dasharray: 4 6; stroke: rgba(28,31,36,.22); }
+.anel__ponto { fill: var(--vermelho) !important; stroke: none !important; }
+.anel--1 { animation: anel-gira 90s linear infinite; }
+.anel--2 { animation: anel-gira 46s linear infinite reverse; }
+.anel--4 { animation: anel-gira 24s linear infinite; }
+@keyframes anel-gira { to { rotate: 360deg; } }
+.servicos__varredura { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
+.servicos__varredura::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 140px; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--vermelho) 5%, transparent)); border-bottom: 1px solid color-mix(in srgb, var(--vermelho) 28%, transparent); box-shadow: 0 8px 18px -10px color-mix(in srgb, var(--vermelho) 35%, transparent); translate: 0 -160px; animation: varre 9s cubic-bezier(.45, 0, .55, 1) infinite; }
+@keyframes varre { 0% { translate: 0 -160px; opacity: 0; } 8% { opacity: 1; } 60% { opacity: 1; } 70%, 100% { translate: 0 calc(100svh + 20px); opacity: 0; } }
+.servicos__etiqueta { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; height: 34px; padding: 0 14px 0 10px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--borda-fina), 0 10px 20px -16px rgba(28,31,36,.5); color: var(--vermelho-texto); font-size: .82rem; font-weight: 800; letter-spacing: .02em; }
+.servicos__etiqueta .i { width: 16px; height: 16px; }
+.servicos__fatos { display: grid; gap: 8px; margin: 2px 0 0; padding: 0; list-style: none; }
+.servicos__fatos li { display: flex; align-items: center; gap: 10px; color: var(--tinta); font-size: .95rem; font-weight: 650; }
+.servicos__fatos .i { width: 22px; height: 22px; flex: none; padding: 4px; border-radius: 50%; background: var(--vermelho); color: #fff; }
+.servicos__contador { align-items: baseline; gap: 12px; color: var(--tinta-3); }
+.servicos__num { font-variant-numeric: tabular-nums; }
+.servicos__num b { color: var(--vermelho-texto); }
+.servicos__nome { display: inline-block; color: var(--tinta); font-weight: 750; }
+.servicos__fim-apoio { margin-top: -8px; color: var(--tinta-2); font-size: .98rem; }
+.pan .servicos__contador { display: flex; }
+@media (min-width: 1025px) {
+  .pan .servicos__intro { background: var(--grade), linear-gradient(90deg, var(--fundo) calc(100% - 72px), color-mix(in srgb, var(--fundo) 0%, transparent)); }
+}
+@media (max-width: 1024px) {
+  .servicos__aneis { left: auto; right: -170px; top: 0; width: 380px; height: 380px; translate: 0 -30%; }
+  .pan .servicos__fatos, .pan .servicos__etiqueta { display: none; }
+}
+@media (max-width: 640px) { .servicos__fatos li { font-size: .92rem; } }
+@media (prefers-reduced-motion: reduce) { .anel, .servicos__varredura::before { animation: none; } .servicos__varredura { display: none; } }
+.leve .anel, .leve .servicos__varredura::before { animation: none; }
+.leve .servicos__varredura { display: none; }

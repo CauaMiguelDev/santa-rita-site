@@ -10,6 +10,10 @@
   const WA = '556133551107';
   const waLink = (num, msg) => `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
 
+  // o risco vermelho, traçado à mão, sob o fim de cada título (um traço firme e um eco mais fino)
+  $$('.titulo .destaque, .chamada__titulo .destaque').forEach(em => em.insertAdjacentHTML('beforeend',
+    '<svg class="risco" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 14C40 8 84 6 124 8s60 5 72 3"/><path class="risco__eco" pathLength="1" d="M22 20c42-5 96-6 150-2"/></svg>'));
+
   /* =========================================================
      DADOS
      ========================================================= */
@@ -813,7 +817,17 @@
   const janela = $('[data-janela]'), trilho = $('[data-trilho]');
   if (janela && trilho) {
     const cardsEx = $$('.servico', trilho);
-    const contador = $('[data-servico-atual]'), barraEx = $('[data-servicos-barra]');
+    const contador = $('[data-servico-atual]'), barraEx = $('[data-servicos-barra]'), nomeEx = $('[data-servico-nome]');
+    const nomes = cardsEx.map(cx => $('h3', cx).firstChild.textContent.trim());
+    let atualEx = 0;
+    // o contador mostra o exame que está passando; o nome troca subindo
+    const marcaEx = i => {
+      if (i === atualEx) return;
+      const desce = i < atualEx; atualEx = i;
+      contador.textContent = String(i + 1).padStart(2, '0');
+      nomeEx.textContent = nomes[i];
+      gsap.fromTo(nomeEx, { yPercent: desce ? -70 : 70, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .45, ease: 'expo.out', overwrite: true });
+    };
     const mm = gsap.matchMedia();
     mm.add('(min-height: 500px)', () => {
       html.classList.add('pan');
@@ -826,7 +840,7 @@
           onToggle: s => { if (barraMovel) barraMovel.classList.toggle('no-palco', s.isActive); },
           onUpdate: s => {
             barraEx.style.transform = `scaleX(${s.progress})`;
-            contador.textContent = Math.min(cardsEx.length, Math.round(s.progress * (cardsEx.length - 1)) + 1);
+            marcaEx(Math.min(cardsEx.length - 1, Math.round(s.progress * (cardsEx.length - 1))));
           }
         }
       });

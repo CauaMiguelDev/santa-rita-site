@@ -259,7 +259,7 @@ Na chegada, cada caixa sobe de baixo desdobrando em 3D (de −12° a 0, 1.2s, ex
 
 ### Textos em movimento
 
-Cada título termina num destaque vermelho (`em.destaque`): as palavras sobem da máscara com um giro de 4° e um desfoque que some (expo.out, 55 ms entre palavras) e, quando chegam, um marca-texto vermelho translúcido se desenha sob o destaque da esquerda para a direita. Os parágrafos de apoio sobem linha por linha de uma máscara e depois voltam a ser texto normal. Entre o Laboratório e o Centro de imagem passa um letreiro com os cuidados da clínica (palavras cheias e vazadas alternadas, separadas pelo coração do símbolo que bate): anda sozinho, acelera e inclina com a velocidade da rolagem e inverte o sentido quando a rolagem sobe. Nos cartões, o conteúdo entra em cascata logo depois da caixa; as setas atravessam o círculo no hover e os cartões clicáveis afundam a 98,5% ao toque.
+Cada título termina num destaque vermelho (`em.destaque`): as palavras sobem da máscara com um giro de 4° e um desfoque que some (expo.out, 55 ms entre palavras) e, quando chegam, um risco vermelho traçado à mão (uma curva firme e um eco mais fino embaixo, em SVG) se desenha sob o destaque da esquerda para a direita. Os parágrafos de apoio sobem linha por linha de uma máscara e depois voltam a ser texto normal. Entre o Laboratório e o Centro de imagem passa um letreiro com os cuidados da clínica (palavras cheias e vazadas alternadas, separadas pelo coração do símbolo que bate): anda sozinho, acelera e inclina com a velocidade da rolagem e inverte o sentido quando a rolagem sobe. Nos cartões, o conteúdo entra em cascata logo depois da caixa; as setas atravessam o círculo no hover e os cartões clicáveis afundam a 98,5% ao toque.
 
 ### Pré-agendamento: a noite (signature)
 Seção grafite (`noite`) que se abre de ponta a ponta com a rolagem (clip-path de 4% com cantos de 56px até a largura total). Uma brasa vermelha deriva no céu, uma luz vermelha segue o cursor e um traçado de ECG claro corre na base. Três passos numerados (os números acendem em sequência), cartões de canal (WhatsApp, telefone) e o formulário num painel branco.
@@ -297,3 +297,8 @@ O palco fica parado enquanto a página rola e os cartões andam da direita para 
 - **Don't** nomear seções com sobretítulo em caixa alta espaçada; use títulos de verdade.
 - **Don't** deixar brilho em loop nos botões ou anéis pulsando para sempre; o chamado acontece um número contado de vezes.
 - **Don't** pôr vidro (blur) nos painéis; eles são concreto branco opaco.
+
+
+### Centro de imagem: sala de exame
+
+O fundo do palco é um papel milimetrado bem leve (linhas a 4,5% a cada 44 px) com um brilho vermelho à direita. Atrás do texto, à esquerda, giram os anéis do túnel da ressonância, cada um num ritmo (90 s, 46 s ao contrário, 24 s), dois com um ponto vermelho em órbita. Uma linha de varredura vermelha desce devagar sobre os cartões a cada 9 s, como um scanner. O texto ganhou uma etiqueta ("5 exames de imagem"), três fatos com check vermelho e um contador que mostra o exame que está passando ("01 / 05 · Ressonância magnética"), com o nome subindo a cada troca.
