@@ -598,6 +598,11 @@
     return;
   }
 
+  if ('IntersectionObserver' in window) {
+    const foraDaTela = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('fora', !e.isIntersecting)), { rootMargin: '200px 0px' });
+    $$('main > section, main > .letreiro, body > footer, .rodape').forEach(s => foraDaTela.observe(s));
+  }
+
   /* =========================================================
      MOVIMENTO (GSAP + ScrollTrigger + SplitText + Lenis)
      ========================================================= */
@@ -610,8 +615,26 @@
   if (window.Lenis && !leve) {
     lenis = new Lenis({ lerp: .11, wheelMultiplier: 1, touchMultiplier: 1.4 });
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.add(t => { if (lenis) lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
+  }
+  // computador fraco de verdade: mede os quadros enquanto a pessoa rola; se engasga, passa para o modo leve
+  // (sem rolagem suave, sem laços decorativos) e lembra disso no resto da visita
+  if (!leve && !/leve=0/.test(location.search)) {
+    let ult = 0, n = 0, lentos = 0, rolando = false, para;
+    const marca = () => { rolando = true; clearTimeout(para); para = setTimeout(() => { rolando = false; ult = 0; }, 160); };
+    addEventListener('scroll', marca, { passive: true });
+    const mede = t => {
+      if (rolando) { if (ult) { n++; if (t - ult > 34) lentos++; } ult = t; }
+      if (n < 150) return requestAnimationFrame(mede);
+      removeEventListener('scroll', marca);
+      if (lentos / n < .3) return;
+      html.classList.add('leve');
+      try { sessionStorage.setItem('sr-leve', '1'); } catch (e) {}
+      if (lenis) { lenis.destroy(); lenis = null; }
+      ScrollTrigger.refresh();
+    };
+    requestAnimationFrame(mede);
   }
   const topoDoc = el => { let y = 0; for (let e = el.closest('.pin-spacer') || el; e; e = e.offsetParent) y += e.offsetTop; return y; };
   const destinoDe = alvo => {
@@ -935,7 +958,7 @@
     let x = 0, sentido = 1, vivo = false, inclina = 0;
     ScrollTrigger.create({ trigger: letreiro, start: 'top bottom', end: 'bottom top', onToggle: s => { vivo = s.isActive; }, onUpdate: s => { if (s.direction) sentido = s.direction; } });
     gsap.ticker.add((t, dt) => {
-      if (!vivo) return;
+      if (!vivo || html.classList.contains('leve')) return;
       const vel = lenis ? lenis.velocity : 0;
       x -= (.06 + Math.min(Math.abs(vel) * .05, 1.4)) * sentido * dt;
       const w = grupo.offsetWidth;

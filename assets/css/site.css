@@ -1334,14 +1334,14 @@ body::after { display: none; }
    ========================================================= */
 .servicos { position: relative; padding-block: var(--secao); }
 .servicos__palco { position: relative; }
-.servicos__intro { display: flex; flex-direction: column; gap: 18px; max-width: 1320px; margin-inline: auto; padding-inline: var(--pad); }
+.servicos__intro { display: flex; flex-direction: column; gap: 18px; max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); }
 .servicos__intro > p { max-width: 42ch; color: var(--tinta-2); font-size: 1.12rem; }
 .servicos__contador { display: none; color: var(--tinta-3); font-size: .95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .servicos__contador b { color: var(--tinta); }
 .servicos__janela { margin-top: 40px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .servicos__janela::-webkit-scrollbar { display: none; }
 .servicos__trilho { display: flex; gap: 18px; width: max-content; padding: 6px var(--pad) 30px; }
-.servico { flex: none; width: min(84vw, 400px); min-height: 520px; padding: 32px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; scroll-snap-align: center; border-radius: 30px; }
+.servico { flex: none; width: min(84vw, 25rem); min-height: 520px; padding: 32px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; scroll-snap-align: center; border-radius: 30px; }
 .servico h3 { margin-top: 8px; font-size: 1.7rem; font-weight: 700; letter-spacing: -.03em; line-height: 1.08; }
 .servico > p:not(.servico__meta) { color: var(--tinta-2); }
 .servico .link-seta { margin-top: auto; }
@@ -1404,7 +1404,7 @@ body::after { display: none; }
 /* sem o palco (movimento reduzido, sem JS, tela deitada muito baixa): os cartões viram uma grade */
 @media (min-width: 641px) {
   html:not(.pan) .servicos__janela { overflow: visible; scroll-snap-type: none; }
-  html:not(.pan) .servicos__trilho { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 18px; width: auto; max-width: 1320px; margin-inline: auto; padding: 6px var(--pad) 0; }
+  html:not(.pan) .servicos__trilho { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 18px; width: auto; max-width: var(--max); margin-inline: auto; padding: 6px var(--pad) 0; }
   html:not(.pan) .servico { width: auto; min-height: 460px; }
   html:not(.pan) .servicos__fim { grid-column: 1 / -1; width: auto; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding: 26px 30px; border-radius: 30px; background: #fff; box-shadow: inset 0 0 0 1px var(--linha); }
 }
@@ -1412,7 +1412,7 @@ body::after { display: none; }
 @media (min-width: 1025px) {
   .pan .servicos { padding-block: 0; }
   .pan .servicos__palco {
-    --margem: max(var(--pad), calc((100vw - 1320px) / 2 + var(--pad)));
+    --margem: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
     --intro: calc(var(--margem) + clamp(320px, 25vw, 430px));
     height: 100svh; display: grid; grid-template-columns: var(--intro) minmax(0, 1fr); align-items: center;
   }
@@ -1425,7 +1425,7 @@ body::after { display: none; }
   .pan .servicos__contador { display: block; margin-top: 10px; }
   .pan .servicos__janela { grid-column: 1 / -1; grid-row: 1; margin: 0; overflow: hidden; scroll-snap-type: none; -webkit-mask-image: linear-gradient(90deg, #000 95%, transparent); mask-image: linear-gradient(90deg, #000 95%, transparent); }
   .pan .servicos__trilho { padding: 30px 6vw 50px calc(var(--intro) + 88px); will-change: transform; }
-  .pan .servico { min-height: min(580px, 64svh); }
+  .pan .servico { min-height: min(36rem, 64svh); }
   .pan .servicos__barra { display: block; position: absolute; z-index: 3; left: var(--margem); bottom: 7svh; width: min(240px, 22vw); height: 4px; border-radius: 4px; background: var(--fundo-3); overflow: hidden; }
   .pan .servicos__barra span { display: block; height: 100%; background: var(--vermelho); transform-origin: 0 50%; transform: scaleX(0); }
 }
@@ -1578,7 +1578,7 @@ body::after { display: none; }
 .esp__ponto-ico { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 14px; background: var(--vermelho); color: #fff; box-shadow: 0 12px 22px -12px var(--vermelho); transition: rotate .5s var(--ease); }
 .esp__ponto-ico .i { width: 21px; height: 21px; }
 .esp__pontos li:hover .esp__ponto-ico { rotate: -10deg; }
-.esp__palco { position: relative; z-index: 1; justify-self: center; width: min(100%, 430px); aspect-ratio: 4 / 5; }
+.esp__palco { position: relative; z-index: 1; justify-self: center; width: min(100%, 27rem); aspect-ratio: 4 / 5; }
 .esp__arco { position: absolute; inset: 0 0 0 10%; margin: 0; overflow: hidden; border-radius: 999px 999px 28px 28px; background: var(--fundo-3); box-shadow: 0 0 0 10px rgba(255,255,255,.75), 0 50px 90px -40px rgba(28,31,36,.5); }
 .esp__arco img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 42% 50%; transition: scale 1.4s var(--ease); }
 .esp__palco:hover .esp__arco img { scale: 1.05; }
@@ -1759,3 +1759,58 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
 @media (prefers-reduced-motion: reduce) { .anel, .servicos__varredura::before { animation: none; } .servicos__varredura { display: none; } }
 .leve .anel, .leve .servicos__varredura::before { animation: none; }
 .leve .servicos__varredura { display: none; }
+
+/* =========================================================
+   RESPONSIVIDADE EM TODAS AS LARGURAS
+   ========================================================= */
+/* hero em telas baixas (notebooks 1280×720, 1366×768): o palco e o título se medem pela altura também,
+   para o símbolo não subir até o menu */
+@media (min-width: 1025px) {
+  .hero__palco { width: min(100%, 29.5rem, calc((100svh - var(--nav-h) - 120px) * .645)); }
+  .hero__titulo { font-size: clamp(3rem, min(5.4vw, 8.6svh), 5.5rem); }
+}
+/* uma coluna (tablet e celular): o símbolo sobe 30% da largura do palco acima dele; o espaço acima do palco
+   cresce na mesma medida, e o coração não cobre mais a última palavra do título */
+@media (max-width: 1024px) {
+  .hero__palco { --pw: min(58vw, 400px); width: var(--pw); margin-block: calc(var(--pw) * .32) 22px; }
+}
+@media (max-width: 760px) { .hero__palco { --pw: 60vw; } }
+/* botões da chamada ocupam a largura toda no celular; nas telas mais estreitas os botões encolhem um pouco */
+@media (max-width: 480px) {
+  .chamada__acoes { display: grid; width: 100%; gap: 10px; }
+  .chamada__acoes .botao { width: 100%; }
+}
+@media (max-width: 360px) {
+  .botao { padding-inline: 18px; font-size: .96rem; }
+  .botao--lg { padding-inline: 20px; font-size: 1rem; }
+}
+/* alvos de toque com pelo menos 44 px de altura no celular, no tablet e em qualquer tela de toque */
+@media (max-width: 1024px), (pointer: coarse) {
+  .link-seta { min-height: 44px; }
+  .hero__fatos a { display: inline-block; padding-block: 10px; margin-block: -10px; }
+}
+/* e-mails: só quebram depois do @ e antes do .com.br */
+.contato__canais strong, .rodape__col--contato li > a { overflow-wrap: break-word; }
+/* telas grandes (1760 px ou mais): a página cresce junto, em vez de virar uma faixa no meio */
+@media (min-width: 1760px) { :root { --max: 1520px; } html { font-size: 112.5%; } }
+@media (min-width: 2200px) { :root { --max: 1760px; } html { font-size: 125%; } }
+
+/* =========================================================
+   COMPUTADORES MAIS LEVES
+   Laços parados fora da tela (para todos) e, no modo leve, nenhum laço decorativo:
+   órbitas, anéis, varredura, pulsos, brilhos e o coração do letreiro ficam parados.
+   ========================================================= */
+.fora *, .fora *::before, .fora *::after { animation-play-state: paused !important; }
+.leve :is(.hero__orbita, .chamada__anel, .arte-coracoes, .arte-sol, .rodape__coracoes, .letreiro__cor, .ajuda__balao i, .botao--primario, .esp__circulo .hero__orbita),
+.leve :is(.convenios__selo, .convenios__passos, .status.aberto, .flutuante, .botao--primario, .pino.ativo .pino__ponto)::before,
+.leve :is(.convenios__passos, .botao--primario, .pino.ativo .pino__ponto, .arte-ecg__pulso)::after,
+.leve .arte-ecg__pulso { animation: none !important; }
+.leve .convenios__passos::after { display: none; }
+.leve :is(.vidro, .exame-card, .vidro-noite)::after { animation: none; }
+.leve .hero__simbolo { filter: none; }
+/* a chamada já tem respiro lateral: o conteúdo não soma uma segunda margem */
+.chamada__conteudo { width: min(100%, var(--max)); }
+@media (max-width: 360px) {
+  .chamada__acoes .botao { gap: 10px; padding-right: 16px; font-size: .92rem; }
+  .chamada__acoes .botao__ico { width: 40px; height: 40px; }
+}

@@ -302,3 +302,9 @@ O palco fica parado enquanto a página rola e os cartões andam da direita para 
 ### Centro de imagem: sala de exame
 
 O fundo do palco é um papel milimetrado bem leve (linhas a 4,5% a cada 44 px) com um brilho vermelho à direita. Atrás do texto, à esquerda, giram os anéis do túnel da ressonância, cada um num ritmo (90 s, 46 s ao contrário, 24 s), dois com um ponto vermelho em órbita. Uma linha de varredura vermelha desce devagar sobre os cartões a cada 9 s, como um scanner. O texto ganhou uma etiqueta ("5 exames de imagem"), três fatos com check vermelho e um contador que mostra o exame que está passando ("01 / 05 · Ressonância magnética"), com o nome subindo a cada troca.
+
+### Responsividade e computadores mais leves
+
+Testado de 320 a 2560 px. Em uma coluna (até 1024 px) o palco do hero desce 32% da própria largura, para o coração do símbolo não cobrir o título; em notebooks de tela baixa (1280×720, 1366×768) o palco e o título também se medem pela altura da tela. A partir de 1760 px a página cresce junto (`--max` 1520 px e texto a 112,5%; a partir de 2200 px, 1760 px e 125%). Links de texto têm 44 px de altura em telas de toque; e-mails só quebram depois do @ e antes do .com.br.
+
+Modo leve: além dos sinais do aparelho (até 4 núcleos ou 4 GB, economia de dados), a página mede os quadros enquanto a pessoa rola e, se mais de 30% passam de 34 ms, liga o modo leve na hora (sem rolagem suave, sem laços decorativos) e lembra disso na visita. Para todos, as animações em laço param quando a seção sai da tela (`.fora`).
