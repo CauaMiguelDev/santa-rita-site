@@ -1864,3 +1864,49 @@ html.tom-contato .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--ver
 }
 .leve .servico__diferencial::before, .fora .servico__diferencial::before { animation: none; }
 @media (prefers-reduced-motion: reduce) { .servico__diferencial::before { animation: none; } }
+
+/* =========================================================
+   FUNDO DO HERO
+   A luz da manhã entra pelo alto à esquerda; atrás da sala, um painel claro com milimetrado fino e um brilho
+   vermelho; em volta do arco giram os anéis do túnel da ressonância (um com um ponto vermelho em órbita); no pé,
+   uma linha de ECG se desenha e um pulso vermelho corre por ela.
+   ========================================================= */
+.hero__cena { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.hero__sol { position: absolute; left: -16vw; top: -34vh; width: 78vw; height: 78vw; max-width: 1300px; max-height: 1300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.95), rgba(255,247,242,.55) 45%, transparent 72%); }
+.hero__plano {
+  position: absolute; top: calc(var(--nav-h) + 18px); bottom: 56px; right: 0; left: max(52%, calc(50% + 40px));
+  border-radius: 64px 0 0 64px;
+  background:
+    radial-gradient(55% 45% at 30% 72%, color-mix(in srgb, var(--vermelho) 13%, transparent), transparent 70%),
+    linear-gradient(rgba(28,31,36,.045) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(28,31,36,.045) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(155deg, rgba(255,255,255,.92), rgba(255,255,255,.4) 62%, rgba(255,255,255,.15));
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px rgba(28,31,36,.05), 0 40px 90px -60px rgba(28,31,36,.35);
+  -webkit-mask-image: linear-gradient(90deg, #000 70%, rgba(0,0,0,.6)); mask-image: linear-gradient(90deg, #000 70%, rgba(0,0,0,.6));
+}
+.hero__aneis { position: absolute; z-index: -1; left: 50%; top: 50%; width: 168%; max-width: none; height: auto; translate: -50% -50%; overflow: visible; pointer-events: none; transition: opacity 1.4s ease .6s, scale 1.8s var(--ease) .6s; }
+.carregando .hero__aneis { opacity: 0; scale: .85; }
+.hero__anel { transform-origin: 300px 300px; transform-box: view-box; }
+.hero__anel circle { fill: none; stroke: rgba(28,31,36,.1); stroke-width: 1.4; }
+.hero__anel--1 circle { stroke-dasharray: 2 10; stroke: rgba(28,31,36,.2); stroke-linecap: round; }
+.hero__anel--2 circle:first-child { stroke: color-mix(in srgb, var(--vermelho) 30%, transparent); stroke-dasharray: 70 16; }
+.hero__anel--3 circle { stroke-width: 22; stroke: rgba(255,255,255,.6); }
+.hero__anel-ponto { fill: var(--vermelho) !important; stroke: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__anel--1 { animation: anel-gira 110s linear infinite; }
+  .hero__anel--2 { animation: anel-gira 50s linear infinite reverse; }
+}
+.hero__ecg { position: absolute; left: 0; bottom: 14px; width: 100%; height: 90px; overflow: visible; }
+.hero__ecg path { fill: none; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hero__ecg-linha { stroke: rgba(28,31,36,.13); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 3.2s cubic-bezier(.65, 0, .35, 1) .8s; }
+.carregando .hero__ecg-linha { stroke-dashoffset: 1; }
+.hero__ecg-pulso { stroke: var(--vermelho); stroke-width: 2.6; stroke-dasharray: .06 .94; stroke-dashoffset: 1; opacity: 0; }
+@media (prefers-reduced-motion: no-preference) { html:not(.carregando) .hero__ecg-pulso { opacity: .75; animation: corre-telhado 7s linear 3.6s infinite; } }
+.hero.parado .hero__anel, .hero.parado .hero__ecg-pulso { animation-play-state: paused; }
+.leve .hero__anel, .leve .hero__ecg-pulso { animation: none !important; }
+.leve .hero__ecg-pulso { opacity: 0 !important; }
+@media (max-width: 1024px) {
+  .hero__plano { display: none; }
+  .hero__aneis { width: 150%; }
+  .hero__ecg { height: 64px; bottom: 6px; }
+}
