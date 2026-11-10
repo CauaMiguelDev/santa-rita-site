@@ -1919,3 +1919,25 @@ html.tom-contato .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--ver
 .ico, .esp__ico, .sobre__fato-ico, .faq__ico { background: color-mix(in srgb, var(--vermelho) 11%, #fff); color: var(--vermelho-texto); }
 .petala img, .moldura img, .exame-card__foto img, .esp__circulo img, .bento__foto img, .servico img { filter: saturate(1.18) contrast(1.08); }
 .leve :is(.petala, .moldura, .exame-card__foto, .esp__circulo, .bento__foto, .servico) img { filter: none; }
+
+/* ---------- diferencial: nunca espremido; no celular, selo e seta em cima e o nome inteiro embaixo ---------- */
+.servico__diferencial { flex-shrink: 0; }
+@media (max-width: 480px) {
+  .pan .servico__diferencial { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; padding: 11px 12px; }
+  .pan .servico__dif-texto { display: contents; }
+  .pan .servico__dif-selo { grid-column: 1; grid-row: 1; margin-bottom: 2px; }
+  .pan .servico__diferencial > .i { grid-column: 2; grid-row: 1; }
+  .pan .servico__dif-texto strong { grid-column: 1 / -1; grid-row: 2; font-size: .95rem; }
+  .pan .servico__dif-desc { grid-column: 1 / -1; grid-row: 3; color: var(--tinta-2); font-size: .8rem; line-height: 1.35; }
+}
+/* telas estreitas ou baixas: o selo já diz "diferencial" e o preparo é explicado no WhatsApp */
+@media (max-width: 480px) { .pan .servico__dif-extra { display: none; } }
+@media (max-width: 1024px) and (max-height: 860px) { .pan #ex-rm .servico__meta--preparo, .pan .servico__dif-extra { display: none; } }
+@media (min-width: 481px) and (max-width: 1024px) and (max-height: 800px) {
+  .pan #ex-rm > p:not(.servico__meta) { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+@media (max-width: 1024px) and (max-height: 680px) {
+  .pan #ex-rm > p:not(.servico__meta) { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .pan #ex-rm .servico__ico { display: none; }
+  .pan #ex-rm h3 { font-size: 1.25rem; }
+}
