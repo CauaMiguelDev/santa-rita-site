@@ -792,8 +792,8 @@
     const parte = window.SplitText && !leve;
     const alvo = parte ? SplitText.create(h, { type: 'words', mask: 'words' }).words : h;
     gsap.from(alvo, {
-      ...(parte ? { yPercent: 110, rotate: 4, filter: 'blur(6px)', stagger: .055, transformOrigin: '0% 100%' } : { y: 18, opacity: 0 }),
-      duration: 1, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: h, start: 'top 88%' },
+      ...(parte ? { yPercent: 110, rotate: 4, stagger: .055, transformOrigin: '0% 100%' } : { y: 18, opacity: 0 }),
+      duration: 1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' },
       onComplete: () => h.classList.add('luz-passa')
     });
   }));

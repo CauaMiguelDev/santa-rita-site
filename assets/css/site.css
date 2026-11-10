@@ -1806,33 +1806,27 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
    laboratório e na chamada, cinza frio nas dúvidas), numa transição lenta; por cima, uma trama de pontos fina que
    some para baixo. Tudo num só plano fixo, só com cor e translate.
    ========================================================= */
-@property --b1 { syntax: '<color>'; inherits: true; initial-value: rgba(255,255,255,.95); }
-@property --b2 { syntax: '<color>'; inherits: true; initial-value: rgba(215,38,43,.11); }
-@property --b3 { syntax: '<color>'; inherits: true; initial-value: rgba(110,118,130,.16); }
-html { transition: --b1 1.8s ease, --b2 1.8s ease, --b3 1.8s ease; }
-.fundo-cores i:nth-child(1) { background: radial-gradient(closest-side, var(--b1), transparent); }
-.fundo-cores i:nth-child(2) { background: radial-gradient(closest-side, var(--b2), transparent); }
-.fundo-cores i:nth-child(3) { background: radial-gradient(closest-side, var(--b3), transparent); }
-.fundo-cores i { transition: translate 2.6s cubic-bezier(.65, 0, .35, 1); }
+@property --b { syntax: '<color>'; inherits: false; initial-value: transparent; }
+.fundo-cores i { transition: --b 1.8s ease, translate 2.6s cubic-bezier(.65, 0, .35, 1); background: radial-gradient(closest-side, var(--b), transparent) !important; }
+.fundo-cores i:nth-child(1) { --b: rgba(255,255,255,.95); }
+.fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 11%, transparent); }
+.fundo-cores i:nth-child(3) { --b: rgba(110,118,130,.16); }
 .fundo-cores::after { content: ""; position: absolute; inset: 0; background: radial-gradient(rgba(28,31,36,.13) 1px, transparent 1.5px) 0 0 / 26px 26px; -webkit-mask-image: radial-gradient(130% 75% at 50% 0%, #000 10%, transparent 70%); mask-image: radial-gradient(130% 75% at 50% 0%, #000 10%, transparent 70%); opacity: .55; }
-html.tom-branco { --b2: color-mix(in srgb, var(--vermelho) 8%, transparent); --b3: rgba(110,118,130,.12); }
-html.tom-branco .fundo-cores i:nth-child(2) { translate: -62vw 34vh; }
-html.tom-lab { --b2: color-mix(in srgb, var(--vermelho) 16%, transparent); --b3: rgba(120,132,148,.22); }
-html.tom-lab .fundo-cores i:nth-child(2) { translate: -8vw 40vh; }
-html.tom-lab .fundo-cores i:nth-child(3) { translate: 30vw -40vh; }
-html.tom-imagem { --b2: color-mix(in srgb, var(--vermelho) 11%, transparent); --b3: rgba(110,118,130,.22); }
+html.tom-branco .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 8%, transparent); translate: -62vw 34vh; }
+html.tom-branco .fundo-cores i:nth-child(3) { --b: rgba(110,118,130,.12); }
+html.tom-lab .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 16%, transparent); translate: -8vw 40vh; }
+html.tom-lab .fundo-cores i:nth-child(3) { --b: rgba(120,132,148,.22); translate: 30vw -40vh; }
 html.tom-imagem .fundo-cores i:nth-child(2) { translate: -18vw 52vh; }
-html.tom-imagem .fundo-cores i:nth-child(3) { translate: 46vw -30vh; }
-html.tom-sobre { --b1: rgba(255,255,255,1); --b2: color-mix(in srgb, var(--vermelho) 7%, transparent); --b3: rgba(150,140,134,.2); }
-html.tom-sobre .fundo-cores i:nth-child(1) { translate: 40vw 30vh; }
-html.tom-duvidas { --b2: color-mix(in srgb, var(--vermelho) 9%, transparent); --b3: rgba(100,112,128,.24); }
-html.tom-duvidas .fundo-cores i:nth-child(2) { translate: -66vw 0; }
-html.tom-duvidas .fundo-cores i:nth-child(3) { translate: 40vw -50vh; }
-html.tom-chamada { --b1: rgba(255,255,255,1); --b2: color-mix(in srgb, var(--vermelho) 20%, transparent); }
-html.tom-chamada .fundo-cores i:nth-child(2) { translate: -30vw 26vh; }
-html.tom-contato { --b2: color-mix(in srgb, var(--vermelho) 13%, transparent); }
-html.tom-contato .fundo-cores i:nth-child(2) { translate: -50vw 44vh; }
-@media (prefers-reduced-motion: reduce) { html { transition: none; } .fundo-cores i { transition: none; } }
+html.tom-imagem .fundo-cores i:nth-child(3) { --b: rgba(110,118,130,.22); translate: 46vw -30vh; }
+html.tom-sobre .fundo-cores i:nth-child(1) { --b: rgba(255,255,255,1); translate: 40vw 30vh; }
+html.tom-sobre .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 7%, transparent); }
+html.tom-sobre .fundo-cores i:nth-child(3) { --b: rgba(150,140,134,.2); }
+html.tom-duvidas .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 9%, transparent); translate: -66vw 0; }
+html.tom-duvidas .fundo-cores i:nth-child(3) { --b: rgba(100,112,128,.24); translate: 40vw -50vh; }
+html.tom-chamada .fundo-cores i:nth-child(1) { --b: rgba(255,255,255,1); }
+html.tom-chamada .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 20%, transparent); translate: -30vw 26vh; }
+html.tom-contato .fundo-cores i:nth-child(2) { --b: color-mix(in srgb, var(--vermelho) 13%, transparent); translate: -50vw 44vh; }
+@media (prefers-reduced-motion: reduce) { .fundo-cores i { transition: none; } }
 
 /* =========================================================
    RÓTULOS DAS SEÇÕES
