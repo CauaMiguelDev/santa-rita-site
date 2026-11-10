@@ -316,3 +316,6 @@ Os três planos de cor do fundo mudam de cor e de lugar conforme a seção que e
 ### Fundo do hero
 
 A luz da manhã entra pelo alto à esquerda (brilho branco e quente). No desktop, atrás da sala, um painel claro que vai até a borda direita (canto de 64 px à esquerda), com milimetrado fino de 40 px e um brilho vermelho embaixo. Em volta do arco giram os anéis do túnel da ressonância (168% da largura do palco: um tracejado em 110 s, um vermelho em 50 s ao contrário com um ponto em órbita, um branco largo parado), que aparecem crescendo na abertura. No pé do hero, uma linha de ECG se desenha em 3,2 s e um pulso vermelho corre por ela a cada 7 s. Em uma coluna o painel some; os laços param fora da tela e no modo leve.
+### Cores mais vivas
+
+Vermelho da fachada mais puro (`#E11B22`, texto `#C8141B`), tinta mais escura (`#15181D` / `#3D424A`). Os planos de cor do fundo têm quase o dobro de vermelho e grafite e menos véu branco; no hero, o painel tem brilho vermelho de 28%, o anel vermelho fica forte e a linha de ECG é rosada com o pulso em vermelho cheio. Ícones em vermelho sobre rosado claro e fotos com `saturate(1.18) contrast(1.08)` (desligado no modo leve).
