@@ -259,7 +259,7 @@ Na chegada, cada caixa sobe de baixo desdobrando em 3D (de −12° a 0, 1.2s, ex
 
 ### Textos em movimento
 
-Cada título termina num destaque vermelho (`em.destaque`): as palavras sobem da máscara com um giro de 4° e um desfoque que some (expo.out, 55 ms entre palavras) e, quando chegam, um risco vermelho traçado à mão (uma curva firme e um eco mais fino embaixo, em SVG) se desenha sob o destaque da esquerda para a direita. Os parágrafos de apoio sobem linha por linha de uma máscara e depois voltam a ser texto normal. Entre o Laboratório e o Centro de imagem passa um letreiro com os cuidados da clínica (palavras cheias e vazadas alternadas, separadas pelo coração do símbolo que bate): anda sozinho, acelera e inclina com a velocidade da rolagem e inverte o sentido quando a rolagem sobe. Nos cartões, o conteúdo entra em cascata logo depois da caixa; as setas atravessam o círculo no hover e os cartões clicáveis afundam a 98,5% ao toque.
+Cada título termina num destaque vermelho (`em.destaque`): as palavras sobem da máscara com um giro de 4° e um desfoque que some (expo.out, 55 ms entre palavras) e, quando chegam, um risco vermelho traçado à mão (uma curva firme e um eco mais fino embaixo, em SVG) se desenha sob o destaque da esquerda para a direita. Os parágrafos de apoio sobem linha por linha de uma máscara e depois voltam a ser texto normal.
 
 ### Pré-agendamento: a noite (signature)
 Seção grafite (`noite`) que se abre de ponta a ponta com a rolagem (clip-path de 4% com cantos de 56px até a largura total). Uma brasa vermelha deriva no céu, uma luz vermelha segue o cursor e um traçado de ECG claro corre na base. Três passos numerados (os números acendem em sequência), cartões de canal (WhatsApp, telefone) e o formulário num painel branco.
@@ -301,10 +301,14 @@ O palco fica parado enquanto a página rola e os cartões andam da direita para 
 
 ### Centro de imagem: sala de exame
 
-O fundo do palco é um papel milimetrado bem leve (linhas a 4,5% a cada 44 px) com um brilho vermelho à direita. Atrás do texto, à esquerda, giram os anéis do túnel da ressonância, cada um num ritmo (90 s, 46 s ao contrário, 24 s), dois com um ponto vermelho em órbita. Uma linha de varredura vermelha desce devagar sobre os cartões a cada 9 s, como um scanner. O texto ganhou uma etiqueta ("5 exames de imagem"), três fatos com check vermelho e um contador que mostra o exame que está passando ("01 / 05 · Ressonância magnética"), com o nome subindo a cada troca.
+O fundo do palco é um papel milimetrado bem leve (linhas a 4,5% a cada 44 px) com um brilho vermelho à direita. Atrás do texto, à esquerda, giram os anéis do túnel da ressonância, cada um num ritmo (90 s, 46 s ao contrário, 24 s), dois com um ponto vermelho em órbita. Uma linha de varredura vermelha desce devagar sobre os cartões a cada 9 s, como um scanner. O texto ganhou o rótulo "Centro de imagem · 5 exames", quatro fatos (o primeiro, em vermelho, é a colangiorressonância, o diferencial que nem todo lugar faz) com check vermelho e um contador que mostra o exame que está passando ("01 / 05 · Ressonância magnética"), com o nome subindo a cada troca.
 
 ### Responsividade e computadores mais leves
 
 Testado de 320 a 2560 px. Em uma coluna (até 1024 px) o palco do hero desce 32% da própria largura, para o coração do símbolo não cobrir o título; em notebooks de tela baixa (1280×720, 1366×768) o palco e o título também se medem pela altura da tela. A partir de 1760 px a página cresce junto (`--max` 1520 px e texto a 112,5%; a partir de 2200 px, 1760 px e 125%). Links de texto têm 44 px de altura em telas de toque; e-mails só quebram depois do @ e antes do .com.br.
 
 Modo leve: além dos sinais do aparelho (até 4 núcleos ou 4 GB, economia de dados), a página mede os quadros enquanto a pessoa rola e, se mais de 30% passam de 34 ms, liga o modo leve na hora (sem rolagem suave, sem laços decorativos) e lembra disso na visita. Para todos, as animações em laço param quando a seção sai da tela (`.fora`).
+
+### Fundo que acompanha a página e rótulos das seções
+
+Os três planos de cor do fundo mudam de cor e de lugar conforme a seção que está no meio da tela (`data-tom` em cada seção, classe `tom-*` no html, cores em propriedades registradas `--b1`/`--b2`/`--b3` com transição de 1,8 s e posições com `translate` em 2,6 s): vermelho mais forte no laboratório (16%) e na chamada (20%), cinza frio nas dúvidas, branco quente no sobre. Por cima, uma trama de pontos de 26 px que some para baixo. Acima de cada título há um rótulo em caixa alta espaçada com o coração do símbolo e um traço que se estende quando ele entra. No cartão da ressonância, a colangiorressonância aparece como diferencial: selo vermelho, texto curto e link direto para agendar pelo WhatsApp, com um brilho que passa de tempos em tempos.

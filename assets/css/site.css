@@ -1671,7 +1671,6 @@ body::after { display: none; }
 /* =========================================================
    TEXTOS E CARTÕES EM MOVIMENTO
    O fim de cada título fica vermelho e ganha um marca-texto que se desenha quando as palavras chegam;
-   o letreiro passa os cuidados da clínica; setas atravessam o círculo no hover; cartões afundam ao toque.
    ========================================================= */
 .titulo .destaque, .chamada__titulo .destaque {
   color: var(--vermelho-texto); -webkit-text-fill-color: currentColor;
@@ -1681,17 +1680,6 @@ body::after { display: none; }
 .titulo--claro .destaque { color: #FF6B70; background-image: linear-gradient(90deg, rgba(255,107,112,.2), rgba(255,107,112,.34)); }
 .luz-passa .destaque, .leve .titulo .destaque { background-size: 100% .26em; }
 
-/* letreiro */
-.letreiro { position: relative; z-index: 1; overflow: hidden; padding: clamp(18px, 3vw, 34px) 0; border-block: 1px solid var(--borda-fina); background: rgba(255,255,255,.55); }
-.letreiro__fita { display: flex; width: max-content; will-change: transform; }
-.letreiro__grupo { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 34px); padding-right: clamp(18px, 2.4vw, 34px); }
-.letreiro__item { color: var(--tinta); font-size: clamp(2rem, 5.4vw, 4.8rem); font-weight: 800; letter-spacing: -.045em; line-height: 1.05; white-space: nowrap; }
-.letreiro__item--vazado { color: transparent; -webkit-text-stroke: 1.5px var(--tinta-3); }
-.letreiro__cor { width: clamp(22px, 2.6vw, 38px); height: auto; flex: none; fill: var(--vermelho); color: var(--vermelho); --sym-b: var(--vermelho); animation: cor-bate 2.4s ease-in-out infinite; }
-@keyframes cor-bate { 0%, 60%, 100% { scale: 1; } 70% { scale: 1.22; } 80% { scale: .95; } 88% { scale: 1.08; } }
-@media (hover: hover) and (pointer: fine) { .letreiro__item--vazado:hover { color: var(--vermelho); -webkit-text-stroke-color: var(--vermelho); transition: color .3s ease; } }
-.leve .letreiro__fita { animation: letreiro-anda 60s linear infinite; }
-@keyframes letreiro-anda { to { transform: translateX(-50%); } }
 
 /* setas que atravessam o círculo */
 .porta__seta { width: 46px; height: 46px; padding: 13px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px var(--borda-fina), 0 10px 20px -14px rgba(28,31,36,.5); transition: background-color .35s ease, color .35s ease, box-shadow .35s ease; }
@@ -1702,8 +1690,6 @@ body::after { display: none; }
 @keyframes seta-passa { 0% { translate: 0 0; opacity: 1; } 42% { translate: 22px 0; opacity: 0; } 43% { translate: -22px 0; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
 /* cartões clicáveis afundam um pouco ao toque */
 a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:active { scale: .985; transition: scale .16s var(--ease); }
-@media (max-width: 640px) { .letreiro__item--vazado { -webkit-text-stroke-width: 1.2px; } }
-@media (prefers-reduced-motion: reduce) { .letreiro__cor, .letreiro__fita { animation: none; } .titulo .destaque { transition: none; background-size: 100% .26em; } }
 
 /* ---------- o risco sob o destaque: traçado à mão, desenhado da esquerda para a direita quando as palavras chegam ---------- */
 .titulo .destaque, .chamada__titulo .destaque { background: none; }
@@ -1737,7 +1723,7 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
 .servicos__varredura { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
 .servicos__varredura::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 140px; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--vermelho) 5%, transparent)); border-bottom: 1px solid color-mix(in srgb, var(--vermelho) 28%, transparent); box-shadow: 0 8px 18px -10px color-mix(in srgb, var(--vermelho) 35%, transparent); translate: 0 -160px; animation: varre 9s cubic-bezier(.45, 0, .55, 1) infinite; }
 @keyframes varre { 0% { translate: 0 -160px; opacity: 0; } 8% { opacity: 1; } 60% { opacity: 1; } 70%, 100% { translate: 0 calc(100svh + 20px); opacity: 0; } }
-.servicos__etiqueta { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; height: 34px; padding: 0 14px 0 10px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--borda-fina), 0 10px 20px -16px rgba(28,31,36,.5); color: var(--vermelho-texto); font-size: .82rem; font-weight: 800; letter-spacing: .02em; }
+.servicos__etiqueta-velha { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; height: 34px; padding: 0 14px 0 10px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--borda-fina), 0 10px 20px -16px rgba(28,31,36,.5); color: var(--vermelho-texto); font-size: .82rem; font-weight: 800; letter-spacing: .02em; }
 .servicos__etiqueta .i { width: 16px; height: 16px; }
 .servicos__fatos { display: grid; gap: 8px; margin: 2px 0 0; padding: 0; list-style: none; }
 .servicos__fatos li { display: flex; align-items: center; gap: 10px; color: var(--tinta); font-size: .95rem; font-weight: 650; }
@@ -1753,7 +1739,7 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
 }
 @media (max-width: 1024px) {
   .servicos__aneis { left: auto; right: -170px; top: 0; width: 380px; height: 380px; translate: 0 -30%; }
-  .pan .servicos__fatos, .pan .servicos__etiqueta { display: none; }
+  .pan .servicos__fatos, .pan .servicos__intro .rotulo { display: none; }
 }
 @media (max-width: 640px) { .servicos__fatos li { font-size: .92rem; } }
 @media (prefers-reduced-motion: reduce) { .anel, .servicos__varredura::before { animation: none; } .servicos__varredura { display: none; } }
@@ -1798,10 +1784,9 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
 /* =========================================================
    COMPUTADORES MAIS LEVES
    Laços parados fora da tela (para todos) e, no modo leve, nenhum laço decorativo:
-   órbitas, anéis, varredura, pulsos, brilhos e o coração do letreiro ficam parados.
    ========================================================= */
 .fora *, .fora *::before, .fora *::after { animation-play-state: paused !important; }
-.leve :is(.hero__orbita, .chamada__anel, .arte-coracoes, .arte-sol, .rodape__coracoes, .letreiro__cor, .ajuda__balao i, .botao--primario, .esp__circulo .hero__orbita),
+.leve :is(.hero__orbita, .chamada__anel, .arte-coracoes, .arte-sol, .rodape__coracoes, .ajuda__balao i, .botao--primario, .esp__circulo .hero__orbita),
 .leve :is(.convenios__selo, .convenios__passos, .status.aberto, .flutuante, .botao--primario, .pino.ativo .pino__ponto)::before,
 .leve :is(.convenios__passos, .botao--primario, .pino.ativo .pino__ponto, .arte-ecg__pulso)::after,
 .leve .arte-ecg__pulso { animation: none !important; }
@@ -1814,3 +1799,74 @@ a[data-card]:active, .porta:active, .bento__convenios:active, .canal-noite:activ
   .chamada__acoes .botao { gap: 10px; padding-right: 16px; font-size: .92rem; }
   .chamada__acoes .botao__ico { width: 40px; height: 40px; }
 }
+
+/* =========================================================
+   FUNDO QUE ACOMPANHA A PÁGINA
+   Os três planos de cor mudam de cor e de lugar a cada seção (branco e vermelho no hero, vermelho mais forte no
+   laboratório e na chamada, cinza frio nas dúvidas), numa transição lenta; por cima, uma trama de pontos fina que
+   some para baixo. Tudo num só plano fixo, só com cor e translate.
+   ========================================================= */
+@property --b1 { syntax: '<color>'; inherits: true; initial-value: rgba(255,255,255,.95); }
+@property --b2 { syntax: '<color>'; inherits: true; initial-value: rgba(215,38,43,.11); }
+@property --b3 { syntax: '<color>'; inherits: true; initial-value: rgba(110,118,130,.16); }
+html { transition: --b1 1.8s ease, --b2 1.8s ease, --b3 1.8s ease; }
+.fundo-cores i:nth-child(1) { background: radial-gradient(closest-side, var(--b1), transparent); }
+.fundo-cores i:nth-child(2) { background: radial-gradient(closest-side, var(--b2), transparent); }
+.fundo-cores i:nth-child(3) { background: radial-gradient(closest-side, var(--b3), transparent); }
+.fundo-cores i { transition: translate 2.6s cubic-bezier(.65, 0, .35, 1); }
+.fundo-cores::after { content: ""; position: absolute; inset: 0; background: radial-gradient(rgba(28,31,36,.13) 1px, transparent 1.5px) 0 0 / 26px 26px; -webkit-mask-image: radial-gradient(130% 75% at 50% 0%, #000 10%, transparent 70%); mask-image: radial-gradient(130% 75% at 50% 0%, #000 10%, transparent 70%); opacity: .55; }
+html.tom-branco { --b2: color-mix(in srgb, var(--vermelho) 8%, transparent); --b3: rgba(110,118,130,.12); }
+html.tom-branco .fundo-cores i:nth-child(2) { translate: -62vw 34vh; }
+html.tom-lab { --b2: color-mix(in srgb, var(--vermelho) 16%, transparent); --b3: rgba(120,132,148,.22); }
+html.tom-lab .fundo-cores i:nth-child(2) { translate: -8vw 40vh; }
+html.tom-lab .fundo-cores i:nth-child(3) { translate: 30vw -40vh; }
+html.tom-imagem { --b2: color-mix(in srgb, var(--vermelho) 11%, transparent); --b3: rgba(110,118,130,.22); }
+html.tom-imagem .fundo-cores i:nth-child(2) { translate: -18vw 52vh; }
+html.tom-imagem .fundo-cores i:nth-child(3) { translate: 46vw -30vh; }
+html.tom-sobre { --b1: rgba(255,255,255,1); --b2: color-mix(in srgb, var(--vermelho) 7%, transparent); --b3: rgba(150,140,134,.2); }
+html.tom-sobre .fundo-cores i:nth-child(1) { translate: 40vw 30vh; }
+html.tom-duvidas { --b2: color-mix(in srgb, var(--vermelho) 9%, transparent); --b3: rgba(100,112,128,.24); }
+html.tom-duvidas .fundo-cores i:nth-child(2) { translate: -66vw 0; }
+html.tom-duvidas .fundo-cores i:nth-child(3) { translate: 40vw -50vh; }
+html.tom-chamada { --b1: rgba(255,255,255,1); --b2: color-mix(in srgb, var(--vermelho) 20%, transparent); }
+html.tom-chamada .fundo-cores i:nth-child(2) { translate: -30vw 26vh; }
+html.tom-contato { --b2: color-mix(in srgb, var(--vermelho) 13%, transparent); }
+html.tom-contato .fundo-cores i:nth-child(2) { translate: -50vw 44vh; }
+@media (prefers-reduced-motion: reduce) { html { transition: none; } .fundo-cores i { transition: none; } }
+
+/* =========================================================
+   RÓTULOS DAS SEÇÕES
+   Acima de cada título, em caixa alta espaçada: o coração do símbolo e o nome da seção, com um traço que
+   se estende quando o rótulo entra.
+   ========================================================= */
+.rotulo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; color: var(--vermelho-texto); font-size: .78rem; font-weight: 800; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+.rotulo__cor { width: 15px; height: auto; flex: none; fill: var(--vermelho); color: var(--vermelho); --sym-b: var(--vermelho); }
+.rotulo::after { content: ""; width: 48px; height: 1.5px; border-radius: 2px; background: currentColor; opacity: .45; transform-origin: 0 50%; transition: transform 1s var(--ease) .2s; }
+.rotulo--claro { color: #FF8A8E; }
+.rotulo--claro .rotulo__cor { fill: #FF6B70; --sym-b: #FF6B70; }
+.cabeca > .rotulo { grid-column: 1 / -1; justify-self: start; margin-bottom: 0; }
+.servicos__intro .rotulo { align-self: flex-start; margin-bottom: 0; }
+.sobre .rotulo { margin-bottom: 22px; }
+.js .rotulo:not(.chegou)::after { transform: scaleX(0); }
+.leve .rotulo::after { transform: none; }
+@media (prefers-reduced-motion: reduce) { .rotulo::after { transform: none !important; } }
+
+/* =========================================================
+   COLANGIORRESSONÂNCIA: O DIFERENCIAL NO CARTÃO DA RESSONÂNCIA
+   ========================================================= */
+.servico__diferencial { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; width: 100%; padding: 12px 14px; border-radius: 16px; color: var(--tinta); text-decoration: none; background: color-mix(in srgb, var(--vermelho) 7%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vermelho) 26%, transparent); transition: box-shadow .35s ease, background-color .35s ease; }
+.servico__diferencial::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.75) 50%, transparent 70%); translate: -100% 0; animation: dif-brilho 5s ease-in-out 1.5s infinite; }
+@keyframes dif-brilho { 0%, 60% { translate: -100% 0; } 100% { translate: 100% 0; } }
+.servico__dif-selo { grid-column: 1 / -1; justify-self: start; padding: 3px 9px; border-radius: 999px; background: var(--vermelho); color: #fff; font-size: .66rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.servico__dif-texto { display: grid; gap: 2px; color: var(--tinta-2); font-size: .84rem; line-height: 1.35; }
+.servico__dif-texto strong { color: var(--vermelho-texto); font-size: 1rem; letter-spacing: -.01em; }
+.servico__diferencial > .i { width: 20px; height: 20px; color: var(--vermelho-texto); transition: translate .45s var(--ease); }
+.servico__diferencial:hover { background: color-mix(in srgb, var(--vermelho) 11%, #fff); box-shadow: inset 0 0 0 1.5px var(--vermelho); }
+.servico__diferencial:hover > .i { translate: 4px 0; }
+.servicos__fato-forte { color: var(--vermelho-texto) !important; }
+@media (max-width: 1024px) {
+  .pan .servico__dif-texto { font-size: .78rem; }
+  .pan #ex-rm .fichas-info { display: none; }
+}
+.leve .servico__diferencial::before, .fora .servico__diferencial::before { animation: none; }
+@media (prefers-reduced-motion: reduce) { .servico__diferencial::before { animation: none; } }

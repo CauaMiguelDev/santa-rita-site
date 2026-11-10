@@ -600,7 +600,7 @@
 
   if ('IntersectionObserver' in window) {
     const foraDaTela = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('fora', !e.isIntersecting)), { rootMargin: '200px 0px' });
-    $$('main > section, main > .letreiro, body > footer, .rodape').forEach(s => foraDaTela.observe(s));
+    $$('main > section, .rodape').forEach(s => foraDaTela.observe(s));
   }
 
   /* =========================================================
@@ -935,6 +935,14 @@
     });
   }
 
+  /* ---------- o fundo muda de tom conforme a seção que está no meio da tela ---------- */
+  const tons = $$('[data-tom]');
+  const poeTom = tom => { tons.forEach(s => html.classList.remove('tom-' + s.dataset.tom)); html.classList.add('tom-' + tom); };
+  tons.forEach(s => ScrollTrigger.create({ trigger: s.closest('.pin-spacer') || s, start: 'top 55%', end: 'bottom 55%', onToggle: st => { if (st.isActive) poeTom(s.dataset.tom); } }));
+
+  /* ---------- rótulos: o coração e o nome chegam da esquerda e o traço se estende ---------- */
+  $$('.rotulo').forEach(r => gsap.from(r, { x: -16, opacity: 0, duration: .8, ease: 'expo.out', scrollTrigger: { trigger: r, start: 'top 90%' }, onStart: () => r.classList.add('chegou') }));
+
   /* ---------- números que contam ---------- */
   $$('[data-conta]').forEach(n => {
     const alvo = +n.dataset.conta, obj = { v: 0 };
@@ -950,23 +958,6 @@
       gsap.from(sp.lines, { yPercent: 105, duration: 1, stagger: .09, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 92%' }, onComplete: () => sp.revert() });
     });
   });
-
-  /* ---------- letreiro: anda sozinho; a rolagem acelera, inclina e decide o sentido ---------- */
-  const letreiro = $('[data-letreiro]');
-  if (letreiro && !leve) {
-    const fita = $('[data-fita]', letreiro), grupo = fita.firstElementChild;
-    let x = 0, sentido = 1, vivo = false, inclina = 0;
-    ScrollTrigger.create({ trigger: letreiro, start: 'top bottom', end: 'bottom top', onToggle: s => { vivo = s.isActive; }, onUpdate: s => { if (s.direction) sentido = s.direction; } });
-    gsap.ticker.add((t, dt) => {
-      if (!vivo || html.classList.contains('leve')) return;
-      const vel = lenis ? lenis.velocity : 0;
-      x -= (.06 + Math.min(Math.abs(vel) * .05, 1.4)) * sentido * dt;
-      const w = grupo.offsetWidth;
-      if (x <= -w) x += w; else if (x > 0) x -= w;
-      inclina += (gsap.utils.clamp(-10, 10, -vel * .35) - inclina) * .12;
-      fita.style.transform = `translate3d(${x}px,0,0) skewX(${inclina.toFixed(2)}deg)`;
-    });
-  }
 
   /* ---------- especialidades: as linhas entram em cascata e os ícones pulam ---------- */
   const espLista = $('[data-esp-lista]');

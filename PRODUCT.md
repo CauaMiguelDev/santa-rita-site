@@ -16,7 +16,7 @@ Patients from the Distrito Federal and entorno (Taguatinga, Águas Lindas, Riach
 
 ## Product Purpose
 
-Policlínica with 25+ years: medical consultations across many specialties, own laboratory, specialized radiology center (ressonância, tomografia, ultrassonografia, densitometria, mamografia digital), cardiology exams (ECG, espirometria, MAPA/Holter), convênios. The clinic does not offer exame toxicológico, alergologia or infectologia (confirmed by the user, 2026-10-28). Success = the visitor books via WhatsApp (61) 3355-1107 or calls (61) 3355-1105 within seconds, or reaches results / patient panel.
+Policlínica with 25+ years: medical consultations across many specialties, own laboratory, specialized radiology center (ressonância, tomografia, ultrassonografia, densitometria, mamografia digital), cardiology exams (ECG, espirometria, MAPA/Holter), convênios. The imaging center performs colangiorressonância (MRCP), which the client presents as a differential because few places offer it (client request, 2026-11-09). The clinic does not offer exame toxicológico, alergologia or infectologia (confirmed by the user, 2026-10-28). Success = the visitor books via WhatsApp (61) 3355-1107 or calls (61) 3355-1105 within seconds, or reaches results / patient panel.
 
 ## Positioning
 

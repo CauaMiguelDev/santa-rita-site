@@ -24,7 +24,7 @@
 
   <link rel="preload" href="assets/fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/novo/ressonancia-1600.jpg" imagesrcset="assets/img/novo/ressonancia-960.jpg 960w, assets/img/novo/ressonancia-1600.jpg 1600w" imagesizes="(min-width: 1025px) 40vw, 100vw">
-  <link rel="stylesheet" href="assets/css/site.css?v=68">
+  <link rel="stylesheet" href="assets/css/site.css?v=70">
   <script>(function(h){
     h.classList.add('js','carregando');
     var m=h.getAttribute('data-campanha');
@@ -39,7 +39,7 @@
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
-  <script src="assets/js/site.js?v=66" defer></script>
+  <script src="assets/js/site.js?v=70" defer></script>
 
   <script type="application/ld+json">
   {
@@ -192,7 +192,7 @@
 <main id="conteudo">
 
   <!-- ===== HERO ===== -->
-  <section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo">
+  <section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo" data-tom="claro">
     <div class="hero__grade">
       <div class="hero__texto">
         <h1 class="hero__titulo" id="hero-titulo" data-hero-titulo>Cuidar da sua saúde começa com uma <em class="giro" data-hero-giro>mensagem.</em></h1>
@@ -228,7 +228,7 @@
   </section>
 
   <!-- ===== TRÊS CUIDADOS ===== -->
-  <section class="secao cuidados" aria-labelledby="cuidados-titulo" data-cuidados>
+  <section class="secao cuidados" aria-labelledby="cuidados-titulo" data-cuidados data-tom="claro">
     <div class="container cuidados__grade">
       <div class="cuidados__simbolo" aria-hidden="true">
         <svg viewBox="-12 -12 124 102.5" data-simbolo-grande>
@@ -238,6 +238,7 @@
         </svg>
       </div>
       <div class="cuidados__texto">
+        <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>A clínica</span>
         <h2 class="titulo" id="cuidados-titulo" data-palavras>Consulta, laboratório e imagem no <em class="destaque">mesmo lugar.</em></h2>
         <p class="lead">Você passa pela consulta, faz os exames e acompanha os resultados sem precisar ir a outro endereço.</p>
         <ul class="cuidados__lista">
@@ -277,12 +278,13 @@
   </section>
 
   <!-- ===== ESPECIALIDADES ===== -->
-  <section class="secao especialidades plano tem-arte" id="especialidades" aria-labelledby="esp-titulo">
+  <section class="secao especialidades plano tem-arte" id="especialidades" aria-labelledby="esp-titulo" data-tom="branco">
     <svg class="arte arte-curva" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 84 C 380 4, 1220 4, 1600 84"/></svg>
     <svg class="arte arte-coracoes" viewBox="-12 -12 124 102.5" aria-hidden="true"><g><use href="#c-esq" width="100" height="78.5"/><use href="#c-dir" width="100" height="78.5"/><use href="#c-topo" width="100" height="78.5"/></g></svg>
     <div class="container">
       <div class="esp__topo">
         <div class="esp__texto">
+          <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Especialidades</span>
           <h2 class="titulo" id="esp-titulo" data-palavras>Médicos especialistas, <em class="destaque">perto de casa.</em></h2>
           <p class="lead">Da clínica médica à cardiologia, da ginecologia à ortopedia: escolha quem você precisa ver e a gente marca.</p>
           <ul class="esp__pontos" data-pontos>
@@ -329,10 +331,11 @@
   </section>
 
   <!-- ===== LABORATÓRIO ===== -->
-  <section class="secao laboratorio tem-arte" id="laboratorio" aria-labelledby="lab-titulo">
+  <section class="secao laboratorio tem-arte" id="laboratorio" aria-labelledby="lab-titulo" data-tom="lab">
     <svg class="arte arte-ecg" viewBox="0 0 1600 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="arte-ecg__linha" d="M0 70 L60 70 Q70 58 80 70 L92 70 L96 79 L102 16 L108 90 L114 70 L130 70 Q145 50 160 70 L200 70 L260 70 Q270 58 280 70 L292 70 L296 79 L302 16 L308 90 L314 70 L330 70 Q345 50 360 70 L400 70 L460 70 Q470 58 480 70 L492 70 L496 79 L502 16 L508 90 L514 70 L530 70 Q545 50 560 70 L600 70 L660 70 Q670 58 680 70 L692 70 L696 79 L702 16 L708 90 L714 70 L730 70 Q745 50 760 70 L800 70 L860 70 Q870 58 880 70 L892 70 L896 79 L902 16 L908 90 L914 70 L930 70 Q945 50 960 70 L1000 70 L1060 70 Q1070 58 1080 70 L1092 70 L1096 79 L1102 16 L1108 90 L1114 70 L1130 70 Q1145 50 1160 70 L1200 70 L1260 70 Q1270 58 1280 70 L1292 70 L1296 79 L1302 16 L1308 90 L1314 70 L1330 70 Q1345 50 1360 70 L1400 70 L1460 70 Q1470 58 1480 70 L1492 70 L1496 79 L1502 16 L1508 90 L1514 70 L1530 70 Q1545 50 1560 70 L1600 70" pathLength="1"/><path class="arte-ecg__pulso" d="M0 70 L60 70 Q70 58 80 70 L92 70 L96 79 L102 16 L108 90 L114 70 L130 70 Q145 50 160 70 L200 70 L260 70 Q270 58 280 70 L292 70 L296 79 L302 16 L308 90 L314 70 L330 70 Q345 50 360 70 L400 70 L460 70 Q470 58 480 70 L492 70 L496 79 L502 16 L508 90 L514 70 L530 70 Q545 50 560 70 L600 70 L660 70 Q670 58 680 70 L692 70 L696 79 L702 16 L708 90 L714 70 L730 70 Q745 50 760 70 L800 70 L860 70 Q870 58 880 70 L892 70 L896 79 L902 16 L908 90 L914 70 L930 70 Q945 50 960 70 L1000 70 L1060 70 Q1070 58 1080 70 L1092 70 L1096 79 L1102 16 L1108 90 L1114 70 L1130 70 Q1145 50 1160 70 L1200 70 L1260 70 Q1270 58 1280 70 L1292 70 L1296 79 L1302 16 L1308 90 L1314 70 L1330 70 Q1345 50 1360 70 L1400 70 L1460 70 Q1470 58 1480 70 L1492 70 L1496 79 L1502 16 L1508 90 L1514 70 L1530 70 Q1545 50 1560 70 L1600 70" pathLength="1"/></svg>
     <div class="container">
       <div class="cabeca">
+        <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Laboratório</span>
         <h2 class="titulo" id="lab-titulo" data-palavras>Laboratório próprio. <em class="destaque">Resultado online.</em></h2>
         <p class="lead">Coleta e análise feitas aqui mesmo, no nosso laboratório. O resultado sai pela internet e você confere pelo celular.</p>
       </div>
@@ -366,22 +369,17 @@
     </div>
   </section>
 
-  <!-- ===== LETREIRO: os cuidados da clínica passando; anda sozinho e responde à rolagem ===== -->
-  <div class="letreiro" data-letreiro>
-    <p class="sr">Consultas, laboratório próprio, ressonância magnética, tomografia, mamografia digital, ultrassom, densitometria, eletrocardiograma, ecocardiograma, MAPA e Holter.</p>
-    <div class="letreiro__fita" aria-hidden="true" data-fita><div class="letreiro__grupo"><span class="letreiro__item">Consultas</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Laboratório próprio</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Ressonância magnética</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Tomografia</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Mamografia digital</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Ultrassom</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Densitometria</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Eletrocardiograma</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Ecocardiograma</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">MAPA e Holter</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg></div><div class="letreiro__grupo"><span class="letreiro__item">Consultas</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Laboratório próprio</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Ressonância magnética</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Tomografia</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Mamografia digital</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Ultrassom</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Densitometria</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">Eletrocardiograma</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item">Ecocardiograma</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg><span class="letreiro__item letreiro__item--vazado">MAPA e Holter</span><svg class="letreiro__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg></div></div>
-  </div>
-
   <!-- ===== CENTRO DE IMAGEM (rolagem para o lado, como os serviços da Cemtra) ===== -->
-  <section class="servicos" id="exames" aria-labelledby="ex-titulo" data-servicos>
+  <section class="servicos" id="exames" aria-labelledby="ex-titulo" data-servicos data-tom="imagem">
     <div class="servicos__palco">
       <div class="servicos__varredura" aria-hidden="true"></div>
       <div class="servicos__intro">
         <svg class="servicos__aneis" viewBox="0 0 400 400" aria-hidden="true"><g class="anel anel--1"><circle cx="200" cy="200" r="196"/></g><g class="anel anel--2"><circle cx="200" cy="200" r="158"/><circle class="anel__ponto" cx="200" cy="42" r="4"/></g><g class="anel anel--3"><circle cx="200" cy="200" r="118"/></g><g class="anel anel--4"><circle cx="200" cy="200" r="76"/><circle class="anel__ponto" cx="276" cy="200" r="3"/></g></svg>
-        <span class="servicos__etiqueta"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg>5 exames de imagem</span>
+        <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Centro de imagem · 5 exames</span>
         <h2 class="titulo" id="ex-titulo" data-palavras>Centro de diagnóstico <em class="destaque">por imagem.</em></h2>
         <p>Ressonância, tomografia, mamografia digital, ultrassom e densitometria num só endereço, com laudo assinado por especialistas. Escolha o exame e agende pelo WhatsApp.</p>
         <ul class="servicos__fatos">
+          <li class="servicos__fato-forte"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Colangiorressonância, que nem todo lugar faz</li>
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Laudo assinado por especialistas</li>
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Ressonância e ultrassom sem radiação</li>
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Preparo explicado pelo WhatsApp</li>
@@ -395,6 +393,7 @@
           <h3>Ressonância magnética</h3>
           <p>Imagens detalhadas de cérebro, coluna, articulações e órgãos, feitas com campo magnético e sem radiação.</p>
           <ul class="fichas-info"><li>Cérebro</li><li>Coluna</li><li>Joelho</li><li>Ombro</li><li>Abdômen</li></ul>
+          <a class="servico__diferencial" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20colangiorresson%C3%A2ncia." target="_blank" rel="noopener"><span class="servico__dif-selo">Diferencial</span><span class="servico__dif-texto"><strong>Colangiorressonância</strong>Avalia as vias biliares e o pâncreas sem procedimento invasivo. Nem todo lugar faz.</span><svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
           <p class="servico__meta"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><strong>De 20 a 45 minutos</strong> no aparelho, em média</span></p>
           <p class="servico__meta"><svg class="i" aria-hidden="true"><use href="#i-lista"/></svg><span>Avise se usa marca-passo, implantes metálicos ou tem claustrofobia</span></p>
           <a class="link-seta" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20o%20exame%20de%20Resson%C3%A2ncia%20Magn%C3%A9tica." target="_blank" rel="noopener">Agendar ressonância<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></a>
@@ -441,7 +440,7 @@
         </article>
         <div class="servicos__fim">
           <p>Também realizamos</p>
-          <span class="servicos__fim-apoio">Exames do coração e da respiração, no mesmo endereço.</span>
+          <span class="servicos__fim-apoio">Outros exames que você faz aqui mesmo, sem procurar outra clínica.</span>
           <ul class="fichas-info"><li>Eletrocardiograma</li><li>Espirometria</li><li>MAPA</li><li>Holter</li><li>Ecografia gestacional</li></ul>
           <a class="botao botao--primario botao--lg" href="https://wa.me/556133551107?text=Ol%C3%A1!%20Gostaria%20de%20saber%20o%20preparo%20e%20agendar%20um%20exame." target="_blank" rel="noopener"><span class="botao__ico"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></span>Tirar dúvidas</a>
         </div>
@@ -452,9 +451,10 @@
   </section>
 
   <!-- ===== SOBRE ===== -->
-  <section class="secao sobre" id="sobre" aria-labelledby="sobre-titulo">
+  <section class="secao sobre" id="sobre" aria-labelledby="sobre-titulo" data-tom="sobre">
     <div class="container">
       <h2 class="sr" id="sobre-titulo">Sobre a Clínica Santa Rita</h2>
+      <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Sobre a clínica</span>
       <p class="declaracao" data-declaracao>Há mais de 25 anos cuidando do DF e entorno.</p>
       <p class="declaracao__apoio">Uma das clínicas mais estruturadas da região, com uma missão simples: prestar o melhor serviço em saúde para você e sua família.</p>
       <div class="sobre__bento">
@@ -485,11 +485,12 @@
   </section>
 
   <!-- ===== PRÉ-AGENDAMENTO: a noite, com o pulso ===== -->
-  <section class="secao agendar noite" id="agendar" aria-labelledby="agendar-titulo" data-noite>
+  <section class="secao agendar noite" id="agendar" aria-labelledby="agendar-titulo" data-noite data-tom="noite">
     <div class="noite__ceu" aria-hidden="true" data-ceu></div>
     <canvas class="noite__pulso" data-ecg="linha-clara" aria-hidden="true"></canvas>
     <div class="container agendar__grade">
       <div class="agendar__intro">
+        <span class="rotulo rotulo--claro"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Pré-agendamento</span>
         <h2 class="titulo titulo--claro" id="agendar-titulo" data-palavras>Seu horário, combinado <em class="destaque">do seu jeito.</em></h2>
         <p class="lead lead--claro">Deixe nome e telefone. Um consultor liga, entende o que você precisa e marca o melhor dia na unidade mais perto de você.</p>
         <ol class="passos" data-passos>
@@ -572,10 +573,11 @@
   </section>
 
   <!-- ===== UNIDADES ===== -->
-  <section class="secao unidades plano tem-arte" id="unidades" aria-labelledby="un-titulo">
+  <section class="secao unidades plano tem-arte" id="unidades" aria-labelledby="un-titulo" data-tom="branco">
     <svg class="arte arte-curva" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 84 C 380 4, 1220 4, 1600 84"/></svg>
     <div class="container">
       <div class="cabeca">
+        <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Unidades</span>
         <h2 class="titulo" id="un-titulo" data-palavras>Cinco endereços, <em class="destaque">o mesmo cuidado.</em></h2>
         <p class="lead">Toque numa unidade no mapa ou nas abas para ver endereço, horário e rota. Taguatinga atende das <span class="num">7h às 18h</span>; as demais, até as <span class="num">17h</span>.</p>
       </div>
@@ -621,11 +623,12 @@
   </section>
 
   <!-- ===== DÚVIDAS ===== -->
-  <section class="secao duvidas tem-arte" id="duvidas" aria-labelledby="faq-titulo">
+  <section class="secao duvidas tem-arte" id="duvidas" aria-labelledby="faq-titulo" data-tom="duvidas">
     <svg class="arte arte-sol" viewBox="-210 -210 420 420" aria-hidden="true"><g class="arte-sol__raios"><line x1="150.0" y1="0.0" x2="196.0" y2="0.0"/><line x1="146.2" y1="33.4" x2="191.1" y2="43.6"/><line x1="135.1" y1="65.1" x2="176.6" y2="85.0"/><line x1="117.3" y1="93.5" x2="153.2" y2="122.2"/><line x1="93.5" y1="117.3" x2="122.2" y2="153.2"/><line x1="65.1" y1="135.1" x2="85.0" y2="176.6"/><line x1="33.4" y1="146.2" x2="43.6" y2="191.1"/><line x1="0.0" y1="150.0" x2="0.0" y2="196.0"/><line x1="-33.4" y1="146.2" x2="-43.6" y2="191.1"/><line x1="-65.1" y1="135.1" x2="-85.0" y2="176.6"/><line x1="-93.5" y1="117.3" x2="-122.2" y2="153.2"/><line x1="-117.3" y1="93.5" x2="-153.2" y2="122.2"/><line x1="-135.1" y1="65.1" x2="-176.6" y2="85.0"/><line x1="-146.2" y1="33.4" x2="-191.1" y2="43.6"/><line x1="-150.0" y1="0.0" x2="-196.0" y2="0.0"/><line x1="-146.2" y1="-33.4" x2="-191.1" y2="-43.6"/><line x1="-135.1" y1="-65.1" x2="-176.6" y2="-85.0"/><line x1="-117.3" y1="-93.5" x2="-153.2" y2="-122.2"/><line x1="-93.5" y1="-117.3" x2="-122.2" y2="-153.2"/><line x1="-65.1" y1="-135.1" x2="-85.0" y2="-176.6"/><line x1="-33.4" y1="-146.2" x2="-43.6" y2="-191.1"/><line x1="-0.0" y1="-150.0" x2="-0.0" y2="-196.0"/><line x1="33.4" y1="-146.2" x2="43.6" y2="-191.1"/><line x1="65.1" y1="-135.1" x2="85.0" y2="-176.6"/><line x1="93.5" y1="-117.3" x2="122.2" y2="-153.2"/><line x1="117.3" y1="-93.5" x2="153.2" y2="-122.2"/><line x1="135.1" y1="-65.1" x2="176.6" y2="-85.0"/><line x1="146.2" y1="-33.4" x2="191.1" y2="-43.6"/></g><circle class="arte-sol__anel" r="118"/><circle class="arte-sol__disco" r="92"/></svg>
     <div class="container duvidas__grade">
       <div class="duvidas__lado">
         <div class="cabeca cabeca--coluna">
+          <span class="rotulo"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Dúvidas</span>
           <h2 class="titulo" id="faq-titulo" data-palavras>Perguntas que a gente ouve <em class="destaque">todo dia.</em></h2>
           <p class="lead">Agendamento, convênios, preparo e resultados: as respostas curtas para chegar tranquilo ao seu atendimento.</p>
         </div>
@@ -695,7 +698,7 @@
   </section>
 
   <!-- ===== CHAMADA: os três corações sobem ===== -->
-  <section class="chamada" aria-labelledby="chamada-titulo" data-chamada>
+  <section class="chamada" aria-labelledby="chamada-titulo" data-chamada data-tom="chamada">
     <div class="chamada__palco" aria-hidden="true">
       <svg class="chamada__anel" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48"/></svg>
       <svg class="chamada__simbolo" viewBox="-12 -12 124 102.5" data-chamada-simbolo><g class="h h--esq"><use href="#c-esq" width="100" height="78.5"/></g><g class="h h--dir"><use href="#c-dir" width="100" height="78.5"/></g><g class="h h--topo"><use href="#c-topo" width="100" height="78.5"/></g></svg>
@@ -711,11 +714,12 @@
   </section>
 
   <!-- ===== CONTATO: um painel, o lado escuro com os canais e o formulário ao lado ===== -->
-  <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
+  <section class="secao contato" id="contato" aria-labelledby="contato-titulo" data-tom="contato">
     <div class="container">
       <div class="contato__painel">
         <div class="contato__lado">
           <img class="contato__fundo" src="assets/img/novo/parede-marca-900.jpg" srcset="assets/img/novo/parede-marca-900.jpg 900w, assets/img/novo/parede-marca-1440.jpg 1440w" sizes="(min-width: 1025px) 45vw, 100vw" width="1440" height="810" loading="lazy" decoding="async" alt="">
+          <span class="rotulo rotulo--claro"><svg class="rotulo__cor" viewBox="22 0 57 58.5" aria-hidden="true"><use href="#c-topo" width="100" height="78.5"/></svg>Contato</span>
           <h2 class="titulo titulo--claro" id="contato-titulo" data-palavras>Fale <em class="destaque">com a gente.</em></h2>
           <p class="lead lead--claro">Sugestões, elogios e reclamações chegam direto à gerência e à ouvidoria da clínica.</p>
           <ul class="contato__canais">
